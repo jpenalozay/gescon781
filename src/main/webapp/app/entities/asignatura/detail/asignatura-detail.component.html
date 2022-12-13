@@ -1,0 +1,119 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="asignatura">
+      <h2 data-cy="asignaturaDetailsHeading"><span jhiTranslate="gesconApp.asignatura.detail.title">Asignatura</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ asignatura.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + asignatura.activo }}">{{ asignatura.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ asignatura.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ asignatura.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ asignatura.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.documento">Documento</span></dt>
+        <dd>
+          <span>{{ asignatura.documento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.horasTeoricas">Horas Teoricas</span></dt>
+        <dd>
+          <span>{{ asignatura.horasTeoricas }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.horasPracticas">Horas Practicas</span></dt>
+        <dd>
+          <span>{{ asignatura.horasPracticas }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.numeroClasesTeoria">Numero Clases Teoria</span></dt>
+        <dd>
+          <span>{{ asignatura.numeroClasesTeoria }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.numeroClasesPractica">Numero Clases Practica</span></dt>
+        <dd>
+          <span>{{ asignatura.numeroClasesPractica }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.vigencia">Vigencia</span></dt>
+        <dd>
+          <span>{{ asignatura.vigencia }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.costo">Costo</span></dt>
+        <dd>
+          <span>{{ asignatura.costo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="asignatura.imagen">
+            <a (click)="openFile(asignatura.imagen, asignatura.imagenContentType)">
+              <img
+                [src]="'data:' + asignatura.imagenContentType + ';base64,' + asignatura.imagen"
+                style="max-width: 100%"
+                alt="asignatura image"
+              />
+            </a>
+            {{ asignatura.imagenContentType }}, {{ byteSize(asignatura.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.categoria">Categoria</span></dt>
+        <dd>
+          <span *ngFor="let categoria of asignatura.categorias; let last = last">
+            <a [routerLink]="['/licencia-categoria', categoria?.id, 'view']">{{ categoria.categoria }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.adicional">Adicional</span></dt>
+        <dd>
+          <span *ngFor="let adicional of asignatura.adicionals; let last = last">
+            <a [routerLink]="['/asignatura-adiciones', adicional?.id, 'view']">{{ adicional.nombre }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.horario">Horario</span></dt>
+        <dd>
+          <span *ngFor="let horario of asignatura.horarios; let last = last">
+            <a [routerLink]="['/teoria-horario-catalogo', horario?.id, 'view']">{{ horario.nombre }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.asignaturaRequisito">Asignatura Requisito</span></dt>
+        <dd>
+          <span *ngFor="let asignaturaRequisito of asignatura.asignaturaRequisitos; let last = last">
+            <a [routerLink]="['/asignatura-requisito', asignaturaRequisito?.id, 'view']">{{ asignaturaRequisito.nombre }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignatura.curso">Curso</span></dt>
+        <dd>
+          <div *ngIf="asignatura.curso">
+            <a [routerLink]="['/curso', asignatura.curso?.id, 'view']">{{ asignatura.curso?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/asignatura', asignatura.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

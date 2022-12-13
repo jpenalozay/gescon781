@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="cargo">
+      <h2 data-cy="cargoDetailsHeading"><span jhiTranslate="gesconApp.cargo.detail.title">Cargo</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ cargo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + cargo.activo }}">{{ cargo.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ cargo.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ cargo.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ cargo.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.areaPerteneciente">Area Perteneciente</span></dt>
+        <dd>
+          <div *ngIf="cargo.areaPerteneciente">
+            <a [routerLink]="['/area', cargo.areaPerteneciente?.id, 'view']">{{ cargo.areaPerteneciente?.nombre }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.cargo.cargoSuperior">Cargo Superior</span></dt>
+        <dd>
+          <div *ngIf="cargo.cargoSuperior">
+            <a [routerLink]="['/cargo', cargo.cargoSuperior?.id, 'view']">{{ cargo.cargoSuperior?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/cargo', cargo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

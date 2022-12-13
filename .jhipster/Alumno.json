@@ -1,0 +1,92 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030930",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "7",
+      "fieldValidateRulesMinlength": "7"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "AlumnoEstado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "INSCRITO,FINALIZO,DESERTO,DEUDA"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "AlumnoTipo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "REGULAR,EXCEPCIONAL"
+    },
+    {
+      "fieldName": "alumnoGradoInstruccion",
+      "fieldType": "GradoInstruccion",
+      "fieldValues": "OTRO,COLEGIO,UNIVERSITARIO,POSTGRADO"
+    },
+    {
+      "fieldName": "ocupacion",
+      "fieldType": "Ocupacion",
+      "fieldValues": "OTRO,DEPENDIENTE,INDEPENDIENTE"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Alumno",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "numeroDocumento",
+      "otherEntityName": "persona",
+      "otherEntityRelationshipName": "alumno",
+      "ownerSide": true,
+      "relationshipName": "persona",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "clasesTotales",
+      "otherEntityName": "alumnoClases",
+      "otherEntityRelationshipName": "alumno",
+      "ownerSide": true,
+      "relationshipName": "alumnoClases",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "alumnoUsuario",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "alumnoUsuario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "alumnoCategoria",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "alumnoCategoria",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inscripcion",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "inscripcion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

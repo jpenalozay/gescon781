@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="programacionDeshabilitacion">
+      <h2 data-cy="programacionDeshabilitacionDetailsHeading">
+        <span jhiTranslate="gesconApp.programacionDeshabilitacion.detail.title">Programacion Deshabilitacion</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ programacionDeshabilitacion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + programacionDeshabilitacion.activo }}">{{
+            programacionDeshabilitacion.activo
+          }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ programacionDeshabilitacion.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ programacionDeshabilitacion.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ programacionDeshabilitacion.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.nombreUsuario">Nombre Usuario</span></dt>
+        <dd>
+          <span>{{ programacionDeshabilitacion.nombreUsuario }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.fechas">Fechas</span></dt>
+        <dd>
+          <span *ngFor="let fechas of programacionDeshabilitacion.fechas; let last = last">
+            <a [routerLink]="['/fecha', fechas?.id, 'view']">{{ fechas.fecha }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.horarioCatalogo">Horario Catalogo</span></dt>
+        <dd>
+          <span *ngFor="let horarioCatalogo of programacionDeshabilitacion.horarioCatalogos; let last = last">
+            <a [routerLink]="['/horario-catalogo', horarioCatalogo?.id, 'view']">{{ horarioCatalogo.descripcion }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.programacion">Programacion</span></dt>
+        <dd>
+          <div *ngIf="programacionDeshabilitacion.programacion">
+            <a [routerLink]="['/programacion', programacionDeshabilitacion.programacion?.id, 'view']">{{
+              programacionDeshabilitacion.programacion?.codigo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.programacionDeshabilitacion.usuario">Usuario</span></dt>
+        <dd>
+          <div *ngIf="programacionDeshabilitacion.usuario">
+            <a [routerLink]="['/usuario', programacionDeshabilitacion.usuario?.id, 'view']">{{
+              programacionDeshabilitacion.usuario?.codigo
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/programacion-deshabilitacion', programacionDeshabilitacion.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

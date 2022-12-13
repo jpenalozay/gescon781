@@ -1,0 +1,79 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030944",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "programacion_deshabilitacion",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "6"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "nombreUsuario",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ProgramacionDeshabilitacion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "horarioDeshabilitacion",
+      "otherEntityRelationshipName": "programacionDeshabilitacion",
+      "relationshipName": "horarioDeshabilitaciones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "fecha",
+      "otherEntityName": "fecha",
+      "otherEntityRelationshipName": "programacionDeshabilitacion",
+      "ownerSide": true,
+      "relationshipName": "fechas",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "horarioCatalogo",
+      "otherEntityRelationshipName": "programacionDeshabilitaciones",
+      "ownerSide": true,
+      "relationshipName": "horarioCatalogo",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "programacionDeshabilitacion",
+      "relationshipName": "programacion",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "programacionDeshabilitacion",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

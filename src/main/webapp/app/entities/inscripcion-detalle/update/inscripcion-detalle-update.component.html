@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-inscripcion-detalle-heading"
+        data-cy="InscripcionDetalleCreateUpdateHeading"
+        jhiTranslate="gesconApp.inscripcionDetalle.home.createOrEditLabel"
+      >
+        Create or edit a Inscripcion Detalle
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionDetalle.codigo" for="field_codigo">Codigo</label>
+          <input type="text" class="form-control" name="codigo" id="field_codigo" data-cy="codigo" formControlName="codigo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionDetalle.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionDetalle.inscripcion" for="field_inscripcion">Inscripcion</label>
+          <select class="form-control" id="field_inscripcion" data-cy="inscripcion" name="inscripcion" formControlName="inscripcion">
+            <option *ngIf="!editForm.get('inscripcion')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                inscripcionOption.id === editForm.get('inscripcion')!.value?.id ? editForm.get('inscripcion')!.value : inscripcionOption
+              "
+              *ngFor="let inscripcionOption of inscripcionsSharedCollection; trackBy: trackInscripcionById"
+            >
+              {{ inscripcionOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['inscripcion'])!.invalid && (editForm.get(['inscripcion'])!.dirty || editForm.get(['inscripcion'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['inscripcion'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionDetalle.asignatura" for="field_asignatura">Asignatura</label>
+          <select class="form-control" id="field_asignatura" data-cy="asignatura" name="asignatura" formControlName="asignatura">
+            <option *ngIf="!editForm.get('asignatura')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                asignaturaOption.id === editForm.get('asignatura')!.value?.id ? editForm.get('asignatura')!.value : asignaturaOption
+              "
+              *ngFor="let asignaturaOption of asignaturasSharedCollection; trackBy: trackAsignaturaById"
+            >
+              {{ asignaturaOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['asignatura'])!.invalid && (editForm.get(['asignatura'])!.dirty || editForm.get(['asignatura'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['asignatura'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionDetalle.horario" for="field_horario">Horario</label>
+          <select class="form-control" id="field_horario" data-cy="horario" name="horario" formControlName="horario">
+            <option *ngIf="!editForm.get('horario')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                teoriaHorarioCatalogoOption.id === editForm.get('horario')!.value?.id
+                  ? editForm.get('horario')!.value
+                  : teoriaHorarioCatalogoOption
+              "
+              *ngFor="let teoriaHorarioCatalogoOption of teoriaHorarioCatalogosSharedCollection; trackBy: trackTeoriaHorarioCatalogoById"
+            >
+              {{ teoriaHorarioCatalogoOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['horario'])!.invalid && (editForm.get(['horario'])!.dirty || editForm.get(['horario'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['horario'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

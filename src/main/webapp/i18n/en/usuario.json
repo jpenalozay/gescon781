@@ -1,0 +1,31 @@
+{
+  "gesconApp": {
+    "usuario": {
+      "home": {
+        "title": "Usuarios",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Usuario",
+        "createOrEditLabel": "Create or edit a Usuario",
+        "notFound": "No Usuarios found"
+      },
+      "created": "A new Usuario is created with identifier {{ param }}",
+      "updated": "A Usuario is updated with identifier {{ param }}",
+      "deleted": "A Usuario is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Usuario {{ id }}?"
+      },
+      "detail": {
+        "title": "Usuario"
+      },
+      "id": "ID",
+      "codigo": "Codigo",
+      "codigoSecreto": "Codigo Secreto",
+      "imagen": "Imagen",
+      "user": "User",
+      "empleado": "Empleado",
+      "programacionDeshabilitacion": "Programacion Deshabilitacion",
+      "sucursal": "Sucursal",
+      "computadora": "Computadora"
+    }
+  }
+}

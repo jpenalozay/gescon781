@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030941",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "dia",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "6",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Dia",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "dia",
+      "ownerSide": false,
+      "relationshipName": "programacion",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

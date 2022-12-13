@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="InscripcionPagoHeading">
+    <span jhiTranslate="gesconApp.inscripcionPago.home.title">Inscripcion Pagos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.inscripcionPago.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-inscripcion-pago"
+        [routerLink]="['/inscripcion-pago/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.inscripcionPago.home.createLabel"> Create a new Inscripcion Pago </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="inscripcionPagos?.length === 0">
+    <span jhiTranslate="gesconApp.inscripcionPago.home.notFound">No inscripcionPagos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="inscripcionPagos && inscripcionPagos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.formaPago">Forma Pago</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.monto">Monto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.fecha">Fecha</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.codigoOP">Codigo OP</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.numeroDocumento">Numero Documento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.plazoPago">Plazo Pago</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.inscripcion">Inscripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.serie">Serie</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inscripcionPago of inscripcionPagos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/inscripcion-pago', inscripcionPago.id, 'view']">{{ inscripcionPago.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.InscripcionFormaPago.' + inscripcionPago.formaPago }}">{{ inscripcionPago.formaPago }}</td>
+          <td>{{ inscripcionPago.monto }}</td>
+          <td>{{ inscripcionPago.fecha | formatMediumDate }}</td>
+          <td>{{ inscripcionPago.codigoOP }}</td>
+          <td>{{ inscripcionPago.numeroDocumento }}</td>
+          <td>{{ inscripcionPago.plazoPago }}</td>
+          <td>
+            <div *ngIf="inscripcionPago.inscripcion">
+              <a [routerLink]="['/inscripcion', inscripcionPago.inscripcion?.id, 'view']">{{ inscripcionPago.inscripcion?.codigo }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="inscripcionPago.serie">
+              <a [routerLink]="['/sucursal-serie', inscripcionPago.serie?.id, 'view']">{{ inscripcionPago.serie?.serie }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/inscripcion-pago', inscripcionPago.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/inscripcion-pago', inscripcionPago.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(inscripcionPago)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

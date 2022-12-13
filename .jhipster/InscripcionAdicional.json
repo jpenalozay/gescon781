@@ -1,0 +1,54 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030938",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion_adicional",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "documento",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "cantidad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "costo",
+      "fieldType": "Float"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InscripcionAdicional",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "inscripcion",
+      "otherEntityRelationshipName": "inscripcionAdicional",
+      "relationshipName": "inscripcion",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "requisitosInscripcion",
+      "otherEntityRelationshipName": "inscripcionAdicional",
+      "relationshipName": "inscripcionRequisito",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

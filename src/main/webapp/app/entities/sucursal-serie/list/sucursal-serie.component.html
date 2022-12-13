@@ -1,0 +1,94 @@
+<div>
+  <h2 id="page-heading" data-cy="SucursalSerieHeading">
+    <span jhiTranslate="gesconApp.sucursalSerie.home.title">Sucursal Series</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.sucursalSerie.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-sucursal-serie"
+        [routerLink]="['/sucursal-serie/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.sucursalSerie.home.createLabel"> Create a new Sucursal Serie </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="sucursalSeries?.length === 0">
+    <span jhiTranslate="gesconApp.sucursalSerie.home.notFound">No sucursalSeries found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="sucursalSeries && sucursalSeries.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.tipoDocumento">Tipo Documento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.serie">Serie</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.fechaEmision">Fecha Emision</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.numeroMaximo">Numero Maximo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.numeroUltimo">Numero Ultimo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.sucursalSerie.sucursal">Sucursal</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sucursalSerie of sucursalSeries; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/sucursal-serie', sucursalSerie.id, 'view']">{{ sucursalSerie.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + sucursalSerie.activo }}">{{ sucursalSerie.activo }}</td>
+          <td jhiTranslate="{{ 'gesconApp.TipoDocumentoVenta.' + sucursalSerie.tipoDocumento }}">{{ sucursalSerie.tipoDocumento }}</td>
+          <td>{{ sucursalSerie.serie }}</td>
+          <td>{{ sucursalSerie.fechaEmision | formatMediumDate }}</td>
+          <td>{{ sucursalSerie.numeroMaximo }}</td>
+          <td>{{ sucursalSerie.numeroUltimo }}</td>
+          <td>
+            <div *ngIf="sucursalSerie.sucursal">
+              <a [routerLink]="['/sucursal', sucursalSerie.sucursal?.id, 'view']">{{ sucursalSerie.sucursal?.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/sucursal-serie', sucursalSerie.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/sucursal-serie', sucursalSerie.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(sucursalSerie)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

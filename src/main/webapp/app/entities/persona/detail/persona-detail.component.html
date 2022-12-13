@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="persona">
+      <h2 data-cy="personaDetailsHeading"><span jhiTranslate="gesconApp.persona.detail.title">Persona</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ persona.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.nacionalidad">Nacionalidad</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Paises.' + persona.nacionalidad }}">{{ persona.nacionalidad }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.nombres">Nombres</span></dt>
+        <dd>
+          <span>{{ persona.nombres }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.apellidoPaterno">Apellido Paterno</span></dt>
+        <dd>
+          <span>{{ persona.apellidoPaterno }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.apellidoMaterno">Apellido Materno</span></dt>
+        <dd>
+          <span>{{ persona.apellidoMaterno }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+          <span>{{ persona.fechaNacimiento | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.genero">Genero</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Sexo.' + persona.genero }}">{{ persona.genero }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.estadoCivil">Estado Civil</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.EstadoCivilPersona.' + persona.estadoCivil }}">{{ persona.estadoCivil }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.tipoDocumento">Tipo Documento</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.TipoDocumentoPersona.' + persona.tipoDocumento }}">{{ persona.tipoDocumento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.numeroDocumento">Numero Documento</span></dt>
+        <dd>
+          <span>{{ persona.numeroDocumento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.telefonoParticular">Telefono Particular</span></dt>
+        <dd>
+          <span>{{ persona.telefonoParticular }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.telefonoParticular1">Telefono Particular 1</span></dt>
+        <dd>
+          <span>{{ persona.telefonoParticular1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.emailPersonal">Email Personal</span></dt>
+        <dd>
+          <span>{{ persona.emailPersonal }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.direccion">Direccion</span></dt>
+        <dd>
+          <span>{{ persona.direccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.persona.distrito">Distrito</span></dt>
+        <dd>
+          <div *ngIf="persona.distrito">
+            <a [routerLink]="['/distrit', persona.distrito?.id, 'view']">{{ persona.distrito?.distrito }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/persona', persona.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

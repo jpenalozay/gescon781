@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030935",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion_detalle",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InscripcionDetalle",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionAsignaturaRequisito",
+      "otherEntityRelationshipName": "inscripcionDetalle",
+      "relationshipName": "inscripcionAsignaturaRequisito",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "inscripcion",
+      "otherEntityRelationshipName": "inscripcionDetalle",
+      "relationshipName": "inscripcion",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "asignatura",
+      "otherEntityRelationshipName": "inscripcionDetalle",
+      "relationshipName": "asignatura",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "teoriaHorarioCatalogo",
+      "otherEntityRelationshipName": "inscripcionDetalle",
+      "relationshipName": "horario",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

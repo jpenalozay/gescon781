@@ -1,0 +1,71 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030919",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "t_cargo",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "4",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "256",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Cargo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "cargo",
+      "otherEntityRelationshipName": "cargoSuperior",
+      "relationshipName": "cargo",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "empleado",
+      "otherEntityRelationshipName": "cargo",
+      "relationshipName": "empleado",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "area",
+      "otherEntityRelationshipName": "cargo",
+      "relationshipName": "areaPerteneciente",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "cargo",
+      "otherEntityRelationshipName": "cargo",
+      "relationshipName": "cargoSuperior",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

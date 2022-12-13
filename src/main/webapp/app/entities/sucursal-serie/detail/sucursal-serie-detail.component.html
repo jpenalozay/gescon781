@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sucursalSerie">
+      <h2 data-cy="sucursalSerieDetailsHeading"><span jhiTranslate="gesconApp.sucursalSerie.detail.title">Sucursal Serie</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ sucursalSerie.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + sucursalSerie.activo }}">{{ sucursalSerie.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.tipoDocumento">Tipo Documento</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.TipoDocumentoVenta.' + sucursalSerie.tipoDocumento }}">{{ sucursalSerie.tipoDocumento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.serie">Serie</span></dt>
+        <dd>
+          <span>{{ sucursalSerie.serie }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.fechaEmision">Fecha Emision</span></dt>
+        <dd>
+          <span>{{ sucursalSerie.fechaEmision | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.numeroMaximo">Numero Maximo</span></dt>
+        <dd>
+          <span>{{ sucursalSerie.numeroMaximo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.numeroUltimo">Numero Ultimo</span></dt>
+        <dd>
+          <span>{{ sucursalSerie.numeroUltimo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursalSerie.sucursal">Sucursal</span></dt>
+        <dd>
+          <div *ngIf="sucursalSerie.sucursal">
+            <a [routerLink]="['/sucursal', sucursalSerie.sucursal?.id, 'view']">{{ sucursalSerie.sucursal?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sucursal-serie', sucursalSerie.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

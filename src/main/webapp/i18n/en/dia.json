@@ -1,0 +1,26 @@
+{
+  "gesconApp": {
+    "dia": {
+      "home": {
+        "title": "Dias",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Dia",
+        "createOrEditLabel": "Create or edit a Dia",
+        "notFound": "No Dias found"
+      },
+      "created": "A new Dia is created with identifier {{ param }}",
+      "updated": "A Dia is updated with identifier {{ param }}",
+      "deleted": "A Dia is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Dia {{ id }}?"
+      },
+      "detail": {
+        "title": "Dia"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "nombreCorto": "Nombre Corto",
+      "programacion": "Programacion"
+    }
+  }
+}

@@ -1,0 +1,253 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-programacion-heading"
+        data-cy="ProgramacionCreateUpdateHeading"
+        jhiTranslate="gesconApp.programacion.home.createOrEditLabel"
+      >
+        Create or edit a Programacion
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.estado" for="field_estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'gesconApp.ProgramacionEstado.null' | translate }}</option>
+            <option *ngFor="let programacionEstado of programacionEstadoValues" [value]="programacionEstado">
+              {{ 'gesconApp.ProgramacionEstado.' + programacionEstado | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.codigo" for="field_codigo">Codigo</label>
+          <input type="text" class="form-control" name="codigo" id="field_codigo" data-cy="codigo" formControlName="codigo" />
+          <div *ngIf="editForm.get('codigo')!.invalid && (editForm.get('codigo')!.dirty || editForm.get('codigo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('codigo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('codigo')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 9 }"
+            >
+              This field is required to be at least 9 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.fechaFin" for="field_fechaFin">Fecha Fin</label>
+          <div class="input-group">
+            <input
+              id="field_fechaFin"
+              data-cy="fechaFin"
+              type="text"
+              class="form-control"
+              name="fechaFin"
+              ngbDatepicker
+              #fechaFinDp="ngbDatepicker"
+              formControlName="fechaFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.deshabilitaciones" for="field_deshabilitaciones"
+            >Deshabilitaciones</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="deshabilitaciones"
+            id="field_deshabilitaciones"
+            data-cy="deshabilitaciones"
+            formControlName="deshabilitaciones"
+          />
+          <div
+            *ngIf="
+              editForm.get('deshabilitaciones')!.invalid &&
+              (editForm.get('deshabilitaciones')!.dirty || editForm.get('deshabilitaciones')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('deshabilitaciones')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('deshabilitaciones')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 99 }"
+            >
+              This field cannot be more than 99.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('deshabilitaciones')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.fecha" for="field_fecha">Fecha</label>
+          <div class="d-flex">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="datetime-local"
+              class="form-control"
+              name="fecha"
+              formControlName="fecha"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.nombreUsuario" for="field_nombreUsuario">Nombre Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreUsuario"
+            id="field_nombreUsuario"
+            data-cy="nombreUsuario"
+            formControlName="nombreUsuario"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.programacion.dia" for="field_dias">Dia</label>
+          <select class="form-control" id="field_dias" data-cy="dia" multiple name="dias" formControlName="dias">
+            <option
+              [ngValue]="getSelectedDia(diaOption, editForm.get('dias')!.value)"
+              *ngFor="let diaOption of diasSharedCollection; trackBy: trackDiaById"
+            >
+              {{ diaOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.programacion.horarioCatalogo" for="field_horarioCatalogos">Horario Catalogo</label>
+          <select
+            class="form-control"
+            id="field_horarioCatalogos"
+            data-cy="horarioCatalogo"
+            multiple
+            name="horarioCatalogos"
+            formControlName="horarioCatalogos"
+          >
+            <option
+              [ngValue]="getSelectedHorarioCatalogo(horarioCatalogoOption, editForm.get('horarioCatalogos')!.value)"
+              *ngFor="let horarioCatalogoOption of horarioCatalogosSharedCollection; trackBy: trackHorarioCatalogoById"
+            >
+              {{ horarioCatalogoOption.descripcion }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.profesor" for="field_profesor">Profesor</label>
+          <select class="form-control" id="field_profesor" data-cy="profesor" name="profesor" formControlName="profesor">
+            <option *ngIf="!editForm.get('profesor')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="profesorOption.id === editForm.get('profesor')!.value?.id ? editForm.get('profesor')!.value : profesorOption"
+              *ngFor="let profesorOption of profesorsSharedCollection; trackBy: trackProfesorById"
+            >
+              {{ profesorOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['profesor'])!.invalid && (editForm.get(['profesor'])!.dirty || editForm.get(['profesor'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['profesor'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.programacion.automovil" for="field_automovil">Automovil</label>
+          <select class="form-control" id="field_automovil" data-cy="automovil" name="automovil" formControlName="automovil">
+            <option *ngIf="!editForm.get('automovil')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="automovilOption.id === editForm.get('automovil')!.value?.id ? editForm.get('automovil')!.value : automovilOption"
+              *ngFor="let automovilOption of automovilsSharedCollection; trackBy: trackAutomovilById"
+            >
+              {{ automovilOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['automovil'])!.invalid && (editForm.get(['automovil'])!.dirty || editForm.get(['automovil'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['automovil'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

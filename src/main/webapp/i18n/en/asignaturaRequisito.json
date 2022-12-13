@@ -1,0 +1,30 @@
+{
+  "gesconApp": {
+    "asignaturaRequisito": {
+      "home": {
+        "title": "Asignatura Requisitos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Asignatura Requisito",
+        "createOrEditLabel": "Create or edit a Asignatura Requisito",
+        "notFound": "No Asignatura Requisitos found"
+      },
+      "created": "A new Asignatura Requisito is created with identifier {{ param }}",
+      "updated": "A Asignatura Requisito is updated with identifier {{ param }}",
+      "deleted": "A Asignatura Requisito is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Asignatura Requisito {{ id }}?"
+      },
+      "detail": {
+        "title": "Asignatura Requisito"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "tipo": "Tipo",
+      "nombre": "Nombre",
+      "descripcion": "Descripcion",
+      "imagen": "Imagen",
+      "inscripcionAsignaturaRequisito": "Inscripcion Asignatura Requisito",
+      "asignatura": "Asignatura"
+    }
+  }
+}

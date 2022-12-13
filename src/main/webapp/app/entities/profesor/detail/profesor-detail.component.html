@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="profesor">
+      <h2 data-cy="profesorDetailsHeading"><span jhiTranslate="gesconApp.profesor.detail.title">Profesor</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ profesor.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + profesor.activo }}">{{ profesor.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ profesor.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.teoria">Teoria</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + profesor.teoria }}">{{ profesor.teoria }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.practica">Practica</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + profesor.practica }}">{{ profesor.practica }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.licenciaNumero">Licencia Numero</span></dt>
+        <dd>
+          <span>{{ profesor.licenciaNumero }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.empleado">Empleado</span></dt>
+        <dd>
+          <div *ngIf="profesor.empleado">
+            <a [routerLink]="['/empleado', profesor.empleado?.id, 'view']">{{ profesor.empleado?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.licenciasPermitidas">Licencias Permitidas</span></dt>
+        <dd>
+          <span *ngFor="let licenciasPermitidas of profesor.licenciasPermitidas; let last = last">
+            <a [routerLink]="['/licencia-categoria', licenciasPermitidas?.id, 'view']">{{ licenciasPermitidas.categoria }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.profesor.licenciaCategoria">Licencia Categoria</span></dt>
+        <dd>
+          <div *ngIf="profesor.licenciaCategoria">
+            <a [routerLink]="['/licencia-categoria', profesor.licenciaCategoria?.id, 'view']">{{
+              profesor.licenciaCategoria?.categoria
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/profesor', profesor.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "gesconApp": {
+    "inscripcionDescuento": {
+      "home": {
+        "title": "Inscripcion Descuentos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Inscripcion Descuento",
+        "createOrEditLabel": "Create or edit a Inscripcion Descuento",
+        "notFound": "No Inscripcion Descuentos found"
+      },
+      "created": "A new Inscripcion Descuento is created with identifier {{ param }}",
+      "updated": "A Inscripcion Descuento is updated with identifier {{ param }}",
+      "deleted": "A Inscripcion Descuento is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Inscripcion Descuento {{ id }}?"
+      },
+      "detail": {
+        "title": "Inscripcion Descuento"
+      },
+      "id": "ID",
+      "descripcion": "Descripcion",
+      "monto": "Monto",
+      "inscripcion": "Inscripcion"
+    }
+  }
+}

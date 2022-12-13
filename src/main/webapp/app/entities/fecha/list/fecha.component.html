@@ -1,0 +1,64 @@
+<div>
+  <h2 id="page-heading" data-cy="FechaHeading">
+    <span jhiTranslate="gesconApp.fecha.home.title">Fechas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.fecha.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="fechas?.length === 0">
+    <span jhiTranslate="gesconApp.fecha.home.notFound">No fechas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="fechas && fechas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.fecha">Fecha</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.dia">Dia</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.mes">Mes</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.anio">Anio</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.diaNombre">Dia Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.diaNombreCorto">Dia Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.feriado">Feriado</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.laboral">Laboral</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.fecha.finSemana">Fin Semana</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fecha of fechas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/fecha', fecha.id, 'view']">{{ fecha.id }}</a>
+          </td>
+          <td>{{ fecha.fecha | formatMediumDate }}</td>
+          <td>{{ fecha.dia }}</td>
+          <td>{{ fecha.mes }}</td>
+          <td>{{ fecha.anio }}</td>
+          <td>{{ fecha.diaNombre }}</td>
+          <td>{{ fecha.diaNombreCorto }}</td>
+          <td jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.feriado }}">{{ fecha.feriado }}</td>
+          <td jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.laboral }}">{{ fecha.laboral }}</td>
+          <td jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.finSemana }}">{{ fecha.finSemana }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/fecha', fecha.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

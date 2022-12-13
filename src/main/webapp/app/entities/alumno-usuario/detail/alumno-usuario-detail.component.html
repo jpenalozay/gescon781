@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="alumnoUsuario">
+      <h2 data-cy="alumnoUsuarioDetailsHeading"><span jhiTranslate="gesconApp.alumnoUsuario.detail.title">Alumno Usuario</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ alumnoUsuario.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoUsuario.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + alumnoUsuario.activo }}">{{ alumnoUsuario.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoUsuario.usuario">Usuario</span></dt>
+        <dd>
+          <span>{{ alumnoUsuario.usuario }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoUsuario.clave">Clave</span></dt>
+        <dd>
+          <span>{{ alumnoUsuario.clave }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoUsuario.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="alumnoUsuario.imagen">
+            <a (click)="openFile(alumnoUsuario.imagen, alumnoUsuario.imagenContentType)">
+              <img
+                [src]="'data:' + alumnoUsuario.imagenContentType + ';base64,' + alumnoUsuario.imagen"
+                style="max-width: 100%"
+                alt="alumnoUsuario image"
+              />
+            </a>
+            {{ alumnoUsuario.imagenContentType }}, {{ byteSize(alumnoUsuario.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoUsuario.alumno">Alumno</span></dt>
+        <dd>
+          <div *ngIf="alumnoUsuario.alumno">
+            <a [routerLink]="['/alumno', alumnoUsuario.alumno?.id, 'view']">{{ alumnoUsuario.alumno?.codigo }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/alumno-usuario', alumnoUsuario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

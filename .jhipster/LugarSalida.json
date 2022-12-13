@@ -1,0 +1,27 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030948",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "lugar_salida",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "LugarSalida",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "lugarSalida",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

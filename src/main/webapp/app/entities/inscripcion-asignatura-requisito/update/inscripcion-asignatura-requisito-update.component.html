@@ -1,0 +1,181 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-inscripcion-asignatura-requisito-heading"
+        data-cy="InscripcionAsignaturaRequisitoCreateUpdateHeading"
+        jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.home.createOrEditLabel"
+      >
+        Create or edit a Inscripcion Asignatura Requisito
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.descripcion" for="field_descripcion"
+            >Descripcion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.imagen" for="field_imagen">Imagen</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imagenContentType')!.value + ';base64,' + editForm.get('imagen')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('imagen')!.value"
+              alt="inscripcionAsignaturaRequisito image"
+            />
+            <div *ngIf="editForm.get('imagen')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imagenContentType')!.value }}, {{ byteSize(editForm.get('imagen')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('imagen', 'imagenContentType', 'file_imagen')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_imagen"
+              data-cy="imagen"
+              (change)="setFileData($event, 'imagen', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="imagen" id="field_imagen" data-cy="imagen" formControlName="imagen" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagenContentType"
+            id="field_imagenContentType"
+            formControlName="imagenContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.documento" for="field_documento"
+            >Documento</label
+          >
+          <textarea class="form-control" name="documento" id="field_documento" data-cy="documento" formControlName="documento"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.inscripcionDetalle"
+            for="field_inscripcionDetalle"
+            >Inscripcion Detalle</label
+          >
+          <select
+            class="form-control"
+            id="field_inscripcionDetalle"
+            data-cy="inscripcionDetalle"
+            name="inscripcionDetalle"
+            formControlName="inscripcionDetalle"
+          >
+            <option *ngIf="!editForm.get('inscripcionDetalle')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                inscripcionDetalleOption.id === editForm.get('inscripcionDetalle')!.value?.id
+                  ? editForm.get('inscripcionDetalle')!.value
+                  : inscripcionDetalleOption
+              "
+              *ngFor="let inscripcionDetalleOption of inscripcionDetallesSharedCollection; trackBy: trackInscripcionDetalleById"
+            >
+              {{ inscripcionDetalleOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['inscripcionDetalle'])!.invalid &&
+            (editForm.get(['inscripcionDetalle'])!.dirty || editForm.get(['inscripcionDetalle'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['inscripcionDetalle'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.asignaturaRequisito"
+            for="field_asignaturaRequisito"
+            >Asignatura Requisito</label
+          >
+          <select
+            class="form-control"
+            id="field_asignaturaRequisito"
+            data-cy="asignaturaRequisito"
+            name="asignaturaRequisito"
+            formControlName="asignaturaRequisito"
+          >
+            <option *ngIf="!editForm.get('asignaturaRequisito')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                asignaturaRequisitoOption.id === editForm.get('asignaturaRequisito')!.value?.id
+                  ? editForm.get('asignaturaRequisito')!.value
+                  : asignaturaRequisitoOption
+              "
+              *ngFor="let asignaturaRequisitoOption of asignaturaRequisitosSharedCollection; trackBy: trackAsignaturaRequisitoById"
+            >
+              {{ asignaturaRequisitoOption.descripcion }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['asignaturaRequisito'])!.invalid &&
+            (editForm.get(['asignaturaRequisito'])!.dirty || editForm.get(['asignaturaRequisito'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['asignaturaRequisito'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

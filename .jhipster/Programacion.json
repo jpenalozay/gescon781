@@ -1,0 +1,96 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030943",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "programacion",
+  "fields": [
+    {
+      "fieldName": "estado",
+      "fieldType": "ProgramacionEstado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PROGRAMADO,DESHABILITADO,DESHABILITADO_ENPARTE"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "required", "unique"],
+      "fieldValidateRulesMinlength": "9"
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deshabilitaciones",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "99",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "nombreUsuario",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Programacion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "programacionDeshabilitacion",
+      "otherEntityRelationshipName": "programacion",
+      "relationshipName": "programacionDeshabilitacion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "programacion",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "dia",
+      "otherEntityRelationshipName": "programacion",
+      "ownerSide": true,
+      "relationshipName": "dia",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "horarioCatalogo",
+      "otherEntityRelationshipName": "programacion",
+      "ownerSide": true,
+      "relationshipName": "horarioCatalogo",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "profesor",
+      "otherEntityRelationshipName": "programacion",
+      "relationshipName": "profesor",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "automovil",
+      "otherEntityRelationshipName": "programacion",
+      "relationshipName": "automovil",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

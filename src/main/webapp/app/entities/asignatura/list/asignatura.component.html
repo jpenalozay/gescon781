@@ -1,0 +1,145 @@
+<div>
+  <h2 id="page-heading" data-cy="AsignaturaHeading">
+    <span jhiTranslate="gesconApp.asignatura.home.title">Asignaturas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.asignatura.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-asignatura"
+        [routerLink]="['/asignatura/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.asignatura.home.createLabel"> Create a new Asignatura </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="asignaturas?.length === 0">
+    <span jhiTranslate="gesconApp.asignatura.home.notFound">No asignaturas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="asignaturas && asignaturas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.documento">Documento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.horasTeoricas">Horas Teoricas</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.horasPracticas">Horas Practicas</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.numeroClasesTeoria">Numero Clases Teoria</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.numeroClasesPractica">Numero Clases Practica</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.vigencia">Vigencia</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.costo">Costo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.imagen">Imagen</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.categoria">Categoria</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.adicional">Adicional</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.horario">Horario</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.asignaturaRequisito">Asignatura Requisito</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignatura.curso">Curso</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asignatura of asignaturas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/asignatura', asignatura.id, 'view']">{{ asignatura.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + asignatura.activo }}">{{ asignatura.activo }}</td>
+          <td>{{ asignatura.nombre }}</td>
+          <td>{{ asignatura.nombreCorto }}</td>
+          <td>{{ asignatura.descripcion }}</td>
+          <td>{{ asignatura.documento }}</td>
+          <td>{{ asignatura.horasTeoricas }}</td>
+          <td>{{ asignatura.horasPracticas }}</td>
+          <td>{{ asignatura.numeroClasesTeoria }}</td>
+          <td>{{ asignatura.numeroClasesPractica }}</td>
+          <td>{{ asignatura.vigencia }}</td>
+          <td>{{ asignatura.costo }}</td>
+          <td>
+            <a *ngIf="asignatura.imagen" (click)="openFile(asignatura.imagen, asignatura.imagenContentType)">
+              <img
+                [src]="'data:' + asignatura.imagenContentType + ';base64,' + asignatura.imagen"
+                style="max-height: 30px"
+                alt="asignatura image"
+              />
+            </a>
+            <span *ngIf="asignatura.imagen">{{ asignatura.imagenContentType }}, {{ byteSize(asignatura.imagen) }}</span>
+          </td>
+          <td>
+            <span *ngFor="let categoria of asignatura.categorias; let last = last">
+              <a class="form-control-static" [routerLink]="['/licencia-categoria', categoria.id, 'view']">{{ categoria.categoria }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let adicional of asignatura.adicionals; let last = last">
+              <a class="form-control-static" [routerLink]="['/asignatura-adiciones', adicional.id, 'view']">{{ adicional.nombre }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let horario of asignatura.horarios; let last = last">
+              <a class="form-control-static" [routerLink]="['/teoria-horario-catalogo', horario.id, 'view']">{{ horario.nombre }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let asignaturaRequisito of asignatura.asignaturaRequisitos; let last = last">
+              <a class="form-control-static" [routerLink]="['/asignatura-requisito', asignaturaRequisito.id, 'view']">{{
+                asignaturaRequisito.nombre
+              }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="asignatura.curso">
+              <a [routerLink]="['/curso', asignatura.curso?.id, 'view']">{{ asignatura.curso?.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/asignatura', asignatura.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/asignatura', asignatura.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(asignatura)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

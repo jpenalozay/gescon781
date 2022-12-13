@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="alumno">
+      <h2 data-cy="alumnoDetailsHeading"><span jhiTranslate="gesconApp.alumno.detail.title">Alumno</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ alumno.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ alumno.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.estado">Estado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.AlumnoEstado.' + alumno.estado }}">{{ alumno.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.AlumnoTipo.' + alumno.tipo }}">{{ alumno.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.alumnoGradoInstruccion">Alumno Grado Instruccion</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.GradoInstruccion.' + alumno.alumnoGradoInstruccion }}">{{
+            alumno.alumnoGradoInstruccion
+          }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.ocupacion">Ocupacion</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Ocupacion.' + alumno.ocupacion }}">{{ alumno.ocupacion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="alumno.imagen">
+            <a (click)="openFile(alumno.imagen, alumno.imagenContentType)">
+              <img [src]="'data:' + alumno.imagenContentType + ';base64,' + alumno.imagen" style="max-width: 100%" alt="alumno image" />
+            </a>
+            {{ alumno.imagenContentType }}, {{ byteSize(alumno.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.persona">Persona</span></dt>
+        <dd>
+          <div *ngIf="alumno.persona">
+            <a [routerLink]="['/persona', alumno.persona?.id, 'view']">{{ alumno.persona?.numeroDocumento }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumno.alumnoClases">Alumno Clases</span></dt>
+        <dd>
+          <div *ngIf="alumno.alumnoClases">
+            <a [routerLink]="['/alumno-clases', alumno.alumnoClases?.id, 'view']">{{ alumno.alumnoClases?.clasesTotales }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/alumno', alumno.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

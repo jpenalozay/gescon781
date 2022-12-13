@@ -1,0 +1,33 @@
+{
+  "gesconApp": {
+    "programacionDeshabilitacion": {
+      "home": {
+        "title": "Programacion Deshabilitacions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Programacion Deshabilitacion",
+        "createOrEditLabel": "Create or edit a Programacion Deshabilitacion",
+        "notFound": "No Programacion Deshabilitacions found"
+      },
+      "created": "A new Programacion Deshabilitacion is created with identifier {{ param }}",
+      "updated": "A Programacion Deshabilitacion is updated with identifier {{ param }}",
+      "deleted": "A Programacion Deshabilitacion is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Programacion Deshabilitacion {{ id }}?"
+      },
+      "detail": {
+        "title": "Programacion Deshabilitacion"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "codigo": "Codigo",
+      "descripcion": "Descripcion",
+      "fecha": "Fecha",
+      "nombreUsuario": "Nombre Usuario",
+      "horarioDeshabilitaciones": "Horario Deshabilitaciones",
+      "fechas": "Fechas",
+      "horarioCatalogo": "Horario Catalogo",
+      "programacion": "Programacion",
+      "usuario": "Usuario"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="alumnoCategoria">
+      <h2 data-cy="alumnoCategoriaDetailsHeading"><span jhiTranslate="gesconApp.alumnoCategoria.detail.title">Alumno Categoria</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ alumnoCategoria.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoCategoria.licenciaNumeroAlumno">Licencia Numero Alumno</span></dt>
+        <dd>
+          <span>{{ alumnoCategoria.licenciaNumeroAlumno }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoCategoria.alumno">Alumno</span></dt>
+        <dd>
+          <div *ngIf="alumnoCategoria.alumno">
+            <a [routerLink]="['/alumno', alumnoCategoria.alumno?.id, 'view']">{{ alumnoCategoria.alumno?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoCategoria.categoria">Categoria</span></dt>
+        <dd>
+          <div *ngIf="alumnoCategoria.categoria">
+            <a [routerLink]="['/licencia-categoria', alumnoCategoria.categoria?.id, 'view']">{{ alumnoCategoria.categoria?.categoria }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/alumno-categoria', alumnoCategoria.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

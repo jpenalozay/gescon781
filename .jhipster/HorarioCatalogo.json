@@ -1,0 +1,71 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030942",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "horario_catalogo",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max", "required", "unique"],
+      "fieldValidateRulesMax": "99",
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "horaInicio",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "8",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "horaFin",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "8",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "HorarioCatalogo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "horarioCatalogo",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "horarioCatalogo",
+      "ownerSide": false,
+      "relationshipName": "programacion",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "programacionDeshabilitacion",
+      "otherEntityRelationshipName": "horarioCatalogo",
+      "ownerSide": false,
+      "relationshipName": "programacionDeshabilitaciones",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

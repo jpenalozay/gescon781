@@ -1,0 +1,97 @@
+<div>
+  <h2 id="page-heading" data-cy="AsignaturaAdicionesHeading">
+    <span jhiTranslate="gesconApp.asignaturaAdiciones.home.title">Asignatura Adiciones</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.asignaturaAdiciones.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-asignatura-adiciones"
+        [routerLink]="['/asignatura-adiciones/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.asignaturaAdiciones.home.createLabel"> Create a new Asignatura Adiciones </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="asignaturaAdiciones?.length === 0">
+    <span jhiTranslate="gesconApp.asignaturaAdiciones.home.notFound">No asignaturaAdiciones found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="asignaturaAdiciones && asignaturaAdiciones.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaAdiciones.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaAdiciones.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaAdiciones.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaAdiciones.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaAdiciones.imagen">Imagen</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asignaturaAdiciones of asignaturaAdiciones; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/asignatura-adiciones', asignaturaAdiciones.id, 'view']">{{ asignaturaAdiciones.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + asignaturaAdiciones.activo }}">{{ asignaturaAdiciones.activo }}</td>
+          <td>{{ asignaturaAdiciones.nombre }}</td>
+          <td>{{ asignaturaAdiciones.nombreCorto }}</td>
+          <td>{{ asignaturaAdiciones.descripcion }}</td>
+          <td>
+            <a *ngIf="asignaturaAdiciones.imagen" (click)="openFile(asignaturaAdiciones.imagen, asignaturaAdiciones.imagenContentType)">
+              <img
+                [src]="'data:' + asignaturaAdiciones.imagenContentType + ';base64,' + asignaturaAdiciones.imagen"
+                style="max-height: 30px"
+                alt="asignaturaAdiciones image"
+              />
+            </a>
+            <span *ngIf="asignaturaAdiciones.imagen"
+              >{{ asignaturaAdiciones.imagenContentType }}, {{ byteSize(asignaturaAdiciones.imagen) }}</span
+            >
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/asignatura-adiciones', asignaturaAdiciones.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/asignatura-adiciones', asignaturaAdiciones.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(asignaturaAdiciones)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

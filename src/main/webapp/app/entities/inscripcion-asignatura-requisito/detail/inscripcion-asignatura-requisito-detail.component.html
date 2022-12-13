@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcionAsignaturaRequisito">
+      <h2 data-cy="inscripcionAsignaturaRequisitoDetailsHeading">
+        <span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.detail.title">Inscripcion Asignatura Requisito</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcionAsignaturaRequisito.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ inscripcionAsignaturaRequisito.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAsignaturaRequisito.imagen">
+            <a (click)="openFile(inscripcionAsignaturaRequisito.imagen, inscripcionAsignaturaRequisito.imagenContentType)">
+              <img
+                [src]="'data:' + inscripcionAsignaturaRequisito.imagenContentType + ';base64,' + inscripcionAsignaturaRequisito.imagen"
+                style="max-width: 100%"
+                alt="inscripcionAsignaturaRequisito image"
+              />
+            </a>
+            {{ inscripcionAsignaturaRequisito.imagenContentType }}, {{ byteSize(inscripcionAsignaturaRequisito.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.documento">Documento</span></dt>
+        <dd>
+          <span>{{ inscripcionAsignaturaRequisito.documento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.inscripcionDetalle">Inscripcion Detalle</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAsignaturaRequisito.inscripcionDetalle">
+            <a [routerLink]="['/inscripcion-detalle', inscripcionAsignaturaRequisito.inscripcionDetalle?.id, 'view']">{{
+              inscripcionAsignaturaRequisito.inscripcionDetalle?.codigo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAsignaturaRequisito.asignaturaRequisito">Asignatura Requisito</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAsignaturaRequisito.asignaturaRequisito">
+            <a [routerLink]="['/asignatura-requisito', inscripcionAsignaturaRequisito.asignaturaRequisito?.id, 'view']">{{
+              inscripcionAsignaturaRequisito.asignaturaRequisito?.descripcion
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/inscripcion-asignatura-requisito', inscripcionAsignaturaRequisito.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

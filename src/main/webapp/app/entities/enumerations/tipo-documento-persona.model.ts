@@ -1,0 +1,7 @@
+export enum TipoDocumentoPersona {
+  DNI = 'DNI',
+
+  CEDULA = 'CEDULA',
+
+  DOCUMENTO_DE_EXTRANJERIA = 'DOCUMENTO_DE_EXTRANJERIA',
+}

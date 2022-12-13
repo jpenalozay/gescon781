@@ -1,0 +1,77 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030918",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "t_area",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "4",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "TipoUnidadOrganizativa",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "JUNTA,OFICINA,DEPARTAMENTO,AREA"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "256",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Area",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "area",
+      "otherEntityRelationshipName": "areaSuperior",
+      "relationshipName": "area",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cargo",
+      "otherEntityRelationshipName": "areaPerteneciente",
+      "relationshipName": "cargo",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "sucursal",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "sucursal",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "area",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "areaSuperior",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

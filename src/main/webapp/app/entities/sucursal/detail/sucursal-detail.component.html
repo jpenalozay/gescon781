@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sucursal">
+      <h2 data-cy="sucursalDetailsHeading"><span jhiTranslate="gesconApp.sucursal.detail.title">Sucursal</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ sucursal.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + sucursal.activo }}">{{ sucursal.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ sucursal.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.central">Central</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + sucursal.central }}">{{ sucursal.central }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ sucursal.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ sucursal.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.nombreAbreviado">Nombre Abreviado</span></dt>
+        <dd>
+          <span>{{ sucursal.nombreAbreviado }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.fechaInicio">Fecha Inicio</span></dt>
+        <dd>
+          <span>{{ sucursal.fechaInicio | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.telefono">Telefono</span></dt>
+        <dd>
+          <span>{{ sucursal.telefono }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.telefono1">Telefono 1</span></dt>
+        <dd>
+          <span>{{ sucursal.telefono1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="sucursal.imagen">
+            <a (click)="openFile(sucursal.imagen, sucursal.imagenContentType)">
+              <img
+                [src]="'data:' + sucursal.imagenContentType + ';base64,' + sucursal.imagen"
+                style="max-width: 100%"
+                alt="sucursal image"
+              />
+            </a>
+            {{ sucursal.imagenContentType }}, {{ byteSize(sucursal.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.direccion">Direccion</span></dt>
+        <dd>
+          <span>{{ sucursal.direccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.sucursal.distrito">Distrito</span></dt>
+        <dd>
+          <div *ngIf="sucursal.distrito">
+            <a [routerLink]="['/distrit', sucursal.distrito?.id, 'view']">{{ sucursal.distrito?.distrito }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sucursal', sucursal.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

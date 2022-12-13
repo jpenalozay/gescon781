@@ -1,0 +1,30 @@
+{
+  "gesconApp": {
+    "computadora": {
+      "home": {
+        "title": "Computadoras",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Computadora",
+        "createOrEditLabel": "Create or edit a Computadora",
+        "notFound": "No Computadoras found"
+      },
+      "created": "A new Computadora is created with identifier {{ param }}",
+      "updated": "A Computadora is updated with identifier {{ param }}",
+      "deleted": "A Computadora is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Computadora {{ id }}?"
+      },
+      "detail": {
+        "title": "Computadora"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "nombreCorto": "Nombre Corto",
+      "descripcion": "Descripcion",
+      "estadoComputadora": "Estado Computadora",
+      "mac": "Mac",
+      "tipo": "Tipo",
+      "usuario": "Usuario"
+    }
+  }
+}

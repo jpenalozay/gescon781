@@ -1,0 +1,59 @@
+<div>
+  <h2 id="page-heading" data-cy="DistritHeading">
+    <span jhiTranslate="gesconApp.distrit.home.title">Distrits</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.distrit.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="distrits?.length === 0">
+    <span jhiTranslate="gesconApp.distrit.home.notFound">No distrits found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="distrits && distrits.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.distrit.departamento">Departamento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.distrit.provincia">Provincia</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.distrit.distrito">Distrito</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.distrit.ubigeo">Ubigeo</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let distrit of distrits; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/distrit', distrit.id, 'view']">{{ distrit.id }}</a>
+          </td>
+          <td>{{ distrit.departamento }}</td>
+          <td>{{ distrit.provincia }}</td>
+          <td>{{ distrit.distrito }}</td>
+          <td>{{ distrit.ubigeo }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/distrit', distrit.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

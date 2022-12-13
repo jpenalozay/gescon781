@@ -1,0 +1,57 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030926",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "teoria",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Teoria",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nombreCorto",
+      "otherEntityName": "teoriaHorarioCatalogo",
+      "otherEntityRelationshipName": "teoria",
+      "ownerSide": true,
+      "relationshipName": "horarios",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

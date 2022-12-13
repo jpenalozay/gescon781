@@ -1,0 +1,90 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030927",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "teoria_horario_catalogo",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "periodo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dia",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "horaInicio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "horaFin",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "TeoriaHorarioCatalogo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionDetalle",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "inscripcionDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "teoria",
+      "otherEntityRelationshipName": "horarios",
+      "ownerSide": false,
+      "relationshipName": "teoria",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "asignatura",
+      "otherEntityRelationshipName": "horario",
+      "ownerSide": false,
+      "relationshipName": "asignatura",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcion">
+      <h2 data-cy="inscripcionDetailsHeading"><span jhiTranslate="gesconApp.inscripcion.detail.title">Inscripcion</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ inscripcion.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.estado">Estado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.InscripcionEstado.' + inscripcion.estado }}">{{ inscripcion.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.numeroDocumento">Numero Documento</span></dt>
+        <dd>
+          <span>{{ inscripcion.numeroDocumento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ inscripcion.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.costoTotal">Costo Total</span></dt>
+        <dd>
+          <span>{{ inscripcion.costoTotal }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcion.alumno">Alumno</span></dt>
+        <dd>
+          <div *ngIf="inscripcion.alumno">
+            <a [routerLink]="['/alumno', inscripcion.alumno?.id, 'view']">{{ inscripcion.alumno?.codigo }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripcion', inscripcion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-alumno-categoria-heading"
+        data-cy="AlumnoCategoriaCreateUpdateHeading"
+        jhiTranslate="gesconApp.alumnoCategoria.home.createOrEditLabel"
+      >
+        Create or edit a Alumno Categoria
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoCategoria.licenciaNumeroAlumno" for="field_licenciaNumeroAlumno"
+            >Licencia Numero Alumno</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="licenciaNumeroAlumno"
+            id="field_licenciaNumeroAlumno"
+            data-cy="licenciaNumeroAlumno"
+            formControlName="licenciaNumeroAlumno"
+          />
+          <div
+            *ngIf="
+              editForm.get('licenciaNumeroAlumno')!.invalid &&
+              (editForm.get('licenciaNumeroAlumno')!.dirty || editForm.get('licenciaNumeroAlumno')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('licenciaNumeroAlumno')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('licenciaNumeroAlumno')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('licenciaNumeroAlumno')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 16 }"
+            >
+              This field cannot be longer than 16 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoCategoria.alumno" for="field_alumno">Alumno</label>
+          <select class="form-control" id="field_alumno" data-cy="alumno" name="alumno" formControlName="alumno">
+            <option *ngIf="!editForm.get('alumno')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="alumnoOption.id === editForm.get('alumno')!.value?.id ? editForm.get('alumno')!.value : alumnoOption"
+              *ngFor="let alumnoOption of alumnosSharedCollection; trackBy: trackAlumnoById"
+            >
+              {{ alumnoOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['alumno'])!.invalid && (editForm.get(['alumno'])!.dirty || editForm.get(['alumno'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['alumno'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoCategoria.categoria" for="field_categoria">Categoria</label>
+          <select class="form-control" id="field_categoria" data-cy="categoria" name="categoria" formControlName="categoria">
+            <option *ngIf="!editForm.get('categoria')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                licenciaCategoriaOption.id === editForm.get('categoria')!.value?.id
+                  ? editForm.get('categoria')!.value
+                  : licenciaCategoriaOption
+              "
+              *ngFor="let licenciaCategoriaOption of licenciaCategoriasSharedCollection; trackBy: trackLicenciaCategoriaById"
+            >
+              {{ licenciaCategoriaOption.categoria }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['categoria'])!.invalid && (editForm.get(['categoria'])!.dirty || editForm.get(['categoria'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['categoria'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

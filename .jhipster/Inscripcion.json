@@ -1,0 +1,80 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030934",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "9",
+      "fieldValidateRulesMinlength": "9"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "InscripcionEstado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CANCELADO,EN_PAGOS,EN_DEUDA"
+    },
+    {
+      "fieldName": "numeroDocumento",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "costoTotal",
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "10000",
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Inscripcion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionPago",
+      "otherEntityRelationshipName": "inscripcion",
+      "relationshipName": "inscripcionPagos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inscripcionAdicional",
+      "otherEntityRelationshipName": "inscripcion",
+      "relationshipName": "inscripcionAdicional",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inscripcionDetalle",
+      "otherEntityRelationshipName": "inscripcion",
+      "relationshipName": "inscripcionDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inscripcionDescuento",
+      "otherEntityRelationshipName": "inscripcion",
+      "ownerSide": false,
+      "relationshipName": "insDescuento",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "inscripcion",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

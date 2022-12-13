@@ -1,0 +1,37 @@
+{
+  "gesconApp": {
+    "teoriaHorarioCatalogo": {
+      "home": {
+        "title": "Teoria Horario Catalogos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Teoria Horario Catalogo",
+        "createOrEditLabel": "Create or edit a Teoria Horario Catalogo",
+        "notFound": "No Teoria Horario Catalogos found"
+      },
+      "created": "A new Teoria Horario Catalogo is created with identifier {{ param }}",
+      "updated": "A Teoria Horario Catalogo is updated with identifier {{ param }}",
+      "deleted": "A Teoria Horario Catalogo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Teoria Horario Catalogo {{ id }}?"
+      },
+      "detail": {
+        "title": "Teoria Horario Catalogo"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "nombre": "Nombre",
+      "nombreCorto": "Nombre Corto",
+      "descripcion": "Descripcion",
+      "imagen": "Imagen",
+      "periodo": "Periodo",
+      "anio": "Anio",
+      "mes": "Mes",
+      "dia": "Dia",
+      "horaInicio": "Hora Inicio",
+      "horaFin": "Hora Fin",
+      "inscripcionDetalle": "Inscripcion Detalle",
+      "teoria": "Teoria",
+      "asignatura": "Asignatura"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030945",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "horario",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "HorarioTipo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ADMINISTRACION,POR_CONFIRMAR,ALUMNO"
+    },
+    {
+      "fieldName": "fechaDia",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaDiaSem",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "7",
+      "fieldValidateRulesMin": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Horario",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "horarioDeshabilitacion",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "horarioDeshabilitacion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "profesor",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "instructor",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "programacion",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "fecha",
+      "otherEntityName": "fecha",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "fecha",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "horarioCatalogo",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "horarioCatalogo",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "automovil",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "automovil",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "lugarSalida",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "lugarSalida",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

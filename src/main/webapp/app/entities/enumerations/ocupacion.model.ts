@@ -1,0 +1,7 @@
+export enum Ocupacion {
+  OTRO = 'OTRO',
+
+  DEPENDIENTE = 'DEPENDIENTE',
+
+  INDEPENDIENTE = 'INDEPENDIENTE',
+}

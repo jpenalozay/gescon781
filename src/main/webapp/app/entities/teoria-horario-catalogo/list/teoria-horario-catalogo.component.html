@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="TeoriaHorarioCatalogoHeading">
+    <span jhiTranslate="gesconApp.teoriaHorarioCatalogo.home.title">Teoria Horario Catalogos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.teoriaHorarioCatalogo.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-teoria-horario-catalogo"
+        [routerLink]="['/teoria-horario-catalogo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.teoriaHorarioCatalogo.home.createLabel"> Create a new Teoria Horario Catalogo </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="teoriaHorarioCatalogos?.length === 0">
+    <span jhiTranslate="gesconApp.teoriaHorarioCatalogo.home.notFound">No teoriaHorarioCatalogos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="teoriaHorarioCatalogos && teoriaHorarioCatalogos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.imagen">Imagen</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.periodo">Periodo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.anio">Anio</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.mes">Mes</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.dia">Dia</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.horaInicio">Hora Inicio</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoriaHorarioCatalogo.horaFin">Hora Fin</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let teoriaHorarioCatalogo of teoriaHorarioCatalogos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/teoria-horario-catalogo', teoriaHorarioCatalogo.id, 'view']">{{ teoriaHorarioCatalogo.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + teoriaHorarioCatalogo.activo }}">{{ teoriaHorarioCatalogo.activo }}</td>
+          <td>{{ teoriaHorarioCatalogo.nombre }}</td>
+          <td>{{ teoriaHorarioCatalogo.nombreCorto }}</td>
+          <td>{{ teoriaHorarioCatalogo.descripcion }}</td>
+          <td>
+            <a
+              *ngIf="teoriaHorarioCatalogo.imagen"
+              (click)="openFile(teoriaHorarioCatalogo.imagen, teoriaHorarioCatalogo.imagenContentType)"
+            >
+              <img
+                [src]="'data:' + teoriaHorarioCatalogo.imagenContentType + ';base64,' + teoriaHorarioCatalogo.imagen"
+                style="max-height: 30px"
+                alt="teoriaHorarioCatalogo image"
+              />
+            </a>
+            <span *ngIf="teoriaHorarioCatalogo.imagen"
+              >{{ teoriaHorarioCatalogo.imagenContentType }}, {{ byteSize(teoriaHorarioCatalogo.imagen) }}</span
+            >
+          </td>
+          <td>{{ teoriaHorarioCatalogo.periodo }}</td>
+          <td>{{ teoriaHorarioCatalogo.anio }}</td>
+          <td>{{ teoriaHorarioCatalogo.mes }}</td>
+          <td>{{ teoriaHorarioCatalogo.dia }}</td>
+          <td>{{ teoriaHorarioCatalogo.horaInicio }}</td>
+          <td>{{ teoriaHorarioCatalogo.horaFin }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/teoria-horario-catalogo', teoriaHorarioCatalogo.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/teoria-horario-catalogo', teoriaHorarioCatalogo.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(teoriaHorarioCatalogo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

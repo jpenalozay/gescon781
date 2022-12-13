@@ -1,0 +1,124 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-horario-deshabilitacion-heading"
+        data-cy="HorarioDeshabilitacionCreateUpdateHeading"
+        jhiTranslate="gesconApp.horarioDeshabilitacion.home.createOrEditLabel"
+      >
+        Create or edit a Horario Deshabilitacion
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horarioDeshabilitacion.activo" for="field_activo">Activo</label>
+          <select class="form-control" name="activo" formControlName="activo" id="field_activo" data-cy="activo">
+            <option [ngValue]="null">{{ 'gesconApp.Estado.null' | translate }}</option>
+            <option *ngFor="let estado of estadoValues" [value]="estado">{{ 'gesconApp.Estado.' + estado | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('activo')!.invalid && (editForm.get('activo')!.dirty || editForm.get('activo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('activo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horarioDeshabilitacion.tipo" for="field_tipo">Tipo</label>
+          <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo" data-cy="tipo">
+            <option [ngValue]="null">{{ 'gesconApp.HorarioTipo.null' | translate }}</option>
+            <option *ngFor="let horarioTipo of horarioTipoValues" [value]="horarioTipo">
+              {{ 'gesconApp.HorarioTipo.' + horarioTipo | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('tipo')!.invalid && (editForm.get('tipo')!.dirty || editForm.get('tipo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('tipo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="gesconApp.horarioDeshabilitacion.programacionDeshabilitacion"
+            for="field_programacionDeshabilitacion"
+            >Programacion Deshabilitacion</label
+          >
+          <select
+            class="form-control"
+            id="field_programacionDeshabilitacion"
+            data-cy="programacionDeshabilitacion"
+            name="programacionDeshabilitacion"
+            formControlName="programacionDeshabilitacion"
+          >
+            <option *ngIf="!editForm.get('programacionDeshabilitacion')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                programacionDeshabilitacionOption.id === editForm.get('programacionDeshabilitacion')!.value?.id
+                  ? editForm.get('programacionDeshabilitacion')!.value
+                  : programacionDeshabilitacionOption
+              "
+              *ngFor="
+                let programacionDeshabilitacionOption of programacionDeshabilitacionsSharedCollection;
+                trackBy: trackProgramacionDeshabilitacionById
+              "
+            >
+              {{ programacionDeshabilitacionOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['programacionDeshabilitacion'])!.invalid &&
+            (editForm.get(['programacionDeshabilitacion'])!.dirty || editForm.get(['programacionDeshabilitacion'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['programacionDeshabilitacion'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horarioDeshabilitacion.horario" for="field_horario">Horario</label>
+          <select class="form-control" id="field_horario" data-cy="horario" name="horario" formControlName="horario">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="horarioOption.id === editForm.get('horario')!.value?.id ? editForm.get('horario')!.value : horarioOption"
+              *ngFor="let horarioOption of horariosSharedCollection; trackBy: trackHorarioById"
+            >
+              {{ horarioOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

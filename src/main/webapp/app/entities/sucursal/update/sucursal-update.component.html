@@ -1,0 +1,334 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-sucursal-heading" data-cy="SucursalCreateUpdateHeading" jhiTranslate="gesconApp.sucursal.home.createOrEditLabel">
+        Create or edit a Sucursal
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.activo" for="field_activo">Activo</label>
+          <select class="form-control" name="activo" formControlName="activo" id="field_activo" data-cy="activo">
+            <option [ngValue]="null">{{ 'gesconApp.Estado.null' | translate }}</option>
+            <option *ngFor="let estado of estadoValues" [value]="estado">{{ 'gesconApp.Estado.' + estado | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('activo')!.invalid && (editForm.get('activo')!.dirty || editForm.get('activo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('activo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.codigo" for="field_codigo">Codigo</label>
+          <input type="text" class="form-control" name="codigo" id="field_codigo" data-cy="codigo" formControlName="codigo" />
+          <div *ngIf="editForm.get('codigo')!.invalid && (editForm.get('codigo')!.dirty || editForm.get('codigo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('codigo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('codigo')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 1 }"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('codigo')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 3 }"
+            >
+              This field cannot be longer than 3 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.central" for="field_central">Central</label>
+          <select class="form-control" name="central" formControlName="central" id="field_central" data-cy="central">
+            <option [ngValue]="null">{{ 'gesconApp.SiNo.null' | translate }}</option>
+            <option *ngFor="let siNo of siNoValues" [value]="siNo">{{ 'gesconApp.SiNo.' + siNo | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('central')!.invalid && (editForm.get('central')!.dirty || editForm.get('central')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('central')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.nombre" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 256 }"
+            >
+              This field cannot be longer than 256 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.nombreCorto" for="field_nombreCorto">Nombre Corto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreCorto"
+            id="field_nombreCorto"
+            data-cy="nombreCorto"
+            formControlName="nombreCorto"
+          />
+          <div *ngIf="editForm.get('nombreCorto')!.invalid && (editForm.get('nombreCorto')!.dirty || editForm.get('nombreCorto')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 64 }"
+            >
+              This field cannot be longer than 64 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.nombreAbreviado" for="field_nombreAbreviado">Nombre Abreviado</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreAbreviado"
+            id="field_nombreAbreviado"
+            data-cy="nombreAbreviado"
+            formControlName="nombreAbreviado"
+          />
+          <div
+            *ngIf="
+              editForm.get('nombreAbreviado')!.invalid &&
+              (editForm.get('nombreAbreviado')!.dirty || editForm.get('nombreAbreviado')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreAbreviado')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreAbreviado')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreAbreviado')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 16 }"
+            >
+              This field cannot be longer than 16 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.telefono" for="field_telefono">Telefono</label>
+          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
+          <div *ngIf="editForm.get('telefono')!.invalid && (editForm.get('telefono')!.dirty || editForm.get('telefono')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefono')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 15 }"
+            >
+              This field cannot be longer than 15 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.telefono1" for="field_telefono1">Telefono 1</label>
+          <input type="text" class="form-control" name="telefono1" id="field_telefono1" data-cy="telefono1" formControlName="telefono1" />
+          <div *ngIf="editForm.get('telefono1')!.invalid && (editForm.get('telefono1')!.dirty || editForm.get('telefono1')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefono1')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 15 }"
+            >
+              This field cannot be longer than 15 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.imagen" for="field_imagen">Imagen</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imagenContentType')!.value + ';base64,' + editForm.get('imagen')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('imagen')!.value"
+              alt="sucursal image"
+            />
+            <div *ngIf="editForm.get('imagen')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imagenContentType')!.value }}, {{ byteSize(editForm.get('imagen')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('imagen', 'imagenContentType', 'file_imagen')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_imagen"
+              data-cy="imagen"
+              (change)="setFileData($event, 'imagen', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="imagen" id="field_imagen" data-cy="imagen" formControlName="imagen" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagenContentType"
+            id="field_imagenContentType"
+            formControlName="imagenContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.direccion" for="field_direccion">Direccion</label>
+          <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
+          <div *ngIf="editForm.get('direccion')!.invalid && (editForm.get('direccion')!.dirty || editForm.get('direccion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('direccion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('direccion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('direccion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 512 }"
+            >
+              This field cannot be longer than 512 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursal.distrito" for="field_distrito">Distrito</label>
+          <select class="form-control" id="field_distrito" data-cy="distrito" name="distrito" formControlName="distrito">
+            <option *ngIf="!editForm.get('distrito')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="distritOption.id === editForm.get('distrito')!.value?.id ? editForm.get('distrito')!.value : distritOption"
+              *ngFor="let distritOption of distritsSharedCollection; trackBy: trackDistritById"
+            >
+              {{ distritOption.distrito }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['distrito'])!.invalid && (editForm.get(['distrito'])!.dirty || editForm.get(['distrito'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['distrito'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

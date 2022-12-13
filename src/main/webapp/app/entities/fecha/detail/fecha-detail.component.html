@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="fecha">
+      <h2 data-cy="fechaDetailsHeading"><span jhiTranslate="gesconApp.fecha.detail.title">Fecha</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ fecha.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ fecha.fecha | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.dia">Dia</span></dt>
+        <dd>
+          <span>{{ fecha.dia }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.mes">Mes</span></dt>
+        <dd>
+          <span>{{ fecha.mes }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.anio">Anio</span></dt>
+        <dd>
+          <span>{{ fecha.anio }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.diaNombre">Dia Nombre</span></dt>
+        <dd>
+          <span>{{ fecha.diaNombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.diaNombreCorto">Dia Nombre Corto</span></dt>
+        <dd>
+          <span>{{ fecha.diaNombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.feriado">Feriado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.feriado }}">{{ fecha.feriado }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.laboral">Laboral</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.laboral }}">{{ fecha.laboral }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.fecha.finSemana">Fin Semana</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.SiNo.' + fecha.finSemana }}">{{ fecha.finSemana }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+export enum EstadoEmpleado {
+  ACTIVO = 'ACTIVO',
+
+  VACACIONES = 'VACACIONES',
+
+  FIN_DE_CONTRARO = 'FIN_DE_CONTRARO',
+
+  DESPEDIDO = 'DESPEDIDO',
+
+  CESADO = 'CESADO',
+}

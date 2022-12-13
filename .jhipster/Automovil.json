@@ -1,0 +1,101 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030929",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "automovil",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "required", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "6",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "AutomovilTipo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SEDAM,HATCHBACK,SUV"
+    },
+    {
+      "fieldName": "placa",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "marca",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "modelo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "anio",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "4",
+      "fieldValidateRulesMinlength": "4"
+    },
+    {
+      "fieldName": "soatVencimiento",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "revisionTecnicaVencimiento",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "caja",
+      "fieldType": "AutomovilCaja",
+      "fieldValues": "MECANICO,AUTOMATICO"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Automovil",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "automovil",
+      "relationshipName": "programacion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "automovil",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

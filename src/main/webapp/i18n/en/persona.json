@@ -1,0 +1,37 @@
+{
+  "gesconApp": {
+    "persona": {
+      "home": {
+        "title": "Personas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Persona",
+        "createOrEditLabel": "Create or edit a Persona",
+        "notFound": "No Personas found"
+      },
+      "created": "A new Persona is created with identifier {{ param }}",
+      "updated": "A Persona is updated with identifier {{ param }}",
+      "deleted": "A Persona is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Persona {{ id }}?"
+      },
+      "detail": {
+        "title": "Persona"
+      },
+      "id": "ID",
+      "nacionalidad": "Nacionalidad",
+      "nombres": "Nombres",
+      "apellidoPaterno": "Apellido Paterno",
+      "apellidoMaterno": "Apellido Materno",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "genero": "Genero",
+      "estadoCivil": "Estado Civil",
+      "tipoDocumento": "Tipo Documento",
+      "numeroDocumento": "Numero Documento",
+      "telefonoParticular": "Telefono Particular",
+      "telefonoParticular1": "Telefono Particular 1",
+      "emailPersonal": "Email Personal",
+      "direccion": "Direccion",
+      "distrito": "Distrito"
+    }
+  }
+}

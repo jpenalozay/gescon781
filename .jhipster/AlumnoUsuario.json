@@ -1,0 +1,49 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030931",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno_usuario",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "usuario",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "4"
+    },
+    {
+      "fieldName": "clave",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "4"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "AlumnoUsuario",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "alumnoUsuario",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

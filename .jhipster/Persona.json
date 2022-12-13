@@ -1,0 +1,105 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030920",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "persona",
+  "fields": [
+    {
+      "fieldName": "nacionalidad",
+      "fieldType": "Paises",
+      "fieldValues": "PERU,VENEZUELA,COLOMBIA"
+    },
+    {
+      "fieldName": "nombres",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "apellidoPaterno",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "apellidoMaterno",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "genero",
+      "fieldType": "Sexo",
+      "fieldValues": "VARON,MUJER"
+    },
+    {
+      "fieldName": "estadoCivil",
+      "fieldType": "EstadoCivilPersona",
+      "fieldValues": "SOLTERO,CASADO,DIVORCIADO,VIUDO"
+    },
+    {
+      "fieldName": "tipoDocumento",
+      "fieldType": "TipoDocumentoPersona",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "DNI,CEDULA,DOCUMENTO_DE_EXTRANJERIA"
+    },
+    {
+      "fieldName": "numeroDocumento",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "15",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "telefonoParticular",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "telefonoParticular1",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "emailPersonal",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Persona",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "distrito",
+      "otherEntityName": "distrit",
+      "otherEntityRelationshipName": "persona",
+      "relationshipName": "distrito",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

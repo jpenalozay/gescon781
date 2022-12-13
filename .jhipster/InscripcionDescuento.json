@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030939",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion_descuento",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InscripcionDescuento",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "inscripcion",
+      "otherEntityRelationshipName": "insDescuento",
+      "ownerSide": true,
+      "relationshipName": "inscripcion",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

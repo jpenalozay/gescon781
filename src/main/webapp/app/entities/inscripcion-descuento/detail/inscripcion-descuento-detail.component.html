@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcionDescuento">
+      <h2 data-cy="inscripcionDescuentoDetailsHeading">
+        <span jhiTranslate="gesconApp.inscripcionDescuento.detail.title">Inscripcion Descuento</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcionDescuento.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDescuento.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ inscripcionDescuento.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDescuento.monto">Monto</span></dt>
+        <dd>
+          <span>{{ inscripcionDescuento.monto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDescuento.inscripcion">Inscripcion</span></dt>
+        <dd>
+          <div *ngIf="inscripcionDescuento.inscripcion">
+            <a [routerLink]="['/inscripcion', inscripcionDescuento.inscripcion?.id, 'view']">{{
+              inscripcionDescuento.inscripcion?.codigo
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripcion-descuento', inscripcionDescuento.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

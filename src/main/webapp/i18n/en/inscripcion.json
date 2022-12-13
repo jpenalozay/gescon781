@@ -1,0 +1,33 @@
+{
+  "gesconApp": {
+    "inscripcion": {
+      "home": {
+        "title": "Inscripcions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Inscripcion",
+        "createOrEditLabel": "Create or edit a Inscripcion",
+        "notFound": "No Inscripcions found"
+      },
+      "created": "A new Inscripcion is created with identifier {{ param }}",
+      "updated": "A Inscripcion is updated with identifier {{ param }}",
+      "deleted": "A Inscripcion is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Inscripcion {{ id }}?"
+      },
+      "detail": {
+        "title": "Inscripcion"
+      },
+      "id": "ID",
+      "codigo": "Codigo",
+      "estado": "Estado",
+      "numeroDocumento": "Numero Documento",
+      "fecha": "Fecha",
+      "costoTotal": "Costo Total",
+      "inscripcionPagos": "Inscripcion Pagos",
+      "inscripcionAdicional": "Inscripcion Adicional",
+      "inscripcionDetalle": "Inscripcion Detalle",
+      "insDescuento": "Ins Descuento",
+      "alumno": "Alumno"
+    }
+  }
+}

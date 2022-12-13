@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030947",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion_asignatura_req",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "documento",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InscripcionAsignaturaRequisito",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "inscripcionDetalle",
+      "otherEntityRelationshipName": "inscripcionAsignaturaRequisito",
+      "relationshipName": "inscripcionDetalle",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "asignaturaRequisito",
+      "otherEntityRelationshipName": "inscripcionAsignaturaRequisito",
+      "relationshipName": "asignaturaRequisito",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

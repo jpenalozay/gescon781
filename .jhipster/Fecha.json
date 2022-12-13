@@ -1,0 +1,79 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030913",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "fecha",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "dia",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mes",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anio",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "diaNombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "32",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "diaNombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "8",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "feriado",
+      "fieldType": "SiNo",
+      "fieldValues": "SI,NO"
+    },
+    {
+      "fieldName": "laboral",
+      "fieldType": "SiNo",
+      "fieldValues": "SI,NO"
+    },
+    {
+      "fieldName": "finSemana",
+      "fieldType": "SiNo",
+      "fieldValues": "SI,NO"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Fecha",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "fecha",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "programacionDeshabilitacion",
+      "otherEntityRelationshipName": "fechas",
+      "ownerSide": false,
+      "relationshipName": "programacionDeshabilitacion",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

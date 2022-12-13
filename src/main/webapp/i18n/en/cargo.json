@@ -1,0 +1,31 @@
+{
+  "gesconApp": {
+    "cargo": {
+      "home": {
+        "title": "Cargos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Cargo",
+        "createOrEditLabel": "Create or edit a Cargo",
+        "notFound": "No Cargos found"
+      },
+      "created": "A new Cargo is created with identifier {{ param }}",
+      "updated": "A Cargo is updated with identifier {{ param }}",
+      "deleted": "A Cargo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cargo {{ id }}?"
+      },
+      "detail": {
+        "title": "Cargo"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "codigo": "Codigo",
+      "nombre": "Nombre",
+      "nombreCorto": "Nombre Corto",
+      "cargo": "Cargo",
+      "empleado": "Empleado",
+      "areaPerteneciente": "Area Perteneciente",
+      "cargoSuperior": "Cargo Superior"
+    }
+  }
+}

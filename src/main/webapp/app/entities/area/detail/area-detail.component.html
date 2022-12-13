@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="area">
+      <h2 data-cy="areaDetailsHeading"><span jhiTranslate="gesconApp.area.detail.title">Area</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ area.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + area.activo }}">{{ area.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ area.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.TipoUnidadOrganizativa.' + area.tipo }}">{{ area.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ area.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ area.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.sucursal">Sucursal</span></dt>
+        <dd>
+          <div *ngIf="area.sucursal">
+            <a [routerLink]="['/sucursal', area.sucursal?.id, 'view']">{{ area.sucursal?.nombre }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.area.areaSuperior">Area Superior</span></dt>
+        <dd>
+          <div *ngIf="area.areaSuperior">
+            <a [routerLink]="['/area', area.areaSuperior?.id, 'view']">{{ area.areaSuperior?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/area', area.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

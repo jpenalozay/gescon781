@@ -1,0 +1,95 @@
+<div>
+  <h2 id="page-heading" data-cy="AlumnoHeading">
+    <span jhiTranslate="gesconApp.alumno.home.title">Alumnos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.alumno.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-alumno"
+        [routerLink]="['/alumno/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.alumno.home.createLabel"> Create a new Alumno </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="alumnos?.length === 0">
+    <span jhiTranslate="gesconApp.alumno.home.notFound">No alumnos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="alumnos && alumnos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.codigo">Codigo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.alumnoGradoInstruccion">Alumno Grado Instruccion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.ocupacion">Ocupacion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.imagen">Imagen</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.persona">Persona</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.alumno.alumnoClases">Alumno Clases</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumno of alumnos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/alumno', alumno.id, 'view']">{{ alumno.id }}</a>
+          </td>
+          <td>{{ alumno.codigo }}</td>
+          <td jhiTranslate="{{ 'gesconApp.AlumnoEstado.' + alumno.estado }}">{{ alumno.estado }}</td>
+          <td jhiTranslate="{{ 'gesconApp.AlumnoTipo.' + alumno.tipo }}">{{ alumno.tipo }}</td>
+          <td jhiTranslate="{{ 'gesconApp.GradoInstruccion.' + alumno.alumnoGradoInstruccion }}">{{ alumno.alumnoGradoInstruccion }}</td>
+          <td jhiTranslate="{{ 'gesconApp.Ocupacion.' + alumno.ocupacion }}">{{ alumno.ocupacion }}</td>
+          <td>
+            <a *ngIf="alumno.imagen" (click)="openFile(alumno.imagen, alumno.imagenContentType)">
+              <img [src]="'data:' + alumno.imagenContentType + ';base64,' + alumno.imagen" style="max-height: 30px" alt="alumno image" />
+            </a>
+            <span *ngIf="alumno.imagen">{{ alumno.imagenContentType }}, {{ byteSize(alumno.imagen) }}</span>
+          </td>
+          <td>
+            <div *ngIf="alumno.persona">
+              <a [routerLink]="['/persona', alumno.persona?.id, 'view']">{{ alumno.persona?.numeroDocumento }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="alumno.alumnoClases">
+              <a [routerLink]="['/alumno-clases', alumno.alumnoClases?.id, 'view']">{{ alumno.alumnoClases?.clasesTotales }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/alumno', alumno.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/alumno', alumno.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(alumno)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

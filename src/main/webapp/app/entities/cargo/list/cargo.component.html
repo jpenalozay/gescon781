@@ -1,0 +1,86 @@
+<div>
+  <h2 id="page-heading" data-cy="CargoHeading">
+    <span jhiTranslate="gesconApp.cargo.home.title">Cargos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.cargo.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cargo"
+        [routerLink]="['/cargo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.cargo.home.createLabel"> Create a new Cargo </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="cargos?.length === 0">
+    <span jhiTranslate="gesconApp.cargo.home.notFound">No cargos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="cargos && cargos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.codigo">Codigo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.areaPerteneciente">Area Perteneciente</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.cargo.cargoSuperior">Cargo Superior</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cargo of cargos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/cargo', cargo.id, 'view']">{{ cargo.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + cargo.activo }}">{{ cargo.activo }}</td>
+          <td>{{ cargo.codigo }}</td>
+          <td>{{ cargo.nombre }}</td>
+          <td>{{ cargo.nombreCorto }}</td>
+          <td>
+            <div *ngIf="cargo.areaPerteneciente">
+              <a [routerLink]="['/area', cargo.areaPerteneciente?.id, 'view']">{{ cargo.areaPerteneciente?.nombre }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="cargo.cargoSuperior">
+              <a [routerLink]="['/cargo', cargo.cargoSuperior?.id, 'view']">{{ cargo.cargoSuperior?.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/cargo', cargo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/cargo', cargo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(cargo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

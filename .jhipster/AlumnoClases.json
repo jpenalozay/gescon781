@@ -1,0 +1,37 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030933",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno_clases",
+  "fields": [
+    {
+      "fieldName": "clasesTotales",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "clasesProgramadas",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "clasesRealizadas",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "AlumnoClases",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "alumnoClases",
+      "ownerSide": false,
+      "relationshipName": "alumno",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

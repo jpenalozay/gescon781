@@ -1,0 +1,119 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030921",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "empleado",
+  "fields": [
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoEmpleado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVO,VACACIONES,FIN_DE_CONTRARO,DESPEDIDO,CESADO"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "EmpleadoTipo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ADMINISTRATIVO,DOCENTE,OTRO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "6",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "codigoAcceso",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "5",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "telefonoTrabajo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "telefonoTrabajo1",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "gradoInstrucion",
+      "fieldType": "GradoInstruccion",
+      "fieldValues": "OTRO,COLEGIO,UNIVERSITARIO,POSTGRADO"
+    },
+    {
+      "fieldName": "emailCoorporativo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "128",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "fechaIngreso",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "inasistencias",
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "tardanzas",
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "sueldo",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "firma",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Empleado",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "numeroDocumento",
+      "otherEntityName": "persona",
+      "otherEntityRelationshipName": "empleado",
+      "ownerSide": true,
+      "relationshipName": "persona",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "cargo",
+      "otherEntityRelationshipName": "empleado",
+      "relationshipName": "cargo",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

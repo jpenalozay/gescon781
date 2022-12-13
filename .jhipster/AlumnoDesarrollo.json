@@ -1,0 +1,63 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030940",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno_desarrollo",
+  "fields": [
+    {
+      "fieldName": "clasesTeoriaProgramadas",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "clasesPracticasProgramas",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "clasesInasistenciaTeoria",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "clasesInasistenciaPractica",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "clasesRealizadasTeoria",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "clasesRealizadasPractica",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "alumnoDesarrolloEstado",
+      "fieldType": "AlumnoDesarrolloEstado",
+      "fieldValues": "NORMAL,AMARILLO_TEORIA,AMARRILLO_PRACTICA,ROJO_TEORIA,ROJO_PRACTICA,DESERTO,FINALIZO"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "AlumnoDesarrollo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

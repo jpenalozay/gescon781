@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcionDetalle">
+      <h2 data-cy="inscripcionDetalleDetailsHeading">
+        <span jhiTranslate="gesconApp.inscripcionDetalle.detail.title">Inscripcion Detalle</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcionDetalle.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDetalle.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ inscripcionDetalle.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDetalle.fechaInicio">Fecha Inicio</span></dt>
+        <dd>
+          <span>{{ inscripcionDetalle.fechaInicio | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDetalle.inscripcion">Inscripcion</span></dt>
+        <dd>
+          <div *ngIf="inscripcionDetalle.inscripcion">
+            <a [routerLink]="['/inscripcion', inscripcionDetalle.inscripcion?.id, 'view']">{{ inscripcionDetalle.inscripcion?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDetalle.asignatura">Asignatura</span></dt>
+        <dd>
+          <div *ngIf="inscripcionDetalle.asignatura">
+            <a [routerLink]="['/asignatura', inscripcionDetalle.asignatura?.id, 'view']">{{ inscripcionDetalle.asignatura?.nombre }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionDetalle.horario">Horario</span></dt>
+        <dd>
+          <div *ngIf="inscripcionDetalle.horario">
+            <a [routerLink]="['/teoria-horario-catalogo', inscripcionDetalle.horario?.id, 'view']">{{
+              inscripcionDetalle.horario?.nombre
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripcion-detalle', inscripcionDetalle.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

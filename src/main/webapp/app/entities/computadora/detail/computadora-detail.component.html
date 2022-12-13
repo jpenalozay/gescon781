@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="computadora">
+      <h2 data-cy="computadoraDetailsHeading"><span jhiTranslate="gesconApp.computadora.detail.title">Computadora</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ computadora.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ computadora.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ computadora.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ computadora.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.estadoComputadora">Estado Computadora</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + computadora.estadoComputadora }}">{{ computadora.estadoComputadora }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.mac">Mac</span></dt>
+        <dd>
+          <span>{{ computadora.mac }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.computadora.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.ComputadoraTipo.' + computadora.tipo }}">{{ computadora.tipo }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/computadora', computadora.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

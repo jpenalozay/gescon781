@@ -1,0 +1,7 @@
+export enum HorarioTipo {
+  ADMINISTRACION = 'ADMINISTRACION',
+
+  POR_CONFIRMAR = 'POR_CONFIRMAR',
+
+  ALUMNO = 'ALUMNO',
+}

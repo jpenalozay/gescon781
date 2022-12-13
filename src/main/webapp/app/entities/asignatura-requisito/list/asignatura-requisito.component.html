@@ -1,0 +1,97 @@
+<div>
+  <h2 id="page-heading" data-cy="AsignaturaRequisitoHeading">
+    <span jhiTranslate="gesconApp.asignaturaRequisito.home.title">Asignatura Requisitos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.asignaturaRequisito.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-asignatura-requisito"
+        [routerLink]="['/asignatura-requisito/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.asignaturaRequisito.home.createLabel"> Create a new Asignatura Requisito </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="asignaturaRequisitos?.length === 0">
+    <span jhiTranslate="gesconApp.asignaturaRequisito.home.notFound">No asignaturaRequisitos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="asignaturaRequisitos && asignaturaRequisitos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaRequisito.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaRequisito.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaRequisito.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaRequisito.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.asignaturaRequisito.imagen">Imagen</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asignaturaRequisito of asignaturaRequisitos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/asignatura-requisito', asignaturaRequisito.id, 'view']">{{ asignaturaRequisito.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + asignaturaRequisito.activo }}">{{ asignaturaRequisito.activo }}</td>
+          <td jhiTranslate="{{ 'gesconApp.TipoRequisito.' + asignaturaRequisito.tipo }}">{{ asignaturaRequisito.tipo }}</td>
+          <td>{{ asignaturaRequisito.nombre }}</td>
+          <td>{{ asignaturaRequisito.descripcion }}</td>
+          <td>
+            <a *ngIf="asignaturaRequisito.imagen" (click)="openFile(asignaturaRequisito.imagen, asignaturaRequisito.imagenContentType)">
+              <img
+                [src]="'data:' + asignaturaRequisito.imagenContentType + ';base64,' + asignaturaRequisito.imagen"
+                style="max-height: 30px"
+                alt="asignaturaRequisito image"
+              />
+            </a>
+            <span *ngIf="asignaturaRequisito.imagen"
+              >{{ asignaturaRequisito.imagenContentType }}, {{ byteSize(asignaturaRequisito.imagen) }}</span
+            >
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/asignatura-requisito', asignaturaRequisito.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/asignatura-requisito', asignaturaRequisito.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(asignaturaRequisito)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="TeoriaHeading">
+    <span jhiTranslate="gesconApp.teoria.home.title">Teorias</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.teoria.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-teoria"
+        [routerLink]="['/teoria/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.teoria.home.createLabel"> Create a new Teoria </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="teorias?.length === 0">
+    <span jhiTranslate="gesconApp.teoria.home.notFound">No teorias found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="teorias && teorias.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.imagen">Imagen</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.teoria.horarios">Horarios</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let teoria of teorias; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/teoria', teoria.id, 'view']">{{ teoria.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + teoria.activo }}">{{ teoria.activo }}</td>
+          <td>{{ teoria.nombre }}</td>
+          <td>{{ teoria.nombreCorto }}</td>
+          <td>{{ teoria.descripcion }}</td>
+          <td>
+            <a *ngIf="teoria.imagen" (click)="openFile(teoria.imagen, teoria.imagenContentType)">
+              <img [src]="'data:' + teoria.imagenContentType + ';base64,' + teoria.imagen" style="max-height: 30px" alt="teoria image" />
+            </a>
+            <span *ngIf="teoria.imagen">{{ teoria.imagenContentType }}, {{ byteSize(teoria.imagen) }}</span>
+          </td>
+          <td>
+            <span *ngFor="let horarios of teoria.horarios; let last = last">
+              <a class="form-control-static" [routerLink]="['/teoria-horario-catalogo', horarios.id, 'view']">{{ horarios.nombreCorto }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/teoria', teoria.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/teoria', teoria.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(teoria)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

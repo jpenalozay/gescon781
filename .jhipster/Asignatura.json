@@ -1,0 +1,125 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030924",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "asignatura",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "documento",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "horasTeoricas",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "horasPracticas",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "numeroClasesTeoria",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "numeroClasesPractica",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "vigencia",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "costo",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Asignatura",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionDetalle",
+      "otherEntityRelationshipName": "asignatura",
+      "relationshipName": "inscripcionDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "categoria",
+      "otherEntityName": "licenciaCategoria",
+      "otherEntityRelationshipName": "asignatura",
+      "ownerSide": true,
+      "relationshipName": "categoria",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "asignaturaAdiciones",
+      "otherEntityRelationshipName": "asignatura",
+      "ownerSide": true,
+      "relationshipName": "adicional",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "teoriaHorarioCatalogo",
+      "otherEntityRelationshipName": "asignatura",
+      "ownerSide": true,
+      "relationshipName": "horario",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "asignaturaRequisito",
+      "otherEntityRelationshipName": "asignatura",
+      "ownerSide": true,
+      "relationshipName": "asignaturaRequisito",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "curso",
+      "otherEntityRelationshipName": "asignatura",
+      "relationshipName": "curso",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

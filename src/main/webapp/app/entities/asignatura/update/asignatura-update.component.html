@@ -1,0 +1,326 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-asignatura-heading" data-cy="AsignaturaCreateUpdateHeading" jhiTranslate="gesconApp.asignatura.home.createOrEditLabel">
+        Create or edit a Asignatura
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.activo" for="field_activo">Activo</label>
+          <select class="form-control" name="activo" formControlName="activo" id="field_activo" data-cy="activo">
+            <option [ngValue]="null">{{ 'gesconApp.Estado.null' | translate }}</option>
+            <option *ngFor="let estado of estadoValues" [value]="estado">{{ 'gesconApp.Estado.' + estado | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('activo')!.invalid && (editForm.get('activo')!.dirty || editForm.get('activo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('activo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.nombre" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 512 }"
+            >
+              This field cannot be longer than 512 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.nombreCorto" for="field_nombreCorto">Nombre Corto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreCorto"
+            id="field_nombreCorto"
+            data-cy="nombreCorto"
+            formControlName="nombreCorto"
+          />
+          <div *ngIf="editForm.get('nombreCorto')!.invalid && (editForm.get('nombreCorto')!.dirty || editForm.get('nombreCorto')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreCorto')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 64 }"
+            >
+              This field cannot be longer than 64 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+          <div *ngIf="editForm.get('descripcion')!.invalid && (editForm.get('descripcion')!.dirty || editForm.get('descripcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descripcion')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 512 }"
+            >
+              This field cannot be longer than 512 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.documento" for="field_documento">Documento</label>
+          <textarea class="form-control" name="documento" id="field_documento" data-cy="documento" formControlName="documento"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.horasTeoricas" for="field_horasTeoricas">Horas Teoricas</label>
+          <input
+            type="number"
+            class="form-control"
+            name="horasTeoricas"
+            id="field_horasTeoricas"
+            data-cy="horasTeoricas"
+            formControlName="horasTeoricas"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.horasPracticas" for="field_horasPracticas">Horas Practicas</label>
+          <input
+            type="number"
+            class="form-control"
+            name="horasPracticas"
+            id="field_horasPracticas"
+            data-cy="horasPracticas"
+            formControlName="horasPracticas"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.numeroClasesTeoria" for="field_numeroClasesTeoria"
+            >Numero Clases Teoria</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="numeroClasesTeoria"
+            id="field_numeroClasesTeoria"
+            data-cy="numeroClasesTeoria"
+            formControlName="numeroClasesTeoria"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.numeroClasesPractica" for="field_numeroClasesPractica"
+            >Numero Clases Practica</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="numeroClasesPractica"
+            id="field_numeroClasesPractica"
+            data-cy="numeroClasesPractica"
+            formControlName="numeroClasesPractica"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.vigencia" for="field_vigencia">Vigencia</label>
+          <input type="number" class="form-control" name="vigencia" id="field_vigencia" data-cy="vigencia" formControlName="vigencia" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.costo" for="field_costo">Costo</label>
+          <input type="number" class="form-control" name="costo" id="field_costo" data-cy="costo" formControlName="costo" />
+          <div *ngIf="editForm.get('costo')!.invalid && (editForm.get('costo')!.dirty || editForm.get('costo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('costo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('costo')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.imagen" for="field_imagen">Imagen</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imagenContentType')!.value + ';base64,' + editForm.get('imagen')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('imagen')!.value"
+              alt="asignatura image"
+            />
+            <div *ngIf="editForm.get('imagen')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imagenContentType')!.value }}, {{ byteSize(editForm.get('imagen')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('imagen', 'imagenContentType', 'file_imagen')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_imagen"
+              data-cy="imagen"
+              (change)="setFileData($event, 'imagen', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="imagen" id="field_imagen" data-cy="imagen" formControlName="imagen" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagenContentType"
+            id="field_imagenContentType"
+            formControlName="imagenContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.asignatura.categoria" for="field_categorias">Categoria</label>
+          <select class="form-control" id="field_categorias" data-cy="categoria" multiple name="categorias" formControlName="categorias">
+            <option
+              [ngValue]="getSelectedLicenciaCategoria(licenciaCategoriaOption, editForm.get('categorias')!.value)"
+              *ngFor="let licenciaCategoriaOption of licenciaCategoriasSharedCollection; trackBy: trackLicenciaCategoriaById"
+            >
+              {{ licenciaCategoriaOption.categoria }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.asignatura.adicional" for="field_adicionals">Adicional</label>
+          <select class="form-control" id="field_adicionals" data-cy="adicional" multiple name="adicionals" formControlName="adicionals">
+            <option
+              [ngValue]="getSelectedAsignaturaAdiciones(asignaturaAdicionesOption, editForm.get('adicionals')!.value)"
+              *ngFor="let asignaturaAdicionesOption of asignaturaAdicionesSharedCollection; trackBy: trackAsignaturaAdicionesById"
+            >
+              {{ asignaturaAdicionesOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.asignatura.horario" for="field_horarios">Horario</label>
+          <select class="form-control" id="field_horarios" data-cy="horario" multiple name="horarios" formControlName="horarios">
+            <option
+              [ngValue]="getSelectedTeoriaHorarioCatalogo(teoriaHorarioCatalogoOption, editForm.get('horarios')!.value)"
+              *ngFor="let teoriaHorarioCatalogoOption of teoriaHorarioCatalogosSharedCollection; trackBy: trackTeoriaHorarioCatalogoById"
+            >
+              {{ teoriaHorarioCatalogoOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="gesconApp.asignatura.asignaturaRequisito" for="field_asignaturaRequisitos">Asignatura Requisito</label>
+          <select
+            class="form-control"
+            id="field_asignaturaRequisitos"
+            data-cy="asignaturaRequisito"
+            multiple
+            name="asignaturaRequisitos"
+            formControlName="asignaturaRequisitos"
+          >
+            <option
+              [ngValue]="getSelectedAsignaturaRequisito(asignaturaRequisitoOption, editForm.get('asignaturaRequisitos')!.value)"
+              *ngFor="let asignaturaRequisitoOption of asignaturaRequisitosSharedCollection; trackBy: trackAsignaturaRequisitoById"
+            >
+              {{ asignaturaRequisitoOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.asignatura.curso" for="field_curso">Curso</label>
+          <select class="form-control" id="field_curso" data-cy="curso" name="curso" formControlName="curso">
+            <option *ngIf="!editForm.get('curso')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="cursoOption.id === editForm.get('curso')!.value?.id ? editForm.get('curso')!.value : cursoOption"
+              *ngFor="let cursoOption of cursosSharedCollection; trackBy: trackCursoById"
+            >
+              {{ cursoOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['curso'])!.invalid && (editForm.get(['curso'])!.dirty || editForm.get(['curso'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['curso'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

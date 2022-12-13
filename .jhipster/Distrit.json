@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030914",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "distrit",
+  "fields": [
+    {
+      "fieldName": "departamento",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "provincia",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "distrito",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength"],
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "ubigeo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Distrit",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "sucursal",
+      "otherEntityRelationshipName": "distrito",
+      "relationshipName": "sucursal",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "persona",
+      "otherEntityRelationshipName": "distrito",
+      "relationshipName": "persona",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

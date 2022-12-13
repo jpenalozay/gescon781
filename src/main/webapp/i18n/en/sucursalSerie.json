@@ -1,0 +1,31 @@
+{
+  "gesconApp": {
+    "sucursalSerie": {
+      "home": {
+        "title": "Sucursal Series",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Sucursal Serie",
+        "createOrEditLabel": "Create or edit a Sucursal Serie",
+        "notFound": "No Sucursal Series found"
+      },
+      "created": "A new Sucursal Serie is created with identifier {{ param }}",
+      "updated": "A Sucursal Serie is updated with identifier {{ param }}",
+      "deleted": "A Sucursal Serie is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Sucursal Serie {{ id }}?"
+      },
+      "detail": {
+        "title": "Sucursal Serie"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "tipoDocumento": "Tipo Documento",
+      "serie": "Serie",
+      "fechaEmision": "Fecha Emision",
+      "numeroMaximo": "Numero Maximo",
+      "numeroUltimo": "Numero Ultimo",
+      "inscripcionPagos": "Inscripcion Pagos",
+      "sucursal": "Sucursal"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+export enum Estado {
+  HABILITADO = 'HABILITADO',
+
+  DESHABILITADO = 'DESHABILITADO',
+}

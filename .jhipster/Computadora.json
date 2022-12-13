@@ -1,0 +1,65 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030912",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "computadora",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "256",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "estadoComputadora",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "mac",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "30",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "ComputadoraTipo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SERVIDOR,ESCRITORIO,LAPTOP,TABLET,CELULAR,OTRO"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Computadora",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "computadora",
+      "ownerSide": false,
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

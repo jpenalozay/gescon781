@@ -1,0 +1,70 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030936",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inscripcion_pago",
+  "fields": [
+    {
+      "fieldName": "formaPago",
+      "fieldType": "InscripcionFormaPago",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "EFECTIVO,TARJETA,DEPOSITO_CUENTA"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max", "required"],
+      "fieldValidateRulesMax": "10000",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codigoOP",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "numeroDocumento",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "plazoPago",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "360",
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InscripcionPago",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "inscripcion",
+      "otherEntityRelationshipName": "inscripcionPagos",
+      "relationshipName": "inscripcion",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "serie",
+      "otherEntityName": "sucursalSerie",
+      "otherEntityRelationshipName": "inscripcionPagos",
+      "relationshipName": "serie",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

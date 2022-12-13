@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="distrit">
+      <h2 data-cy="distritDetailsHeading"><span jhiTranslate="gesconApp.distrit.detail.title">Distrit</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ distrit.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.distrit.departamento">Departamento</span></dt>
+        <dd>
+          <span>{{ distrit.departamento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.distrit.provincia">Provincia</span></dt>
+        <dd>
+          <span>{{ distrit.provincia }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.distrit.distrito">Distrito</span></dt>
+        <dd>
+          <span>{{ distrit.distrito }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.distrit.ubigeo">Ubigeo</span></dt>
+        <dd>
+          <span>{{ distrit.ubigeo }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+    </div>
+  </div>
+</div>

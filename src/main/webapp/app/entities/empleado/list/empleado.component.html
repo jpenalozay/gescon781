@@ -1,0 +1,130 @@
+<div>
+  <h2 id="page-heading" data-cy="EmpleadoHeading">
+    <span jhiTranslate="gesconApp.empleado.home.title">Empleados</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.empleado.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-empleado"
+        [routerLink]="['/empleado/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.empleado.home.createLabel"> Create a new Empleado </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="empleados?.length === 0">
+    <span jhiTranslate="gesconApp.empleado.home.notFound">No empleados found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="empleados && empleados.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.estado">Estado</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.codigo">Codigo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.codigoAcceso">Codigo Acceso</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.telefonoTrabajo">Telefono Trabajo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.telefonoTrabajo1">Telefono Trabajo 1</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.gradoInstrucion">Grado Instrucion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.emailCoorporativo">Email Coorporativo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.fechaIngreso">Fecha Ingreso</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.inasistencias">Inasistencias</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.tardanzas">Tardanzas</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.imagen">Imagen</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.sueldo">Sueldo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.firma">Firma</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.persona">Persona</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.empleado.cargo">Cargo</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/empleado', empleado.id, 'view']">{{ empleado.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.EstadoEmpleado.' + empleado.estado }}">{{ empleado.estado }}</td>
+          <td jhiTranslate="{{ 'gesconApp.EmpleadoTipo.' + empleado.tipo }}">{{ empleado.tipo }}</td>
+          <td>{{ empleado.codigo }}</td>
+          <td>{{ empleado.codigoAcceso }}</td>
+          <td>{{ empleado.telefonoTrabajo }}</td>
+          <td>{{ empleado.telefonoTrabajo1 }}</td>
+          <td jhiTranslate="{{ 'gesconApp.GradoInstruccion.' + empleado.gradoInstrucion }}">{{ empleado.gradoInstrucion }}</td>
+          <td>{{ empleado.emailCoorporativo }}</td>
+          <td>{{ empleado.fechaIngreso | formatMediumDate }}</td>
+          <td>{{ empleado.inasistencias }}</td>
+          <td>{{ empleado.tardanzas }}</td>
+          <td>
+            <a *ngIf="empleado.imagen" (click)="openFile(empleado.imagen, empleado.imagenContentType)" jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="empleado.imagen">{{ empleado.imagenContentType }}, {{ byteSize(empleado.imagen) }}</span>
+          </td>
+          <td>{{ empleado.sueldo }}</td>
+          <td>
+            <a *ngIf="empleado.firma" (click)="openFile(empleado.firma, empleado.firmaContentType)">
+              <img
+                [src]="'data:' + empleado.firmaContentType + ';base64,' + empleado.firma"
+                style="max-height: 30px"
+                alt="empleado image"
+              />
+            </a>
+            <span *ngIf="empleado.firma">{{ empleado.firmaContentType }}, {{ byteSize(empleado.firma) }}</span>
+          </td>
+          <td>
+            <div *ngIf="empleado.persona">
+              <a [routerLink]="['/persona', empleado.persona?.id, 'view']">{{ empleado.persona?.numeroDocumento }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="empleado.cargo">
+              <a [routerLink]="['/cargo', empleado.cargo?.id, 'view']">{{ empleado.cargo?.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/empleado', empleado.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/empleado', empleado.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(empleado)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

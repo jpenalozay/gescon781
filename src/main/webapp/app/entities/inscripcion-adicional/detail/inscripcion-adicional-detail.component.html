@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcionAdicional">
+      <h2 data-cy="inscripcionAdicionalDetailsHeading">
+        <span jhiTranslate="gesconApp.inscripcionAdicional.detail.title">Inscripcion Adicional</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcionAdicional.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ inscripcionAdicional.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAdicional.imagen">
+            <a (click)="openFile(inscripcionAdicional.imagen, inscripcionAdicional.imagenContentType)">
+              <img
+                [src]="'data:' + inscripcionAdicional.imagenContentType + ';base64,' + inscripcionAdicional.imagen"
+                style="max-width: 100%"
+                alt="inscripcionAdicional image"
+              />
+            </a>
+            {{ inscripcionAdicional.imagenContentType }}, {{ byteSize(inscripcionAdicional.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.documento">Documento</span></dt>
+        <dd>
+          <span>{{ inscripcionAdicional.documento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.cantidad">Cantidad</span></dt>
+        <dd>
+          <span>{{ inscripcionAdicional.cantidad }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.costo">Costo</span></dt>
+        <dd>
+          <span>{{ inscripcionAdicional.costo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.inscripcion">Inscripcion</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAdicional.inscripcion">
+            <a [routerLink]="['/inscripcion', inscripcionAdicional.inscripcion?.id, 'view']">{{
+              inscripcionAdicional.inscripcion?.codigo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionAdicional.inscripcionRequisito">Inscripcion Requisito</span></dt>
+        <dd>
+          <div *ngIf="inscripcionAdicional.inscripcionRequisito">
+            <a [routerLink]="['/requisitos-inscripcion', inscripcionAdicional.inscripcionRequisito?.id, 'view']">{{
+              inscripcionAdicional.inscripcionRequisito?.nombre
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripcion-adicional', inscripcionAdicional.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

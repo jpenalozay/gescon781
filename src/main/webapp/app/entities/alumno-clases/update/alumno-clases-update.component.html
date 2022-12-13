@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-alumno-clases-heading"
+        data-cy="AlumnoClasesCreateUpdateHeading"
+        jhiTranslate="gesconApp.alumnoClases.home.createOrEditLabel"
+      >
+        Create or edit a Alumno Clases
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoClases.clasesTotales" for="field_clasesTotales">Clases Totales</label>
+          <input
+            type="number"
+            class="form-control"
+            name="clasesTotales"
+            id="field_clasesTotales"
+            data-cy="clasesTotales"
+            formControlName="clasesTotales"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoClases.clasesProgramadas" for="field_clasesProgramadas"
+            >Clases Programadas</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesProgramadas"
+            id="field_clasesProgramadas"
+            data-cy="clasesProgramadas"
+            formControlName="clasesProgramadas"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoClases.clasesRealizadas" for="field_clasesRealizadas"
+            >Clases Realizadas</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesRealizadas"
+            id="field_clasesRealizadas"
+            data-cy="clasesRealizadas"
+            formControlName="clasesRealizadas"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

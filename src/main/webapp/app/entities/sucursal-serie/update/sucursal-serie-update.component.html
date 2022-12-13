@@ -1,0 +1,189 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-sucursal-serie-heading"
+        data-cy="SucursalSerieCreateUpdateHeading"
+        jhiTranslate="gesconApp.sucursalSerie.home.createOrEditLabel"
+      >
+        Create or edit a Sucursal Serie
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.activo" for="field_activo">Activo</label>
+          <select class="form-control" name="activo" formControlName="activo" id="field_activo" data-cy="activo">
+            <option [ngValue]="null">{{ 'gesconApp.Estado.null' | translate }}</option>
+            <option *ngFor="let estado of estadoValues" [value]="estado">{{ 'gesconApp.Estado.' + estado | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('activo')!.invalid && (editForm.get('activo')!.dirty || editForm.get('activo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('activo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.tipoDocumento" for="field_tipoDocumento">Tipo Documento</label>
+          <select
+            class="form-control"
+            name="tipoDocumento"
+            formControlName="tipoDocumento"
+            id="field_tipoDocumento"
+            data-cy="tipoDocumento"
+          >
+            <option [ngValue]="null">{{ 'gesconApp.TipoDocumentoVenta.null' | translate }}</option>
+            <option *ngFor="let tipoDocumentoVenta of tipoDocumentoVentaValues" [value]="tipoDocumentoVenta">
+              {{ 'gesconApp.TipoDocumentoVenta.' + tipoDocumentoVenta | translate }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('tipoDocumento')!.invalid && (editForm.get('tipoDocumento')!.dirty || editForm.get('tipoDocumento')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoDocumento')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.serie" for="field_serie">Serie</label>
+          <input type="text" class="form-control" name="serie" id="field_serie" data-cy="serie" formControlName="serie" />
+          <div *ngIf="editForm.get('serie')!.invalid && (editForm.get('serie')!.dirty || editForm.get('serie')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('serie')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('serie')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 2 }"
+            >
+              This field is required to be at least 2 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('serie')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 8 }"
+            >
+              This field cannot be longer than 8 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.fechaEmision" for="field_fechaEmision">Fecha Emision</label>
+          <div class="input-group">
+            <input
+              id="field_fechaEmision"
+              data-cy="fechaEmision"
+              type="text"
+              class="form-control"
+              name="fechaEmision"
+              ngbDatepicker
+              #fechaEmisionDp="ngbDatepicker"
+              formControlName="fechaEmision"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaEmisionDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.numeroMaximo" for="field_numeroMaximo">Numero Maximo</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroMaximo"
+            id="field_numeroMaximo"
+            data-cy="numeroMaximo"
+            formControlName="numeroMaximo"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.numeroUltimo" for="field_numeroUltimo">Numero Ultimo</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroUltimo"
+            id="field_numeroUltimo"
+            data-cy="numeroUltimo"
+            formControlName="numeroUltimo"
+          />
+          <div
+            *ngIf="editForm.get('numeroUltimo')!.invalid && (editForm.get('numeroUltimo')!.dirty || editForm.get('numeroUltimo')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numeroUltimo')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroUltimo')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.sucursalSerie.sucursal" for="field_sucursal">Sucursal</label>
+          <select class="form-control" id="field_sucursal" data-cy="sucursal" name="sucursal" formControlName="sucursal">
+            <option *ngIf="!editForm.get('sucursal')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="sucursalOption.id === editForm.get('sucursal')!.value?.id ? editForm.get('sucursal')!.value : sucursalOption"
+              *ngFor="let sucursalOption of sucursalsSharedCollection; trackBy: trackSucursalById"
+            >
+              {{ sucursalOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['sucursal'])!.invalid && (editForm.get(['sucursal'])!.dirty || editForm.get(['sucursal'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['sucursal'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

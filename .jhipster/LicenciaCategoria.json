@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030915",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "licencia_categoria",
+  "fields": [
+    {
+      "fieldName": "categoria",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required", "unique"],
+      "fieldValidateRulesMaxlength": "64",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "LicenciaCategoria",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alumnoCategoria",
+      "otherEntityRelationshipName": "categoria",
+      "relationshipName": "alumnoCategoria",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "profesor",
+      "otherEntityRelationshipName": "licenciaCategoria",
+      "relationshipName": "profesor",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "asignatura",
+      "otherEntityRelationshipName": "categoria",
+      "ownerSide": false,
+      "relationshipName": "asignatura",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "profesor",
+      "otherEntityRelationshipName": "licenciasPermitidas",
+      "ownerSide": false,
+      "relationshipName": "intructores",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="empleado">
+      <h2 data-cy="empleadoDetailsHeading"><span jhiTranslate="gesconApp.empleado.detail.title">Empleado</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ empleado.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.estado">Estado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.EstadoEmpleado.' + empleado.estado }}">{{ empleado.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.EmpleadoTipo.' + empleado.tipo }}">{{ empleado.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ empleado.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.codigoAcceso">Codigo Acceso</span></dt>
+        <dd>
+          <span>{{ empleado.codigoAcceso }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.telefonoTrabajo">Telefono Trabajo</span></dt>
+        <dd>
+          <span>{{ empleado.telefonoTrabajo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.telefonoTrabajo1">Telefono Trabajo 1</span></dt>
+        <dd>
+          <span>{{ empleado.telefonoTrabajo1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.gradoInstrucion">Grado Instrucion</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.GradoInstruccion.' + empleado.gradoInstrucion }}">{{ empleado.gradoInstrucion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.emailCoorporativo">Email Coorporativo</span></dt>
+        <dd>
+          <span>{{ empleado.emailCoorporativo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.fechaIngreso">Fecha Ingreso</span></dt>
+        <dd>
+          <span>{{ empleado.fechaIngreso | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.inasistencias">Inasistencias</span></dt>
+        <dd>
+          <span>{{ empleado.inasistencias }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.tardanzas">Tardanzas</span></dt>
+        <dd>
+          <span>{{ empleado.tardanzas }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="empleado.imagen">
+            <a (click)="openFile(empleado.imagen, empleado.imagenContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ empleado.imagenContentType }}, {{ byteSize(empleado.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.sueldo">Sueldo</span></dt>
+        <dd>
+          <span>{{ empleado.sueldo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.firma">Firma</span></dt>
+        <dd>
+          <div *ngIf="empleado.firma">
+            <a (click)="openFile(empleado.firma, empleado.firmaContentType)">
+              <img [src]="'data:' + empleado.firmaContentType + ';base64,' + empleado.firma" style="max-width: 100%" alt="empleado image" />
+            </a>
+            {{ empleado.firmaContentType }}, {{ byteSize(empleado.firma) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.persona">Persona</span></dt>
+        <dd>
+          <div *ngIf="empleado.persona">
+            <a [routerLink]="['/persona', empleado.persona?.id, 'view']">{{ empleado.persona?.numeroDocumento }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.empleado.cargo">Cargo</span></dt>
+        <dd>
+          <div *ngIf="empleado.cargo">
+            <a [routerLink]="['/cargo', empleado.cargo?.id, 'view']">{{ empleado.cargo?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/empleado', empleado.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

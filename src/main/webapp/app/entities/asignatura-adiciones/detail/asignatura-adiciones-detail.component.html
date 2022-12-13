@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="asignaturaAdiciones">
+      <h2 data-cy="asignaturaAdicionesDetailsHeading">
+        <span jhiTranslate="gesconApp.asignaturaAdiciones.detail.title">Asignatura Adiciones</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ asignaturaAdiciones.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignaturaAdiciones.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + asignaturaAdiciones.activo }}">{{ asignaturaAdiciones.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignaturaAdiciones.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ asignaturaAdiciones.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignaturaAdiciones.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ asignaturaAdiciones.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignaturaAdiciones.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ asignaturaAdiciones.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.asignaturaAdiciones.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="asignaturaAdiciones.imagen">
+            <a (click)="openFile(asignaturaAdiciones.imagen, asignaturaAdiciones.imagenContentType)">
+              <img
+                [src]="'data:' + asignaturaAdiciones.imagenContentType + ';base64,' + asignaturaAdiciones.imagen"
+                style="max-width: 100%"
+                alt="asignaturaAdiciones image"
+              />
+            </a>
+            {{ asignaturaAdiciones.imagenContentType }}, {{ byteSize(asignaturaAdiciones.imagen) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/asignatura-adiciones', asignaturaAdiciones.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

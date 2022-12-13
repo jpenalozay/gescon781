@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="ComputadoraHeading">
+    <span jhiTranslate="gesconApp.computadora.home.title">Computadoras</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.computadora.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-computadora"
+        [routerLink]="['/computadora/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.computadora.home.createLabel"> Create a new Computadora </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="computadoras?.length === 0">
+    <span jhiTranslate="gesconApp.computadora.home.notFound">No computadoras found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="computadoras && computadoras.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.nombreCorto">Nombre Corto</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.descripcion">Descripcion</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.estadoComputadora">Estado Computadora</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.mac">Mac</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.computadora.tipo">Tipo</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let computadora of computadoras; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/computadora', computadora.id, 'view']">{{ computadora.id }}</a>
+          </td>
+          <td>{{ computadora.nombre }}</td>
+          <td>{{ computadora.nombreCorto }}</td>
+          <td>{{ computadora.descripcion }}</td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + computadora.estadoComputadora }}">{{ computadora.estadoComputadora }}</td>
+          <td>{{ computadora.mac }}</td>
+          <td jhiTranslate="{{ 'gesconApp.ComputadoraTipo.' + computadora.tipo }}">{{ computadora.tipo }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/computadora', computadora.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/computadora', computadora.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(computadora)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

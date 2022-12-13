@@ -1,0 +1,85 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030922",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "profesor",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "6",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "teoria",
+      "fieldType": "SiNo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SI,NO"
+    },
+    {
+      "fieldName": "practica",
+      "fieldType": "SiNo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SI,NO"
+    },
+    {
+      "fieldName": "licenciaNumero",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique"],
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Profesor",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "empleado",
+      "otherEntityRelationshipName": "profesor",
+      "ownerSide": true,
+      "relationshipName": "empleado",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "instructor",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "programacion",
+      "otherEntityRelationshipName": "profesor",
+      "relationshipName": "programacion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "categoria",
+      "otherEntityName": "licenciaCategoria",
+      "otherEntityRelationshipName": "intructores",
+      "ownerSide": true,
+      "relationshipName": "licenciasPermitidas",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "categoria",
+      "otherEntityName": "licenciaCategoria",
+      "otherEntityRelationshipName": "profesor",
+      "relationshipName": "licenciaCategoria",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

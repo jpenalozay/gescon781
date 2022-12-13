@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="alumnoDesarrollo">
+      <h2 data-cy="alumnoDesarrolloDetailsHeading">
+        <span jhiTranslate="gesconApp.alumnoDesarrollo.detail.title">Alumno Desarrollo</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesTeoriaProgramadas">Clases Teoria Programadas</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesTeoriaProgramadas }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesPracticasProgramas">Clases Practicas Programas</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesPracticasProgramas }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesInasistenciaTeoria">Clases Inasistencia Teoria</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesInasistenciaTeoria }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesInasistenciaPractica">Clases Inasistencia Practica</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesInasistenciaPractica }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesRealizadasTeoria">Clases Realizadas Teoria</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesRealizadasTeoria }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.clasesRealizadasPractica">Clases Realizadas Practica</span></dt>
+        <dd>
+          <span>{{ alumnoDesarrollo.clasesRealizadasPractica }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.alumnoDesarrollo.alumnoDesarrolloEstado">Alumno Desarrollo Estado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.AlumnoDesarrolloEstado.' + alumnoDesarrollo.alumnoDesarrolloEstado }}">{{
+            alumnoDesarrollo.alumnoDesarrolloEstado
+          }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/alumno-desarrollo', alumnoDesarrollo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

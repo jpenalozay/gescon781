@@ -1,0 +1,37 @@
+{
+  "gesconApp": {
+    "automovil": {
+      "home": {
+        "title": "Automovils",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Automovil",
+        "createOrEditLabel": "Create or edit a Automovil",
+        "notFound": "No Automovils found"
+      },
+      "created": "A new Automovil is created with identifier {{ param }}",
+      "updated": "A Automovil is updated with identifier {{ param }}",
+      "deleted": "A Automovil is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Automovil {{ id }}?"
+      },
+      "detail": {
+        "title": "Automovil"
+      },
+      "id": "ID",
+      "activo": "Activo",
+      "codigo": "Codigo",
+      "nombre": "Nombre",
+      "tipo": "Tipo",
+      "placa": "Placa",
+      "marca": "Marca",
+      "modelo": "Modelo",
+      "anio": "Anio",
+      "soatVencimiento": "Soat Vencimiento",
+      "revisionTecnicaVencimiento": "Revision Tecnica Vencimiento",
+      "caja": "Caja",
+      "imagen": "Imagen",
+      "programacion": "Programacion",
+      "horario": "Horario"
+    }
+  }
+}

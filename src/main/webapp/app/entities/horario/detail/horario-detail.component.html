@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="horario">
+      <h2 data-cy="horarioDetailsHeading"><span jhiTranslate="gesconApp.horario.detail.title">Horario</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ horario.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + horario.activo }}">{{ horario.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.HorarioTipo.' + horario.tipo }}">{{ horario.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.fechaDia">Fecha Dia</span></dt>
+        <dd>
+          <span>{{ horario.fechaDia | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.fechaDiaSem">Fecha Dia Sem</span></dt>
+        <dd>
+          <span>{{ horario.fechaDiaSem }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.alumno">Alumno</span></dt>
+        <dd>
+          <div *ngIf="horario.alumno">
+            <a [routerLink]="['/alumno', horario.alumno?.id, 'view']">{{ horario.alumno?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.instructor">Instructor</span></dt>
+        <dd>
+          <div *ngIf="horario.instructor">
+            <a [routerLink]="['/profesor', horario.instructor?.id, 'view']">{{ horario.instructor?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.programacion">Programacion</span></dt>
+        <dd>
+          <div *ngIf="horario.programacion">
+            <a [routerLink]="['/programacion', horario.programacion?.id, 'view']">{{ horario.programacion?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.fecha">Fecha</span></dt>
+        <dd>
+          <div *ngIf="horario.fecha">
+            <a [routerLink]="['/fecha', horario.fecha?.id, 'view']">{{ horario.fecha?.fecha }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.horarioCatalogo">Horario Catalogo</span></dt>
+        <dd>
+          <div *ngIf="horario.horarioCatalogo">
+            <a [routerLink]="['/horario-catalogo', horario.horarioCatalogo?.id, 'view']">{{ horario.horarioCatalogo?.descripcion }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.automovil">Automovil</span></dt>
+        <dd>
+          <div *ngIf="horario.automovil">
+            <a [routerLink]="['/automovil', horario.automovil?.id, 'view']">{{ horario.automovil?.nombre }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horario.lugarSalida">Lugar Salida</span></dt>
+        <dd>
+          <div *ngIf="horario.lugarSalida">
+            <a [routerLink]="['/lugar-salida', horario.lugarSalida?.id, 'view']">{{ horario.lugarSalida?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/horario', horario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

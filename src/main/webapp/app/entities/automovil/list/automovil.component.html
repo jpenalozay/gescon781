@@ -1,0 +1,109 @@
+<div>
+  <h2 id="page-heading" data-cy="AutomovilHeading">
+    <span jhiTranslate="gesconApp.automovil.home.title">Automovils</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gesconApp.automovil.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-automovil"
+        [routerLink]="['/automovil/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gesconApp.automovil.home.createLabel"> Create a new Automovil </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="automovils?.length === 0">
+    <span jhiTranslate="gesconApp.automovil.home.notFound">No automovils found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="automovils && automovils.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.activo">Activo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.codigo">Codigo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.nombre">Nombre</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.placa">Placa</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.marca">Marca</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.modelo">Modelo</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.anio">Anio</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.soatVencimiento">Soat Vencimiento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.revisionTecnicaVencimiento">Revision Tecnica Vencimiento</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.caja">Caja</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.automovil.imagen">Imagen</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let automovil of automovils; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/automovil', automovil.id, 'view']">{{ automovil.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'gesconApp.Estado.' + automovil.activo }}">{{ automovil.activo }}</td>
+          <td>{{ automovil.codigo }}</td>
+          <td>{{ automovil.nombre }}</td>
+          <td jhiTranslate="{{ 'gesconApp.AutomovilTipo.' + automovil.tipo }}">{{ automovil.tipo }}</td>
+          <td>{{ automovil.placa }}</td>
+          <td>{{ automovil.marca }}</td>
+          <td>{{ automovil.modelo }}</td>
+          <td>{{ automovil.anio }}</td>
+          <td>{{ automovil.soatVencimiento | formatMediumDatetime }}</td>
+          <td>{{ automovil.revisionTecnicaVencimiento | formatMediumDatetime }}</td>
+          <td jhiTranslate="{{ 'gesconApp.AutomovilCaja.' + automovil.caja }}">{{ automovil.caja }}</td>
+          <td>
+            <a *ngIf="automovil.imagen" (click)="openFile(automovil.imagen, automovil.imagenContentType)">
+              <img
+                [src]="'data:' + automovil.imagenContentType + ';base64,' + automovil.imagen"
+                style="max-height: 30px"
+                alt="automovil image"
+              />
+            </a>
+            <span *ngIf="automovil.imagen">{{ automovil.imagenContentType }}, {{ byteSize(automovil.imagen) }}</span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/automovil', automovil.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/automovil', automovil.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(automovil)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

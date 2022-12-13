@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="horarioDeshabilitacion">
+      <h2 data-cy="horarioDeshabilitacionDetailsHeading">
+        <span jhiTranslate="gesconApp.horarioDeshabilitacion.detail.title">Horario Deshabilitacion</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ horarioDeshabilitacion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horarioDeshabilitacion.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + horarioDeshabilitacion.activo }}">{{ horarioDeshabilitacion.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horarioDeshabilitacion.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.HorarioTipo.' + horarioDeshabilitacion.tipo }}">{{ horarioDeshabilitacion.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horarioDeshabilitacion.programacionDeshabilitacion">Programacion Deshabilitacion</span></dt>
+        <dd>
+          <div *ngIf="horarioDeshabilitacion.programacionDeshabilitacion">
+            <a [routerLink]="['/programacion-deshabilitacion', horarioDeshabilitacion.programacionDeshabilitacion?.id, 'view']">{{
+              horarioDeshabilitacion.programacionDeshabilitacion?.codigo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.horarioDeshabilitacion.horario">Horario</span></dt>
+        <dd>
+          <div *ngIf="horarioDeshabilitacion.horario">
+            <a [routerLink]="['/horario', horarioDeshabilitacion.horario?.id, 'view']">{{ horarioDeshabilitacion.horario?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/horario-deshabilitacion', horarioDeshabilitacion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

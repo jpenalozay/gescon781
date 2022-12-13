@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="inscripcionPago">
+      <h2 data-cy="inscripcionPagoDetailsHeading"><span jhiTranslate="gesconApp.inscripcionPago.detail.title">Inscripcion Pago</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.formaPago">Forma Pago</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.InscripcionFormaPago.' + inscripcionPago.formaPago }}">{{ inscripcionPago.formaPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.monto">Monto</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.monto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.fecha | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.codigoOP">Codigo OP</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.codigoOP }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.numeroDocumento">Numero Documento</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.numeroDocumento }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.plazoPago">Plazo Pago</span></dt>
+        <dd>
+          <span>{{ inscripcionPago.plazoPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.inscripcion">Inscripcion</span></dt>
+        <dd>
+          <div *ngIf="inscripcionPago.inscripcion">
+            <a [routerLink]="['/inscripcion', inscripcionPago.inscripcion?.id, 'view']">{{ inscripcionPago.inscripcion?.codigo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.inscripcionPago.serie">Serie</span></dt>
+        <dd>
+          <div *ngIf="inscripcionPago.serie">
+            <a [routerLink]="['/sucursal-serie', inscripcionPago.serie?.id, 'view']">{{ inscripcionPago.serie?.serie }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/inscripcion-pago', inscripcionPago.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

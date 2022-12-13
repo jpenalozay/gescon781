@@ -1,0 +1,323 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-alumno-desarrollo-heading"
+        data-cy="AlumnoDesarrolloCreateUpdateHeading"
+        jhiTranslate="gesconApp.alumnoDesarrollo.home.createOrEditLabel"
+      >
+        Create or edit a Alumno Desarrollo
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.clasesTeoriaProgramadas" for="field_clasesTeoriaProgramadas"
+            >Clases Teoria Programadas</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesTeoriaProgramadas"
+            id="field_clasesTeoriaProgramadas"
+            data-cy="clasesTeoriaProgramadas"
+            formControlName="clasesTeoriaProgramadas"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesTeoriaProgramadas')!.invalid &&
+              (editForm.get('clasesTeoriaProgramadas')!.dirty || editForm.get('clasesTeoriaProgramadas')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesTeoriaProgramadas')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesTeoriaProgramadas')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesTeoriaProgramadas')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.clasesPracticasProgramas" for="field_clasesPracticasProgramas"
+            >Clases Practicas Programas</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesPracticasProgramas"
+            id="field_clasesPracticasProgramas"
+            data-cy="clasesPracticasProgramas"
+            formControlName="clasesPracticasProgramas"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesPracticasProgramas')!.invalid &&
+              (editForm.get('clasesPracticasProgramas')!.dirty || editForm.get('clasesPracticasProgramas')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesPracticasProgramas')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesPracticasProgramas')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesPracticasProgramas')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.clasesInasistenciaTeoria" for="field_clasesInasistenciaTeoria"
+            >Clases Inasistencia Teoria</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesInasistenciaTeoria"
+            id="field_clasesInasistenciaTeoria"
+            data-cy="clasesInasistenciaTeoria"
+            formControlName="clasesInasistenciaTeoria"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesInasistenciaTeoria')!.invalid &&
+              (editForm.get('clasesInasistenciaTeoria')!.dirty || editForm.get('clasesInasistenciaTeoria')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesInasistenciaTeoria')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesInasistenciaTeoria')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesInasistenciaTeoria')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="gesconApp.alumnoDesarrollo.clasesInasistenciaPractica"
+            for="field_clasesInasistenciaPractica"
+            >Clases Inasistencia Practica</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesInasistenciaPractica"
+            id="field_clasesInasistenciaPractica"
+            data-cy="clasesInasistenciaPractica"
+            formControlName="clasesInasistenciaPractica"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesInasistenciaPractica')!.invalid &&
+              (editForm.get('clasesInasistenciaPractica')!.dirty || editForm.get('clasesInasistenciaPractica')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesInasistenciaPractica')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesInasistenciaPractica')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesInasistenciaPractica')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.clasesRealizadasTeoria" for="field_clasesRealizadasTeoria"
+            >Clases Realizadas Teoria</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesRealizadasTeoria"
+            id="field_clasesRealizadasTeoria"
+            data-cy="clasesRealizadasTeoria"
+            formControlName="clasesRealizadasTeoria"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesRealizadasTeoria')!.invalid &&
+              (editForm.get('clasesRealizadasTeoria')!.dirty || editForm.get('clasesRealizadasTeoria')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesRealizadasTeoria')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesRealizadasTeoria')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesRealizadasTeoria')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.clasesRealizadasPractica" for="field_clasesRealizadasPractica"
+            >Clases Realizadas Practica</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="clasesRealizadasPractica"
+            id="field_clasesRealizadasPractica"
+            data-cy="clasesRealizadasPractica"
+            formControlName="clasesRealizadasPractica"
+          />
+          <div
+            *ngIf="
+              editForm.get('clasesRealizadasPractica')!.invalid &&
+              (editForm.get('clasesRealizadasPractica')!.dirty || editForm.get('clasesRealizadasPractica')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesRealizadasPractica')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clasesRealizadasPractica')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be more than 100.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('clasesRealizadasPractica')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.alumnoDesarrollo.alumnoDesarrolloEstado" for="field_alumnoDesarrolloEstado"
+            >Alumno Desarrollo Estado</label
+          >
+          <select
+            class="form-control"
+            name="alumnoDesarrolloEstado"
+            formControlName="alumnoDesarrolloEstado"
+            id="field_alumnoDesarrolloEstado"
+            data-cy="alumnoDesarrolloEstado"
+          >
+            <option [ngValue]="null">{{ 'gesconApp.AlumnoDesarrolloEstado.null' | translate }}</option>
+            <option *ngFor="let alumnoDesarrolloEstado of alumnoDesarrolloEstadoValues" [value]="alumnoDesarrolloEstado">
+              {{ 'gesconApp.AlumnoDesarrolloEstado.' + alumnoDesarrolloEstado | translate }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030932",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno_categoria",
+  "fields": [
+    {
+      "fieldName": "licenciaNumeroAlumno",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesMinlength": "2"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "AlumnoCategoria",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "alumnoCategoria",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "categoria",
+      "otherEntityName": "licenciaCategoria",
+      "otherEntityRelationshipName": "alumnoCategoria",
+      "relationshipName": "categoria",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

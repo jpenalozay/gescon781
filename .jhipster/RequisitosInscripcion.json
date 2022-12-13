@@ -1,0 +1,67 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030937",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "requisitos_inscripcion",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "obligatorio",
+      "fieldType": "SiNo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SI,NO"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "nombreCorto",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "unique", "required"],
+      "fieldValidateRulesMaxlength": "512",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "costo",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "tipoRequisito",
+      "fieldType": "RequitisoTipo",
+      "fieldValues": "SELECTIVO,NUMERICO,NINGUNO"
+    },
+    {
+      "fieldName": "valores",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "RequisitosInscripcion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionAdicional",
+      "otherEntityRelationshipName": "inscripcionRequisito",
+      "relationshipName": "inscripcionAdicional",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

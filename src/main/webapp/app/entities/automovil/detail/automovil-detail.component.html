@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="automovil">
+      <h2 data-cy="automovilDetailsHeading"><span jhiTranslate="gesconApp.automovil.detail.title">Automovil</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ automovil.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + automovil.activo }}">{{ automovil.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.codigo">Codigo</span></dt>
+        <dd>
+          <span>{{ automovil.codigo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ automovil.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.AutomovilTipo.' + automovil.tipo }}">{{ automovil.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.placa">Placa</span></dt>
+        <dd>
+          <span>{{ automovil.placa }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.marca">Marca</span></dt>
+        <dd>
+          <span>{{ automovil.marca }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.modelo">Modelo</span></dt>
+        <dd>
+          <span>{{ automovil.modelo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.anio">Anio</span></dt>
+        <dd>
+          <span>{{ automovil.anio }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.soatVencimiento">Soat Vencimiento</span></dt>
+        <dd>
+          <span>{{ automovil.soatVencimiento | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.revisionTecnicaVencimiento">Revision Tecnica Vencimiento</span></dt>
+        <dd>
+          <span>{{ automovil.revisionTecnicaVencimiento | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.caja">Caja</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.AutomovilCaja.' + automovil.caja }}">{{ automovil.caja }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.automovil.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="automovil.imagen">
+            <a (click)="openFile(automovil.imagen, automovil.imagenContentType)">
+              <img
+                [src]="'data:' + automovil.imagenContentType + ';base64,' + automovil.imagen"
+                style="max-width: 100%"
+                alt="automovil image"
+              />
+            </a>
+            {{ automovil.imagenContentType }}, {{ byteSize(automovil.imagen) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/automovil', automovil.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

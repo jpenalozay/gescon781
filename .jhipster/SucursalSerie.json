@@ -1,0 +1,63 @@
+{
+  "applications": "*",
+  "changelogDate": "20221124030917",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sucursal_serie",
+  "fields": [
+    {
+      "fieldName": "activo",
+      "fieldType": "Estado",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "HABILITADO,DESHABILITADO"
+    },
+    {
+      "fieldName": "tipoDocumento",
+      "fieldType": "TipoDocumentoVenta",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "FACTURA,BOLETA,TICKET,NOTA_DE_VENTA,PROFORMA,GUIA_REMISION"
+    },
+    {
+      "fieldName": "serie",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "required"],
+      "fieldValidateRulesMaxlength": "8",
+      "fieldValidateRulesMinlength": "2"
+    },
+    {
+      "fieldName": "fechaEmision",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "numeroMaximo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "numeroUltimo",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "SucursalSerie",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inscripcionPago",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "inscripcionPagos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "sucursal",
+      "otherEntityRelationshipName": "sucursalSerie",
+      "relationshipName": "sucursal",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

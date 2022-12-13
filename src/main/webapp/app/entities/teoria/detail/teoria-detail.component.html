@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="teoria">
+      <h2 data-cy="teoriaDetailsHeading"><span jhiTranslate="gesconApp.teoria.detail.title">Teoria</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ teoria.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.activo">Activo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gesconApp.Estado.' + teoria.activo }}">{{ teoria.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ teoria.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.nombreCorto">Nombre Corto</span></dt>
+        <dd>
+          <span>{{ teoria.nombreCorto }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ teoria.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="teoria.imagen">
+            <a (click)="openFile(teoria.imagen, teoria.imagenContentType)">
+              <img [src]="'data:' + teoria.imagenContentType + ';base64,' + teoria.imagen" style="max-width: 100%" alt="teoria image" />
+            </a>
+            {{ teoria.imagenContentType }}, {{ byteSize(teoria.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gesconApp.teoria.horarios">Horarios</span></dt>
+        <dd>
+          <span *ngFor="let horarios of teoria.horarios; let last = last">
+            <a [routerLink]="['/teoria-horario-catalogo', horarios?.id, 'view']">{{ horarios.nombreCorto }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/teoria', teoria.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

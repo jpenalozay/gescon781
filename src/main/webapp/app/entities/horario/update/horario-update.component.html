@@ -1,0 +1,262 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-horario-heading" data-cy="HorarioCreateUpdateHeading" jhiTranslate="gesconApp.horario.home.createOrEditLabel">
+        Create or edit a Horario
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.activo" for="field_activo">Activo</label>
+          <select class="form-control" name="activo" formControlName="activo" id="field_activo" data-cy="activo">
+            <option [ngValue]="null">{{ 'gesconApp.Estado.null' | translate }}</option>
+            <option *ngFor="let estado of estadoValues" [value]="estado">{{ 'gesconApp.Estado.' + estado | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('activo')!.invalid && (editForm.get('activo')!.dirty || editForm.get('activo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('activo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.tipo" for="field_tipo">Tipo</label>
+          <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo" data-cy="tipo">
+            <option [ngValue]="null">{{ 'gesconApp.HorarioTipo.null' | translate }}</option>
+            <option *ngFor="let horarioTipo of horarioTipoValues" [value]="horarioTipo">
+              {{ 'gesconApp.HorarioTipo.' + horarioTipo | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('tipo')!.invalid && (editForm.get('tipo')!.dirty || editForm.get('tipo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('tipo')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.fechaDia" for="field_fechaDia">Fecha Dia</label>
+          <div class="input-group">
+            <input
+              id="field_fechaDia"
+              data-cy="fechaDia"
+              type="text"
+              class="form-control"
+              name="fechaDia"
+              ngbDatepicker
+              #fechaDiaDp="ngbDatepicker"
+              formControlName="fechaDia"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDiaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.fechaDiaSem" for="field_fechaDiaSem">Fecha Dia Sem</label>
+          <input
+            type="number"
+            class="form-control"
+            name="fechaDiaSem"
+            id="field_fechaDiaSem"
+            data-cy="fechaDiaSem"
+            formControlName="fechaDiaSem"
+          />
+          <div *ngIf="editForm.get('fechaDiaSem')!.invalid && (editForm.get('fechaDiaSem')!.dirty || editForm.get('fechaDiaSem')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaDiaSem')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 1 }"
+            >
+              This field should be at least 1.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaDiaSem')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 7 }"
+            >
+              This field cannot be more than 7.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('fechaDiaSem')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.alumno" for="field_alumno">Alumno</label>
+          <select class="form-control" id="field_alumno" data-cy="alumno" name="alumno" formControlName="alumno">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="alumnoOption.id === editForm.get('alumno')!.value?.id ? editForm.get('alumno')!.value : alumnoOption"
+              *ngFor="let alumnoOption of alumnosSharedCollection; trackBy: trackAlumnoById"
+            >
+              {{ alumnoOption.codigo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.instructor" for="field_instructor">Instructor</label>
+          <select class="form-control" id="field_instructor" data-cy="instructor" name="instructor" formControlName="instructor">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="profesorOption.id === editForm.get('instructor')!.value?.id ? editForm.get('instructor')!.value : profesorOption"
+              *ngFor="let profesorOption of profesorsSharedCollection; trackBy: trackProfesorById"
+            >
+              {{ profesorOption.codigo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.programacion" for="field_programacion">Programacion</label>
+          <select class="form-control" id="field_programacion" data-cy="programacion" name="programacion" formControlName="programacion">
+            <option *ngIf="!editForm.get('programacion')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                programacionOption.id === editForm.get('programacion')!.value?.id ? editForm.get('programacion')!.value : programacionOption
+              "
+              *ngFor="let programacionOption of programacionsSharedCollection; trackBy: trackProgramacionById"
+            >
+              {{ programacionOption.codigo }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['programacion'])!.invalid && (editForm.get(['programacion'])!.dirty || editForm.get(['programacion'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['programacion'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.fecha" for="field_fecha">Fecha</label>
+          <select class="form-control" id="field_fecha" data-cy="fecha" name="fecha" formControlName="fecha">
+            <option *ngIf="!editForm.get('fecha')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="fechaOption.id === editForm.get('fecha')!.value?.id ? editForm.get('fecha')!.value : fechaOption"
+              *ngFor="let fechaOption of fechasSharedCollection; trackBy: trackFechaById"
+            >
+              {{ fechaOption.fecha }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['fecha'])!.invalid && (editForm.get(['fecha'])!.dirty || editForm.get(['fecha'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['fecha'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.horarioCatalogo" for="field_horarioCatalogo">Horario Catalogo</label>
+          <select
+            class="form-control"
+            id="field_horarioCatalogo"
+            data-cy="horarioCatalogo"
+            name="horarioCatalogo"
+            formControlName="horarioCatalogo"
+          >
+            <option *ngIf="!editForm.get('horarioCatalogo')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                horarioCatalogoOption.id === editForm.get('horarioCatalogo')!.value?.id
+                  ? editForm.get('horarioCatalogo')!.value
+                  : horarioCatalogoOption
+              "
+              *ngFor="let horarioCatalogoOption of horarioCatalogosSharedCollection; trackBy: trackHorarioCatalogoById"
+            >
+              {{ horarioCatalogoOption.descripcion }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['horarioCatalogo'])!.invalid &&
+            (editForm.get(['horarioCatalogo'])!.dirty || editForm.get(['horarioCatalogo'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['horarioCatalogo'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.automovil" for="field_automovil">Automovil</label>
+          <select class="form-control" id="field_automovil" data-cy="automovil" name="automovil" formControlName="automovil">
+            <option *ngIf="!editForm.get('automovil')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="automovilOption.id === editForm.get('automovil')!.value?.id ? editForm.get('automovil')!.value : automovilOption"
+              *ngFor="let automovilOption of automovilsSharedCollection; trackBy: trackAutomovilById"
+            >
+              {{ automovilOption.nombre }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['automovil'])!.invalid && (editForm.get(['automovil'])!.dirty || editForm.get(['automovil'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['automovil'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gesconApp.horario.lugarSalida" for="field_lugarSalida">Lugar Salida</label>
+          <select class="form-control" id="field_lugarSalida" data-cy="lugarSalida" name="lugarSalida" formControlName="lugarSalida">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                lugarSalidaOption.id === editForm.get('lugarSalida')!.value?.id ? editForm.get('lugarSalida')!.value : lugarSalidaOption
+              "
+              *ngFor="let lugarSalidaOption of lugarSalidasSharedCollection; trackBy: trackLugarSalidaById"
+            >
+              {{ lugarSalidaOption.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
