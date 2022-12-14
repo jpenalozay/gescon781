@@ -1,0 +1,11 @@
+id;descripcion;imagen;imagen_content_type;documento;inscripcion_detalle_id;asignatura_requisito_id
+1;JSON;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;1;1
+2;card;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;2;2
+3;Glorieta content;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;3;3
+4;panel e-business;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;4;4
+5;Pollo;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;5;5
+6;Amarillo Administrador;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;6;6
+7;tiempo asimétrica jerarquía;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;7;7
+8;reboot Acero potenciada;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;8;8
+9;Andalucía;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;9;9
+10;Cine Música;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;10;10

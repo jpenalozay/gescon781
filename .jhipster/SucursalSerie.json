@@ -15,7 +15,7 @@
       "fieldName": "tipoDocumento",
       "fieldType": "TipoDocumentoVenta",
       "fieldValidateRules": ["required"],
-      "fieldValues": "FACTURA,BOLETA,TICKET,NOTA_DE_VENTA,PROFORMA,GUIA_REMISION"
+      "fieldValues": "FACTURA,BOLETA,TICKET,NOTA_DE_VENTA"
     },
     {
       "fieldName": "serie",

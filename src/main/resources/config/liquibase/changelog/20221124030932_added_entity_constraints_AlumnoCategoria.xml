@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity AlumnoCategoria.
+    -->
+    <changeSet id="20221124030932-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="alumno_id"
+                                 baseTableName="alumno_categoria"
+                                 constraintName="fk_alumno_categoria__alumno_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alumno"/>
+
+        <addForeignKeyConstraint baseColumnNames="categoria_id"
+                                 baseTableName="alumno_categoria"
+                                 constraintName="fk_alumno_categoria__categoria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="licencia_categoria"/>
+    </changeSet>
+</databaseChangeLog>

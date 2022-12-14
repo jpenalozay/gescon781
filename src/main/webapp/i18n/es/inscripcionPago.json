@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "formaPago": "Forma Pago",
+      "documentoPago": "Documento Pago",
       "monto": "Monto",
       "fecha": "Fecha",
       "codigoOP": "Codigo OP",

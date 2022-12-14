@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Profesor.
+    -->
+    <changeSet id="20221124030922-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="empleado_id"
+                                 baseTableName="profesor"
+                                 constraintName="fk_profesor__empleado_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empleado"/>
+
+        <addForeignKeyConstraint baseColumnNames="profesor_id"
+                                 baseTableName="rel_profesor__licencias_permitidas"
+                                 constraintName="fk_rel_profesor__licencias_permitidas__profesor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="profesor"/>
+
+        <addForeignKeyConstraint baseColumnNames="licencias_permitidas_id"
+                                 baseTableName="rel_profesor__licencias_permitidas"
+                                 constraintName="fk_rel_profesor__licencias_permitidas__licencias_permitidas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="licencia_categoria"/>
+
+        <addForeignKeyConstraint baseColumnNames="licencia_categoria_id"
+                                 baseTableName="profesor"
+                                 constraintName="fk_profesor__licencia_categoria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="licencia_categoria"/>
+    </changeSet>
+</databaseChangeLog>

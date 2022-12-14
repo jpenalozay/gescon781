@@ -19,7 +19,9 @@ enum ProgramacionEstado{PROGRAMADO,DESHABILITADO,DESHABILITADO_ENPARTE}
 enum HorarioTipo{ADMINISTRACION,POR_CONFIRMAR,ALUMNO}
 enum Estado{HABILITADO,DESHABILITADO}
 enum SiNo{SI,NO}
-enum TipoDocumentoVenta{FACTURA,BOLETA,TICKET,NOTA_DE_VENTA,PROFORMA,GUIA_REMISION}
+enum TipoDocumentoVenta{FACTURA,BOLETA,TICKET,NOTA_DE_VENTA}
+enum TipoDocumentoPreVenta{PROFORMA}
+enum TipoDocumentoTraslado{GUIA_REMISION}
 enum TipoRequisito{OBLIGATORIO,OPCIONAL}
 enum Paises{PERU,VENEZUELA,COLOMBIA}
 enum RequitisoTipo{SELECTIVO, NUMERICO, NINGUNO}
@@ -259,6 +261,7 @@ entity InscripcionDetalle {
 
 entity InscripcionPago{
 	formaPago InscripcionFormaPago required
+    documentoPago TipoDocumentoVenta required
 	monto Float min(0) max(10000) required
 	fecha LocalDate required
 	codigoOP String minlength(2) maxlength(16)
@@ -438,7 +441,7 @@ relationship OneToMany {
     Horario to HorarioDeshabilitacion{horario}
     AsignaturaRequisito to InscripcionAsignaturaRequisito{asignaturaRequisito(descripcion) required}
     TeoriaHorarioCatalogo to InscripcionDetalle{horario(nombre) required}
-    SucursalSerie{inscripcionPagos} to InscripcionPago{serie(serie) required} // Insertado el 17 02 2022
+    SucursalSerie{inscripcionPagos} to InscripcionPago{serie(serie) required} // Insertado el 17 02 2022    
     LicenciaCategoria to Profesor{licenciaCategoria(categoria)}
     LugarSalida to Horario{lugarSalida(nombre)}
 }

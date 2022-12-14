@@ -43,9 +43,11 @@ import { forkJoin, Observable } from 'rxjs';
 //import { ConfiguracionFormCaracService } from 'app/entities/configuracion-form-carac/service/configuracion-form-carac.service';
 import { IAsignaturaAdiciones } from 'app/entities/asignatura-adiciones/asignatura-adiciones.model';
 import { InscripcionDetalleService } from 'app/entities/inscripcion-detalle/service/inscripcion-detalle.service';
+import { InscripcionService } from 'app/entities/inscripcion/service/inscripcion.service';
 import { AsignaturaService } from 'app/entities/asignatura/service/asignatura.service';
 import { IAsignatura } from 'app/entities/asignatura/asignatura.model';
 import { InscripcionPagoService } from 'app/entities/inscripcion-pago/service/inscripcion-pago.service';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'jhi-pago',
@@ -61,6 +63,7 @@ export class PagoComponent implements OnInit {
   cacheSucursalSeriesTipos: string[] = [];
   cacheSucursalSeriesSerie: ISucursalSerie[] = [];
   document?: IInscripcion;
+  insc?: Inscripcion[];
   documentAsig?: IInscripcionDetalle;
   documentDescuento: IInscripcionDescuento = new InscripcionDescuento();
   documentPago = new InscripcionPago();
@@ -73,10 +76,14 @@ export class PagoComponent implements OnInit {
   selAdminJwt = '';
   selAsignatura = 'navAsignaturas0';
   fechaActual = new Date();
+  fechaActual1 = dayjs();
   codigoAlumno = '';
+  inscripcionId = '';
   inscriEstado = '';
   tipoDoc = '';
   serieDoc = '';
+  numeroDoc = 0;
+  montoPago = 0;
   subTotalAdicional = '';
   formEntity?: FormGroup;
   sysAccount?: Account;
@@ -96,6 +103,7 @@ export class PagoComponent implements OnInit {
     //private serviceConfFormCarac: ConfiguracionFormCaracService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private serviceInscripcion: InscripcionService,
     private serviceInsDetail: InscripcionDetalleService,
     private serviceInsPago: InscripcionPagoService,
     private serviceAsignatura: AsignaturaService
@@ -234,6 +242,13 @@ export class PagoComponent implements OnInit {
     return totalTotal;
   }
 
+  getSaldo(): number {
+    let totalTotal = 0;
+
+    totalTotal = this.getAlumnTotal() - (this.documentPago.monto ?? 0);
+    return totalTotal;
+  }
+
   onSucursalSel(): void {
     this.cacheSucursalSeries = [];
     this.cacheSucursalSeriesMap.clear();
@@ -335,6 +350,7 @@ export class PagoComponent implements OnInit {
       next: (res: HttpResponse<IAlumno[]>) => {
         if (res.body && res.body.length > 0) {
           this.selAlumno = res.body[0];
+          //this.insc?.indexOf(this.selAlumno.inscripcions?.values,0);
         }
       },
     });
@@ -465,18 +481,23 @@ export class PagoComponent implements OnInit {
   }
 
   doSaveProceedAlumnoRemote(): void {
-    let inscripcion: IInscripcion;
-    //let inscripcionPagos: IInscripcionPago;
-    const totalDoc = this.getTotalDoc();
+    // variables de amarre
+    //let idAlumno = this.selAlumno.id;
+    //let idInscripcion = this.document?.id;
 
-    inscripcion = new Inscripcion();
-    //inscripcionPagos = new InscripcionPago();
-    inscripcion.alumno = this.selAlumno;
+    // variables de pago
+    //let sucuPago = `${this.selSucursalId! % 100}`.padStart(2, '0');
+    //let docPago = this.tipoDoc;
+    //let seriePago = this.serieDoc;
+    //let numeroPago = this.numeroDoc ;
+    const fechaPago = this.fechaActual;
+    const montoPago = this.documentPago.monto;
 
-    inscripcion.estado = totalDoc === 0 ? InscripcionEstado.CANCELADO : InscripcionEstado.EN_PAGOS;
+    // registro de pago
 
-    inscripcion.numeroDocumento = parseInt(this.document!.codigo!, 10);
-    const serialNum = `${inscripcion.numeroDocumento}`.padStart(5, '0');
+    let numeroDoc = 0;
+    numeroDoc = parseInt(this.document!.codigo!, 10);
+    const serialNum = `${numeroDoc}`.padStart(5, '0');
     const sucursalId = `${this.selSucursalId! % 100}`.padStart(2, '0');
     let serieNro = '';
     this.cacheSucursalSeriesSerie.some((serie: ISucursalSerie) => {
@@ -484,35 +505,58 @@ export class PagoComponent implements OnInit {
         serieNro = `${serie.id! % 100}`.padStart(2, '0');
         return true;
       }
-
       return false;
     });
 
-    this.inscriEstado = String(inscripcion.estado);
-
-    inscripcion = this.serviceCommon.convertDateFromClientFieldFecha(inscripcion);
-
-    if (this.documentDescuento.monto! > 0 && this.selAdminJwt) {
-      inscripcion.insDescuento = this.documentDescuento;
-    }
-
     const inscripcionPago: IInscripcionPago = new InscripcionPago();
-    inscripcionPago.fecha = inscripcion.fecha;
     inscripcionPago.formaPago = InscripcionFormaPago.EFECTIVO;
-    inscripcionPago.monto = this.documentPago.monto;
-    inscripcionPago.numeroDocumento = inscripcion.numeroDocumento;
+    switch (this.tipoDoc) {
+      case 'FACTURA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.FACTURA;
+        break;
+      case 'BOLETA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.BOLETA;
+        break;
+      case 'TICKET':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.TICKET;
+        break;
+      case 'NOTA_DE_VENTA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.NOTA_DE_VENTA;
+        break;
+    }
+    inscripcionPago.monto = montoPago;
+    inscripcionPago.fecha = this.fechaActual1;
+    inscripcionPago.numeroDocumento = Number(serialNum);
     this.cacheSucursalSeries.some((serie: ISucursalSerie) => {
       if (serie.id === this.selSucursalSerieId) {
         inscripcionPago.serie = serie;
+        inscripcionPago.serie.sucursal?.id;
         this.serieDoc = String(serie.serie);
         return true;
       }
       return false;
     });
 
-    inscripcion.inscripcionPagos = [inscripcionPago];
+    // actualizar estado de alumno, inscripción,
+    const Saldo = this.getTotalDoc();
+    const inscripcion: IInscripcion = {
+      id: this.document?.id,
+      estado: Saldo === 0 ? InscripcionEstado.CANCELADO : InscripcionEstado.EN_PAGOS,
+    };
+    this.serviceInscripcion.partialUpdate(inscripcion).subscribe(() => {
+      const modalRef = DialogoInfoComponent.doShow(
+        this.modalService,
+        'success text-white',
+        this.title,
+        `Proceso registrado satisfactoriamente. La persona fue registrada con el CODIGO de ALUMNO: ${this.selAlumno.codigo!}.`
+      );
 
-    this.serviceCommon.doSaveInscripcion(inscripcion).subscribe({
+      modalRef.hidden.subscribe(() => {
+        window.location.reload();
+      });
+    });
+
+    this.serviceInsPago.create(inscripcionPago).subscribe({
       next: (resp: HttpResponse<IInscripcion>) => {
         const sucSerie: ISucursalSerie = {};
         sucSerie.id = this.selSucursalSerieId;
@@ -522,7 +566,7 @@ export class PagoComponent implements OnInit {
             this.modalService,
             'success text-white',
             this.title,
-            `Proceso registrado satisfactoriamente. La persona fue registrada con el CODIGO de ALUMNO: ${this.selAlumno.codigo!}.`
+            `Proceso registrado satisfactoriamente. El pago fue registrada para el CÓDIGO de ALUMNO: ${this.selAlumno.codigo!}.`
           );
 
           modalRef.hidden.subscribe(() => {

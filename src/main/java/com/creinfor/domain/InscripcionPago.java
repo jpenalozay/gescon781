@@ -1,6 +1,7 @@
 package com.creinfor.domain;
 
 import com.creinfor.domain.enumeration.InscripcionFormaPago;
+import com.creinfor.domain.enumeration.TipoDocumentoVenta;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -25,6 +26,11 @@ public class InscripcionPago implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "forma_pago", nullable = false)
     private InscripcionFormaPago formaPago;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "documento_pago", nullable = false)
+    private TipoDocumentoVenta documentoPago;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -88,6 +94,19 @@ public class InscripcionPago implements Serializable {
 
     public void setFormaPago(InscripcionFormaPago formaPago) {
         this.formaPago = formaPago;
+    }
+
+    public TipoDocumentoVenta getDocumentoPago() {
+        return this.documentoPago;
+    }
+
+    public InscripcionPago documentoPago(TipoDocumentoVenta documentoPago) {
+        this.setDocumentoPago(documentoPago);
+        return this;
+    }
+
+    public void setDocumentoPago(TipoDocumentoVenta documentoPago) {
+        this.documentoPago = documentoPago;
     }
 
     public Float getMonto() {
@@ -206,6 +225,7 @@ public class InscripcionPago implements Serializable {
         return "InscripcionPago{" +
             "id=" + getId() +
             ", formaPago='" + getFormaPago() + "'" +
+            ", documentoPago='" + getDocumentoPago() + "'" +
             ", monto=" + getMonto() +
             ", fecha='" + getFecha() + "'" +
             ", codigoOP='" + getCodigoOP() + "'" +

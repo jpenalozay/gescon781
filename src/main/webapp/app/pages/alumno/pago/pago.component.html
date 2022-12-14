@@ -289,7 +289,7 @@
                 <div class="card-body">
                   <div class="input-group input-group-sm mt-2">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">Costo total: S/. </span>
+                      <span class="input-group-text">Debe: S/. </span>
                     </div>
                     <input type="number" class="form-control text-right" readonly value="{{ getAlumnTotal() }}" />
                   </div>
@@ -308,7 +308,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Saldo: S/. </span>
                     </div>
-                    <input type="number" class="form-control text-right" readonly value="{{ getTotalDoc() }}" />
+                    <input type="number" class="form-control text-right" readonly value="{{ getSaldo() }}" />
                   </div>
                 </div>
               </div>
@@ -320,7 +320,7 @@
           <div class="row">
             <div class="col-md-12 mt-4 d-flex justify-content-center">
               <button type="button" class="btn btn-secondary">Cancelar</button>
-              <button type="button" class="btn btn-primary ml-4" style="margin-left: 10px">Guardar</button>
+              <button type="button" class="btn btn-primary ml-4" style="margin-left: 10px" (click)="doSave()">Guardar</button>
             </div>
           </div>
 

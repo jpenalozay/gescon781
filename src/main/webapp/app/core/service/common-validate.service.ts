@@ -14,6 +14,7 @@ import { EntityArrayResponseType as HorarioEntityArrayResponseType } from 'app/e
 import dayjs from 'dayjs/esm';
 import { IPersona } from 'app/entities/persona/persona.model';
 import { IInscripcion } from 'app/entities/inscripcion/inscripcion.model';
+import { IInscripcionPago } from 'app/entities/inscripcion-pago/inscripcion-pago.model';
 import { IInscripcionDetalle } from 'app/entities/inscripcion-detalle/inscripcion-detalle.model';
 import { IProgramacionDeshabilitacion } from 'app/entities/programacion-deshabilitacion/programacion-deshabilitacion.model';
 import { EntityResponseType as ProgDeshabEntityResponseType } from 'app/entities/programacion-deshabilitacion/service/programacion-deshabilitacion.service';
@@ -94,6 +95,11 @@ export class CommonValidateService {
   doSaveInscripcion(inscripcion: IInscripcion): Observable<InsEntityResponseType> {
     const url = this.applicationConfigService.getEndpointFor('api/inscripcions/extra');
     return this.http.post<IInscripcion>(url, inscripcion, { observe: 'response' });
+  }
+
+  doSaveInscripcionPago(inscripcionPago: IInscripcionPago): Observable<InsEntityResponseType> {
+    const url = this.applicationConfigService.getEndpointFor('api/inscripcion-pagos/extra');
+    return this.http.post<IInscripcion>(url, inscripcionPago, { observe: 'response' });
   }
 
   doSaveHorarios(horarios: IHorario[]): Observable<HorarioEntityArrayResponseType> {

@@ -1,0 +1,11 @@
+id;estado;tipo;codigo;codigo_acceso;telefono_trabajo;telefono_trabajo_1;grado_instrucion;email_coorporativo;fecha_ingreso;inasistencias;tardanzas;imagen;imagen_content_type;sueldo;firma;firma_content_type;persona_id;cargo_id
+1;DESPEDIDO;OTRO;multi-;bandw;intuitive;program;UNIVERSITARIO;Hungria Director Rupiah;2022-11-23;28;73;../fake-data/blob/hipster.png;image/png;75550;../fake-data/blob/hipster.png;image/png;1;1
+2;ACTIVO;DOCENTE;paymen;bleed;Madrid Bangladesh Bo;cutting-edge Aragón ;COLEGIO;recontextualize;2022-11-23;55;32;../fake-data/blob/hipster.png;image/png;86852;../fake-data/blob/hipster.png;image/png;2;2
+3;CESADO;OTRO;Navarr;Desce;Metal;Programa;OTRO;withdrawal;2022-11-24;26;26;../fake-data/blob/hipster.png;image/png;88897;../fake-data/blob/hipster.png;image/png;3;3
+4;VACACIONES;OTRO;compel;Raton;Directo;Avon Morado;OTRO;monitor;2022-11-23;19;65;../fake-data/blob/hipster.png;image/png;1224;../fake-data/blob/hipster.png;image/png;4;4
+5;DESPEDIDO;DOCENTE;Verde ;colab;Guapo holística;Videojuegos Agente;OTRO;Castilla-La platforms;2022-11-23;39;6;../fake-data/blob/hipster.png;image/png;30444;../fake-data/blob/hipster.png;image/png;5;5
+6;ACTIVO;ADMINISTRATIVO;Compat;Práct;Granito Palladium;functionalities Chal;COLEGIO;primary Monitorizado;2022-11-23;24;49;../fake-data/blob/hipster.png;image/png;92969;../fake-data/blob/hipster.png;image/png;6;6
+7;FIN_DE_CONTRARO;ADMINISTRATIVO;progra;acces;Diseñador;funcionalidad;OTRO;Granito extensible Humano;2022-11-24;28;66;../fake-data/blob/hipster.png;image/png;66025;../fake-data/blob/hipster.png;image/png;7;7
+8;VACACIONES;DOCENTE;eyebal;later;eyeballs PCI Nepal;Bebes Funcionario;UNIVERSITARIO;digital Tunez;2022-11-24;6;97;../fake-data/blob/hipster.png;image/png;49866;../fake-data/blob/hipster.png;image/png;8;8
+9;FIN_DE_CONTRARO;OTRO;Queso;a;multimedia Castilla-;deliver;POSTGRADO;Metal bandwidth GB;2022-11-23;35;10;../fake-data/blob/hipster.png;image/png;26273;../fake-data/blob/hipster.png;image/png;9;9
+10;DESPEDIDO;OTRO;Guapo ;USB p;función innovadora H;Barrio holistic;POSTGRADO;payment;2022-11-23;50;51;../fake-data/blob/hipster.png;image/png;91534;../fake-data/blob/hipster.png;image/png;10;10

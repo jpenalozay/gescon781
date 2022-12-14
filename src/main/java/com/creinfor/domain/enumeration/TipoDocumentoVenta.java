@@ -8,6 +8,4 @@ public enum TipoDocumentoVenta {
     BOLETA,
     TICKET,
     NOTA_DE_VENTA,
-    PROFORMA,
-    GUIA_REMISION,
 }

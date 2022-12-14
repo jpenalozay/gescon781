@@ -63,6 +63,9 @@ public class InscripcionPagoService {
                 if (inscripcionPago.getFormaPago() != null) {
                     existingInscripcionPago.setFormaPago(inscripcionPago.getFormaPago());
                 }
+                if (inscripcionPago.getDocumentoPago() != null) {
+                    existingInscripcionPago.setDocumentoPago(inscripcionPago.getDocumentoPago());
+                }
                 if (inscripcionPago.getMonto() != null) {
                     existingInscripcionPago.setMonto(inscripcionPago.getMonto());
                 }

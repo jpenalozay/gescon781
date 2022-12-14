@@ -1,0 +1,60 @@
+enum Estado{HABILITADO,DESHABILITADO}
+enum InscripcionFormaPago{EFECTIVO,TARJETA,DEPOSITO_CUENTA}
+enum TipoDocumentoVenta{FACTURA,BOLETA,TICKET,NOTA_DE_VENTA}
+enum TipoDocumentoPreVenta{PROFORMA}
+enum TipoDocumentoTraslado{GUIA_REMISION}
+enum SiNo{SI,NO}
+enum InscripcionEstado{CANCELADO,EN_PAGOS,EN_DEUDA}
+
+entity Inscripcion {
+	codigo String minlength(9) maxlength(9) required unique
+	estado InscripcionEstado required
+	numeroDocumento Integer required
+    fecha Instant required	
+	costoTotal Float min(0) max(10000)	
+}
+
+entity InscripcionPago{
+	formaPago InscripcionFormaPago required
+	monto Float min(0) max(10000) required
+	fecha LocalDate required
+	codigoOP String minlength(2) maxlength(16)
+    tipoDocumento TipoDocumentoVenta required
+    numeroDocumento Integer required
+	plazoPago Integer min(0) max(360)	
+}
+
+entity SucursalSerie {
+    activo Estado required
+    tipoDocumento TipoDocumentoVenta required
+    serie String minlength(2) maxlength(8) required
+    fechaEmision LocalDate
+    numeroMaximo Integer
+    numeroUltimo Integer required   
+}
+
+entity Sucursal {
+    activo Estado required
+    codigo String minlength(1) maxlength(3) required unique
+    central SiNo required
+    nombre String minlength(2) maxlength(256) required unique
+    nombreCorto String minlength(2) maxlength(64) required unique
+    nombreAbreviado String minlength(2) maxlength(16) required unique
+    fechaInicio LocalDate   
+    telefono String maxlength(15)
+    telefono1 String maxlength(15)    
+    imagen ImageBlob
+    direccion String required minlength(2) maxlength(512) required unique
+}
+
+entity Distrit{
+    departamento String minlength(2)
+    provincia String minlength(2)
+    distrito String minlength(2)
+    ubigeo String
+}
+
+relationship OneToMany {    	
+    SucursalSerie{inscripcionPagos} to InscripcionPago{serie(serie) required} 
+    Distrit to Sucursal{distrito(distrito) required}
+}

@@ -1,0 +1,11 @@
+id;activo;codigo;nombre;tipo;placa;marca;modelo;anio;soat_vencimiento;revision_tecnica_vencimiento;caja;imagen;imagen_content_type
+1;DESHABILITADO;Produc;Ecuador Coordinador Centralizado;HATCHBACK;éxito;Travesía;panel collaborative;with;2022-11-23T08:12:05;2022-11-24T02:26:55;MECANICO;../fake-data/blob/hipster.png;image/png
+2;HABILITADO;Loan E;Guapo;SEDAM;matrix Distrito;Azul Ghana;cross-media Sabroso cross-media;appl;2022-11-23T05:24:18;2022-11-24T00:22:29;MECANICO;../fake-data/blob/hipster.png;image/png
+3;HABILITADO;Galici;optical Lev;SUV;Plástico;PCI Metal;Ergonómico;Pizz;2022-11-23T13:48:02;2022-11-23T08:17:15;AUTOMATICO;../fake-data/blob/hipster.png;image/png
+4;HABILITADO;Mascot;Lesotho Raton withdrawal;SEDAM;Denar;Bicicleta;Account Patatas;Indo;2022-11-23T05:19:59;2022-11-23T16:43:10;MECANICO;../fake-data/blob/hipster.png;image/png
+5;HABILITADO;Loan s;Account Facilitador holistic;SEDAM;Práctico Ruanda PNG;Planificador;Qatari;Verd;2022-11-23T09:20:26;2022-11-23T15:29:34;MECANICO;../fake-data/blob/hipster.png;image/png
+6;DESHABILITADO;de;compuesto Increible;HATCHBACK;microchip Investigación;generating implementación Intercambiable;infomediaries;País;2022-11-23T07:41:22;2022-11-23T16:05:49;MECANICO;../fake-data/blob/hipster.png;image/png
+7;HABILITADO;Region;Gris;HATCHBACK;Aragón;Platinum back;Colonia Hormigon architectures;visi;2022-11-23T07:47:47;2022-11-23T22:32:06;AUTOMATICO;../fake-data/blob/hipster.png;image/png
+8;DESHABILITADO;synerg;Contabilidad;HATCHBACK;Berkshire;Navarra fallos;Guapo hacking relationships;over;2022-11-23T05:27:59;2022-11-23T13:50:52;AUTOMATICO;../fake-data/blob/hipster.png;image/png
+9;HABILITADO;Madera;deposit program port;SUV;navigate Ergonómico;Regional;Pollo;abie;2022-11-23T03:29:20;2022-11-23T16:25:46;MECANICO;../fake-data/blob/hipster.png;image/png
+10;HABILITADO;firewa;Contabilidad Guapo;SUV;morph microchip;Patatas;clicks-and-mortar Soporte Métricas;Salu;2022-11-24T00:18:33;2022-11-23T16:12:58;MECANICO;../fake-data/blob/hipster.png;image/png

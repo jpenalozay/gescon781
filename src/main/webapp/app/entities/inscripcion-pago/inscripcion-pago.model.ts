@@ -2,10 +2,12 @@ import dayjs from 'dayjs/esm';
 import { IInscripcion } from 'app/entities/inscripcion/inscripcion.model';
 import { ISucursalSerie } from 'app/entities/sucursal-serie/sucursal-serie.model';
 import { InscripcionFormaPago } from 'app/entities/enumerations/inscripcion-forma-pago.model';
+import { TipoDocumentoVenta } from 'app/entities/enumerations/tipo-documento-venta.model';
 
 export interface IInscripcionPago {
   id?: number;
   formaPago?: InscripcionFormaPago;
+  documentoPago?: TipoDocumentoVenta;
   monto?: number;
   fecha?: dayjs.Dayjs;
   codigoOP?: string | null;
@@ -19,6 +21,7 @@ export class InscripcionPago implements IInscripcionPago {
   constructor(
     public id?: number,
     public formaPago?: InscripcionFormaPago,
+    public documentoPago?: TipoDocumentoVenta,
     public monto?: number,
     public fecha?: dayjs.Dayjs,
     public codigoOP?: string | null,

@@ -88,6 +88,9 @@ public class InscripcionPagoQueryService extends QueryService<InscripcionPago> {
             if (criteria.getFormaPago() != null) {
                 specification = specification.and(buildSpecification(criteria.getFormaPago(), InscripcionPago_.formaPago));
             }
+            if (criteria.getDocumentoPago() != null) {
+                specification = specification.and(buildSpecification(criteria.getDocumentoPago(), InscripcionPago_.documentoPago));
+            }
             if (criteria.getMonto() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getMonto(), InscripcionPago_.monto));
             }

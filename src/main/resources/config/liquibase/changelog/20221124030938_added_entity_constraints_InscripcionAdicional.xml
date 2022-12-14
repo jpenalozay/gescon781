@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity InscripcionAdicional.
+    -->
+    <changeSet id="20221124030938-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="inscripcion_id"
+                                 baseTableName="inscripcion_adicional"
+                                 constraintName="fk_inscripcion_adicional__inscripcion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inscripcion"/>
+
+        <addForeignKeyConstraint baseColumnNames="inscripcion_requisito_id"
+                                 baseTableName="inscripcion_adicional"
+                                 constraintName="fk_inscripcion_adicional__inscripcion_requisito_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="requisitos_inscripcion"/>
+    </changeSet>
+</databaseChangeLog>

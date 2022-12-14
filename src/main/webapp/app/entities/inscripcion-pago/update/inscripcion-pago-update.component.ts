@@ -12,6 +12,7 @@ import { InscripcionService } from 'app/entities/inscripcion/service/inscripcion
 import { ISucursalSerie } from 'app/entities/sucursal-serie/sucursal-serie.model';
 import { SucursalSerieService } from 'app/entities/sucursal-serie/service/sucursal-serie.service';
 import { InscripcionFormaPago } from 'app/entities/enumerations/inscripcion-forma-pago.model';
+import { TipoDocumentoVenta } from 'app/entities/enumerations/tipo-documento-venta.model';
 
 @Component({
   selector: 'jhi-inscripcion-pago-update',
@@ -20,6 +21,7 @@ import { InscripcionFormaPago } from 'app/entities/enumerations/inscripcion-form
 export class InscripcionPagoUpdateComponent implements OnInit {
   isSaving = false;
   inscripcionFormaPagoValues = Object.keys(InscripcionFormaPago);
+  tipoDocumentoVentaValues = Object.keys(TipoDocumentoVenta);
 
   inscripcionsSharedCollection: IInscripcion[] = [];
   sucursalSeriesSharedCollection: ISucursalSerie[] = [];
@@ -27,6 +29,7 @@ export class InscripcionPagoUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     formaPago: [null, [Validators.required]],
+    documentoPago: [null, [Validators.required]],
     monto: [null, [Validators.required, Validators.min(0), Validators.max(10000)]],
     fecha: [null, [Validators.required]],
     codigoOP: [null, [Validators.minLength(2), Validators.maxLength(16)]],
@@ -97,6 +100,7 @@ export class InscripcionPagoUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: inscripcionPago.id,
       formaPago: inscripcionPago.formaPago,
+      documentoPago: inscripcionPago.documentoPago,
       monto: inscripcionPago.monto,
       fecha: inscripcionPago.fecha,
       codigoOP: inscripcionPago.codigoOP,
@@ -143,6 +147,7 @@ export class InscripcionPagoUpdateComponent implements OnInit {
       ...new InscripcionPago(),
       id: this.editForm.get(['id'])!.value,
       formaPago: this.editForm.get(['formaPago'])!.value,
+      documentoPago: this.editForm.get(['documentoPago'])!.value,
       monto: this.editForm.get(['monto'])!.value,
       fecha: this.editForm.get(['fecha'])!.value,
       codigoOP: this.editForm.get(['codigoOP'])!.value,

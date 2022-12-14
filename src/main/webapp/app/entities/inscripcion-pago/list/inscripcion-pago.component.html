@@ -34,6 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.formaPago">Forma Pago</span></th>
+          <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.documentoPago">Documento Pago</span></th>
           <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.monto">Monto</span></th>
           <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.fecha">Fecha</span></th>
           <th scope="col"><span jhiTranslate="gesconApp.inscripcionPago.codigoOP">Codigo OP</span></th>
@@ -50,6 +51,7 @@
             <a [routerLink]="['/inscripcion-pago', inscripcionPago.id, 'view']">{{ inscripcionPago.id }}</a>
           </td>
           <td jhiTranslate="{{ 'gesconApp.InscripcionFormaPago.' + inscripcionPago.formaPago }}">{{ inscripcionPago.formaPago }}</td>
+          <td jhiTranslate="{{ 'gesconApp.TipoDocumentoVenta.' + inscripcionPago.documentoPago }}">{{ inscripcionPago.documentoPago }}</td>
           <td>{{ inscripcionPago.monto }}</td>
           <td>{{ inscripcionPago.fecha | formatMediumDate }}</td>
           <td>{{ inscripcionPago.codigoOP }}</td>

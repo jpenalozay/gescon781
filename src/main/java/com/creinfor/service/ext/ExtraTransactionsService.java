@@ -28,6 +28,7 @@ import com.creinfor.domain.enumeration.Estado;
 import com.creinfor.domain.enumeration.HorarioTipo;
 import com.creinfor.domain.enumeration.ProgramacionEstado;
 import com.creinfor.domain.enumeration.TipoDocumentoPersona;
+import com.creinfor.domain.enumeration.TipoDocumentoVenta;
 import com.creinfor.repository.AlumnoClasesRepository;
 import com.creinfor.repository.AlumnoRepository;
 import com.creinfor.repository.AsignaturaRepository;
@@ -721,6 +722,7 @@ public class ExtraTransactionsService {
             dbInsPago.setInscripcion(dbInscripcion);
             dbInsPago.setMonto(insPago.getMonto());
             dbInsPago.setPlazoPago(insPago.getPlazoPago());
+            dbInsPago.setDocumentoPago(TipoDocumentoVenta.BOLETA);
             dbInsPago.setSerie(dbSucSerie);
             dbInsPago.setNumeroDocumento(inscripcion.getNumeroDocumento());
 

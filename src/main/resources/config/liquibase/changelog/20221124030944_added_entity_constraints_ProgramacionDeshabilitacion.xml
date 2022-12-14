@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity ProgramacionDeshabilitacion.
+    -->
+    <changeSet id="20221124030944-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="programacion_deshabilitacion_id"
+                                 baseTableName="rel_programacion_deshabilitacion__fechas"
+                                 constraintName="fk_rel_programacion_deshabilita__programacion_deshabilitac_a6_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="programacion_deshabilitacion"/>
+
+        <addForeignKeyConstraint baseColumnNames="fechas_id"
+                                 baseTableName="rel_programacion_deshabilitacion__fechas"
+                                 constraintName="fk_rel_programacion_deshabilitacion__fechas__fechas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fecha"/>
+
+        <addForeignKeyConstraint baseColumnNames="programacion_deshabilitacion_id"
+                                 baseTableName="rel_programacion_deshabilitacion__horario_catalogo"
+                                 constraintName="fk_rel_programacion_deshabilita__programacion_deshabilitac_63_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="programacion_deshabilitacion"/>
+
+        <addForeignKeyConstraint baseColumnNames="horario_catalogo_id"
+                                 baseTableName="rel_programacion_deshabilitacion__horario_catalogo"
+                                 constraintName="fk_rel_programacion_deshabilita__horario_catalogo_c6_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="horario_catalogo"/>
+
+        <addForeignKeyConstraint baseColumnNames="programacion_id"
+                                 baseTableName="programacion_deshabilitacion"
+                                 constraintName="fk_programacion_deshabilitacion__programacion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="programacion"/>
+
+        <addForeignKeyConstraint baseColumnNames="usuario_id"
+                                 baseTableName="programacion_deshabilitacion"
+                                 constraintName="fk_programacion_deshabilitacion__usuario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="usuario"/>
+    </changeSet>
+</databaseChangeLog>

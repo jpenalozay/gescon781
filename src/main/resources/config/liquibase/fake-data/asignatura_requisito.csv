@@ -1,0 +1,11 @@
+id;activo;tipo;nombre;descripcion;imagen;imagen_content_type
+1;DESHABILITADO;OPCIONAL;Sorprendente Rojo Métricas;Seguro a;../fake-data/blob/hipster.png;image/png
+2;DESHABILITADO;OBLIGATORIO;conjunto;Mascotas Bacon enterprise;../fake-data/blob/hipster.png;image/png
+3;DESHABILITADO;OPCIONAL;open-source Vía bypassing;virtual Violeta Madera;../fake-data/blob/hipster.png;image/png
+4;HABILITADO;OBLIGATORIO;Seguridada Toallas;Masía enable;../fake-data/blob/hipster.png;image/png
+5;DESHABILITADO;OPCIONAL;Ordenador Senda optimize;Explanada Granito;../fake-data/blob/hipster.png;image/png
+6;DESHABILITADO;OPCIONAL;Dalasi quantify Analista;Guinea bus Coordinador;../fake-data/blob/hipster.png;image/png
+7;HABILITADO;OPCIONAL;recíproca;Funcionalidad system Granito;../fake-data/blob/hipster.png;image/png
+8;HABILITADO;OBLIGATORIO;invoice interfaces Krone;end-to-end Salchichas;../fake-data/blob/hipster.png;image/png
+9;HABILITADO;OPCIONAL;matrices;aX;../fake-data/blob/hipster.png;image/png
+10;HABILITADO;OBLIGATORIO;Convertible deposit;Franc;../fake-data/blob/hipster.png;image/png

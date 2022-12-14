@@ -1,6 +1,7 @@
 package com.creinfor.service.criteria;
 
 import com.creinfor.domain.enumeration.InscripcionFormaPago;
+import com.creinfor.domain.enumeration.TipoDocumentoVenta;
 import java.io.Serializable;
 import java.util.Objects;
 import org.springdoc.api.annotations.ParameterObject;
@@ -43,11 +44,30 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
         }
     }
 
+    /**
+     * Class for filtering TipoDocumentoVenta
+     */
+    public static class TipoDocumentoVentaFilter extends Filter<TipoDocumentoVenta> {
+
+        public TipoDocumentoVentaFilter() {}
+
+        public TipoDocumentoVentaFilter(TipoDocumentoVentaFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public TipoDocumentoVentaFilter copy() {
+            return new TipoDocumentoVentaFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
 
     private InscripcionFormaPagoFilter formaPago;
+
+    private TipoDocumentoVentaFilter documentoPago;
 
     private FloatFilter monto;
 
@@ -70,6 +90,7 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
     public InscripcionPagoCriteria(InscripcionPagoCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.formaPago = other.formaPago == null ? null : other.formaPago.copy();
+        this.documentoPago = other.documentoPago == null ? null : other.documentoPago.copy();
         this.monto = other.monto == null ? null : other.monto.copy();
         this.fecha = other.fecha == null ? null : other.fecha.copy();
         this.codigoOP = other.codigoOP == null ? null : other.codigoOP.copy();
@@ -113,6 +134,21 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
 
     public void setFormaPago(InscripcionFormaPagoFilter formaPago) {
         this.formaPago = formaPago;
+    }
+
+    public TipoDocumentoVentaFilter getDocumentoPago() {
+        return documentoPago;
+    }
+
+    public TipoDocumentoVentaFilter documentoPago() {
+        if (documentoPago == null) {
+            documentoPago = new TipoDocumentoVentaFilter();
+        }
+        return documentoPago;
+    }
+
+    public void setDocumentoPago(TipoDocumentoVentaFilter documentoPago) {
+        this.documentoPago = documentoPago;
     }
 
     public FloatFilter getMonto() {
@@ -240,6 +276,7 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(formaPago, that.formaPago) &&
+            Objects.equals(documentoPago, that.documentoPago) &&
             Objects.equals(monto, that.monto) &&
             Objects.equals(fecha, that.fecha) &&
             Objects.equals(codigoOP, that.codigoOP) &&
@@ -253,7 +290,19 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, formaPago, monto, fecha, codigoOP, numeroDocumento, plazoPago, inscripcionId, serieId, distinct);
+        return Objects.hash(
+            id,
+            formaPago,
+            documentoPago,
+            monto,
+            fecha,
+            codigoOP,
+            numeroDocumento,
+            plazoPago,
+            inscripcionId,
+            serieId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -262,6 +311,7 @@ public class InscripcionPagoCriteria implements Serializable, Criteria {
         return "InscripcionPagoCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (formaPago != null ? "formaPago=" + formaPago + ", " : "") +
+            (documentoPago != null ? "documentoPago=" + documentoPago + ", " : "") +
             (monto != null ? "monto=" + monto + ", " : "") +
             (fecha != null ? "fecha=" + fecha + ", " : "") +
             (codigoOP != null ? "codigoOP=" + codigoOP + ", " : "") +

@@ -4,6 +4,7 @@ import dayjs from 'dayjs/esm';
 
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { InscripcionFormaPago } from 'app/entities/enumerations/inscripcion-forma-pago.model';
+import { TipoDocumentoVenta } from 'app/entities/enumerations/tipo-documento-venta.model';
 import { IInscripcionPago, InscripcionPago } from '../inscripcion-pago.model';
 
 import { InscripcionPagoService } from './inscripcion-pago.service';
@@ -27,6 +28,7 @@ describe('InscripcionPago Service', () => {
     elemDefault = {
       id: 0,
       formaPago: InscripcionFormaPago.EFECTIVO,
+      documentoPago: TipoDocumentoVenta.FACTURA,
       monto: 0,
       fecha: currentDate,
       codigoOP: 'AAAAAAA',
@@ -79,6 +81,7 @@ describe('InscripcionPago Service', () => {
         {
           id: 1,
           formaPago: 'BBBBBB',
+          documentoPago: 'BBBBBB',
           monto: 1,
           fecha: currentDate.format(DATE_FORMAT),
           codigoOP: 'BBBBBB',
@@ -106,8 +109,9 @@ describe('InscripcionPago Service', () => {
       const patchObject = Object.assign(
         {
           formaPago: 'BBBBBB',
+          documentoPago: 'BBBBBB',
           monto: 1,
-          fecha: currentDate.format(DATE_FORMAT),
+          numeroDocumento: 1,
           plazoPago: 1,
         },
         new InscripcionPago()
@@ -134,6 +138,7 @@ describe('InscripcionPago Service', () => {
         {
           id: 1,
           formaPago: 'BBBBBB',
+          documentoPago: 'BBBBBB',
           monto: 1,
           fecha: currentDate.format(DATE_FORMAT),
           codigoOP: 'BBBBBB',
@@ -195,7 +200,7 @@ describe('InscripcionPago Service', () => {
       });
 
       it('should add only unique InscripcionPago to an array', () => {
-        const inscripcionPagoArray: IInscripcionPago[] = [{ id: 123 }, { id: 456 }, { id: 76380 }];
+        const inscripcionPagoArray: IInscripcionPago[] = [{ id: 123 }, { id: 456 }, { id: 15874 }];
         const inscripcionPagoCollection: IInscripcionPago[] = [{ id: 123 }];
         expectedResult = service.addInscripcionPagoToCollectionIfMissing(inscripcionPagoCollection, ...inscripcionPagoArray);
         expect(expectedResult).toHaveLength(3);

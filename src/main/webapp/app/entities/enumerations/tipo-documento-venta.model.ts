@@ -6,8 +6,4 @@ export enum TipoDocumentoVenta {
   TICKET = 'TICKET',
 
   NOTA_DE_VENTA = 'NOTA_DE_VENTA',
-
-  PROFORMA = 'PROFORMA',
-
-  GUIA_REMISION = 'GUIA_REMISION',
 }

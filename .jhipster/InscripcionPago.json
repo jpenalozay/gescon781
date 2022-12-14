@@ -12,6 +12,12 @@
       "fieldValues": "EFECTIVO,TARJETA,DEPOSITO_CUENTA"
     },
     {
+      "fieldName": "documentoPago",
+      "fieldType": "TipoDocumentoVenta",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "FACTURA,BOLETA,TICKET,NOTA_DE_VENTA"
+    },
+    {
       "fieldName": "monto",
       "fieldType": "Float",
       "fieldValidateRules": ["min", "max", "required"],

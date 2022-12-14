@@ -1,0 +1,11 @@
+id;activo;codigo;tipo;nombre;nombre_corto;sucursal_id
+1;DESHABILITADO;Pers;JUNTA;Hormigon;dynamic end-to-end;1
+2;DESHABILITADO;back;AREA;algoritmo;Diseñador;2
+3;HABILITADO;Digi;JUNTA;Urbanización functionalities;Madrid;3
+4;DESHABILITADO;ince;AREA;previsión cross-platform Gorro;International Global Joyería;4
+5;DESHABILITADO;Marr;AREA;Bélgica;Savings;5
+6;HABILITADO;arra;AREA;solid Paradigma;Pescado deposit quantifying;6
+7;DESHABILITADO;Lado;OFICINA;Apartamento Madera;interactive;7
+8;DESHABILITADO;Norm;DEPARTAMENTO;leading-edge redundant;user-centric Amarillo deposit;8
+9;DESHABILITADO;Regi;OFICINA;cross-media Videojuegos;Acero Rambla;9
+10;HABILITADO;Libr;OFICINA;Robusto;Producto;10

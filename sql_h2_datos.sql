@@ -428,21 +428,3 @@ insert into profesor(id,activo,codigo,teoria,practica,licencia_Numero,empleado_i
 INSERT INTO REL_PROFESOR__LICENCIAS_PERMITIDAS (profesor_id, licencias_permitidas_id) values 
 (1802, 1101),
 (1803, 1101);
-
-insert into modulo(id,estado,nombre,descripcion) values
-(1,'HABILITADO','ALUMNO','Alumno');
-
-insert into formulario(id,estado,tipo,codigo,nombre,descripcion) values
-(1,'HABILITADO','TRANSACCIONAL_COMPLEJA','alain1','ALUMNO_INSCRIPCION','Alumno Inscripción');
-
-insert into rel_formulario__modulo (modulo_id,formulario_id) values 
-(1, 1);
-
-insert into formulario_caracteristica(id,estado,tipo,codigo,nombre,descripcion) values
-(1,'HABILITADO','REPORTE','alainfcara1','ALUMNO_INSCRIPCION_REPORTE','Alumno Inscripción Reporte');
-
-insert into rel_formulario_caracteristica__formulario (formulario_caracteristica_id, formulario_id) values 
-(1, 1);
-
-insert into configuracion_form_carac (estado, formulario_id, formulario_caracteristica_id, modulo_id, id) values
-('HABILITADO', 1, 1, 1, 1);

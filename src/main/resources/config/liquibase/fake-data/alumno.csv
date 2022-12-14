@@ -1,0 +1,11 @@
+id;codigo;estado;tipo;alumno_grado_instruccion;ocupacion;imagen;imagen_content_type;persona_id
+1;Reducid;INSCRITO;EXCEPCIONAL;COLEGIO;INDEPENDIENTE;../fake-data/blob/hipster.png;image/png;1
+2;Cambrid;FINALIZO;REGULAR;POSTGRADO;DEPENDIENTE;../fake-data/blob/hipster.png;image/png;2
+3;Directo;FINALIZO;EXCEPCIONAL;COLEGIO;DEPENDIENTE;../fake-data/blob/hipster.png;image/png;3
+4;Extrarr;DESERTO;EXCEPCIONAL;OTRO;INDEPENDIENTE;../fake-data/blob/hipster.png;image/png;4
+5;parse G;DEUDA;EXCEPCIONAL;UNIVERSITARIO;INDEPENDIENTE;../fake-data/blob/hipster.png;image/png;5
+6;MoradoX;INSCRITO;EXCEPCIONAL;COLEGIO;OTRO;../fake-data/blob/hipster.png;image/png;6
+7;card in;FINALIZO;EXCEPCIONAL;OTRO;INDEPENDIENTE;../fake-data/blob/hipster.png;image/png;7
+8;Intelig;INSCRITO;EXCEPCIONAL;UNIVERSITARIO;OTRO;../fake-data/blob/hipster.png;image/png;8
+9;compres;FINALIZO;EXCEPCIONAL;POSTGRADO;OTRO;../fake-data/blob/hipster.png;image/png;9
+10;innovad;DEUDA;EXCEPCIONAL;OTRO;OTRO;../fake-data/blob/hipster.png;image/png;10
