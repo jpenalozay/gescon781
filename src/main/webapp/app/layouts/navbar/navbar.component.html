@@ -495,6 +495,18 @@
             <li>
               <a
                 class="dropdown-item"
+                routerLink="extras/alumno/pago"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span>Pagos</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
                 routerLink="persona"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"

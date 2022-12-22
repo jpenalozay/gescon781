@@ -855,4 +855,10 @@ public class ExtraTransactionsService {
 
         return dbAlumno;
     }
+
+    @Transactional(readOnly = true)
+    public Long getInscripcionIdOfAlumnoId(Long alumnoId) {
+        Long inscripcionId = repoExtra.findInscripcionIdOfAlumnoId(alumnoId);
+        return inscripcionId;
+    }
 }

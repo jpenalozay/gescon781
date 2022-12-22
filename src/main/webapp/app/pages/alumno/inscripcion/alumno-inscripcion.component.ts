@@ -51,9 +51,7 @@ import { UsuarioService } from 'app/entities/usuario/service/usuario.service';
 import { IUsuario } from 'app/entities/usuario/usuario.model';
 import dayjs from 'dayjs/esm';
 import { forkJoin, Observable } from 'rxjs';
-//import { nonWhiteSpace } from 'html2canvas/dist/types/css/syntax/parser';
-//import { IConfiguracionFormCarac } from 'app/entities/configuracion-form-carac/configuracion-form-carac.model';
-//import { ConfiguracionFormCaracService } from 'app/entities/configuracion-form-carac/service/configuracion-form-carac.service';
+
 interface IAdicionalInfo {
   valSelected?: boolean;
   valNumber?: number;
@@ -106,6 +104,7 @@ export class AlumnoInscripcionComponent implements OnInit {
   cacheSucursalSeriesMap: Map<TipoDocumentoVenta, ISucursalSerie[]> = new Map<TipoDocumentoVenta, ISucursalSerie[]>();
   cacheSucursalSeriesTipos: string[] = [];
   cacheSucursalSeriesSerie: ISucursalSerie[] = [];
+  cacheClases = true;
 
   document?: IInscripcion;
   documentAsig?: IInscripcionDetalle;
@@ -849,7 +848,7 @@ export class AlumnoInscripcionComponent implements OnInit {
     const insAdicionales: IInscripcionAdicional[] = [];
     const insAsigRequisito: IInscripcionAsignaturaRequisito[] = [];
     let inscripcion: IInscripcion;
-    const totalDoc = this.getTotalDoc();
+    const totalDoc = this.getTotalPrev();
 
     inscripcion = new Inscripcion();
     inscripcion.alumno = this.selAlumno;

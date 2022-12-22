@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <form [formGroup]="formEntity!">
+    <form [formGroup]="formEntity!" (validSubmit)="onSubmit()">
       <div class="row">
         <div class="col-md-6">
           <div class="card">
@@ -76,18 +76,8 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="alumApellidos"
-                      value="{{ getAlumnoApPaterno() }} {{ getAlumnoApMaterno() }}"
+                      value="{{ getAlumnoApellidos() }}"
                       placeholder="Apellidos"
-                      readonly
-                    />
-                  </div>
-                  <div class="col-md-12">
-                    <label for="alumClasesUsed" class="form-control-sm col-form-label col-sm-8 text-right">Clases Asistidas</label>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm col-sm-4 text-right"
-                      id="alumClasesUsed"
-                      placeholder="Clases Asistidas"
                       readonly
                     />
                   </div>
@@ -118,11 +108,12 @@
                   />
                 </div>
               </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group row">
-                    <div class="col-md-6">
-                      <label for="alumClasesCant" class="form-control-sm col-form-label text-right">Clases Practicas</label>
+                    <div class="col-md-4">
+                      <label for="alumClasesCant" class="form-control-sm col-form-label text-right">C. Practicas</label>
                       <input
                         type="number"
                         class="form-control form-control-sm col-sm-4 text-right"
@@ -132,8 +123,8 @@
                         value="{{ getAlumnoClases() }}"
                       />
                     </div>
-                    <div class="col-md-6">
-                      <label for="alumClasesMark" class="form-control-sm col-form-label text-right">Clases Programadas</label>
+                    <div class="col-md-4">
+                      <label for="alumClasesMark" class="form-control-sm col-form-label text-right">Programadas</label>
                       <input
                         type="number"
                         class="form-control form-control-sm col-sm-4 text-right"
@@ -143,12 +134,23 @@
                         value="{{ getAlumnoClasesAsignadas() }}"
                       />
                     </div>
+                    <div class="col-md-4">
+                      <label for="alumClasesUsed" class="form-control-sm col-form-label text-right">Asistidas</label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm col-sm-4 text-right"
+                        id="alumClasesUsed"
+                        placeholder="Clases Asistidas"
+                        readonly
+                        value="0"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group row">
                     <div class="col-md-6">
-                      <label for="alumClasesCant" class="form-control-sm col-form-label col-sm-8 text-right">S/. Debe</label>
+                      <label for="alumClasesCant" class="form-control-sm col-form-label col-sm-8 text-right">S/. Total</label>
                       <input
                         type="number"
                         class="form-control form-control-sm col-sm-4 text-right"
@@ -159,14 +161,14 @@
                       />
                     </div>
                     <div class="col-md-6">
-                      <label for="alumClasesMark" class="form-control-sm col-form-label col-sm-8 text-right">S/. Pagado</label>
+                      <label for="alumClasesMark" class="form-control-sm col-form-label col-sm-8 text-right">S/. Debe</label>
                       <input
                         type="number"
                         class="form-control form-control-sm col-sm-4 text-right"
                         id="alumPagos"
                         placeholder="Pagos"
                         readonly
-                        value="{{ getAlumnoPago() }}"
+                        value="{{ getAlumnoDebe() }}"
                       />
                     </div>
                   </div>
@@ -226,105 +228,167 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-md-6 mt-2">
+            <div class="col-md-12 mt-2">
               <div class="card">
                 <div class="card-header">Recibo</div>
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-12 mt-2">
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Sucursal: </span>
+                    <div class="col-md-6">
+                      <div class="col-md-12 mt-2">
+                        <div class="input-group input-group-sm form-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Sucursal: </span>
+                          </div>
+                          <select
+                            class="form-control"
+                            formControlName="selSucursalId"
+                            [(ngModel)]="selSucursalId"
+                            (change)="onSucursalSel()"
+                          >
+                            <option *ngFor="let sucursal of cacheSucursales" [ngValue]="sucursal.id">{{ sucursal.nombre }}</option>
+                          </select>
                         </div>
-                        <select class="form-control" formControlName="selSucursalId" [(ngModel)]="selSucursalId" (change)="onSucursalSel()">
-                          <option *ngFor="let sucursal of cacheSucursales" [ngValue]="sucursal.id">{{ sucursal.nombre }}</option>
-                        </select>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mt-2">
+                          <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Tipo: </span>
+                            </div>
+                            <select class="form-control" (change)="onSucursalTipoSel($event)">
+                              <option *ngFor="let tipo of cacheSucursalSeriesTipos" [ngValue]="tipo">{{ tipo }}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                          <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Serie: </span>
+                            </div>
+                            <select
+                              class="form-control text-right"
+                              formControlName="selSucursalSerieId"
+                              [(ngModel)]="selSucursalSerieId"
+                              (change)="onSucursalSerieSel()"
+                            >
+                              <option *ngFor="let serie of cacheSucursalSeriesSerie" [ngValue]="serie.id">{{ serie.serie }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mt-2">
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Número: </span>
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control text-right"
+                            [readonly]="!selAdminJwt"
+                            formControlName="incipcionCodigo"
+                            [(ngModel)]="document!.codigo"
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6 mt-2">
-                      <div class="input-group input-group-sm">
+                    <div class="col-md-6">
+                      <div class="input-group input-group-sm mt-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">Tipo: </span>
+                          <span class="input-group-text">Debe: S/. </span>
                         </div>
-                        <select class="form-control" (change)="onSucursalTipoSel($event)">
-                          <option *ngFor="let tipo of cacheSucursalSeriesTipos" [ngValue]="tipo">{{ tipo }}</option>
-                        </select>
+                        <input type="number" class="form-control text-right" readonly value="{{ getAlumnoDebe() }}" />
                       </div>
-                    </div>
-                    <div class="col-md-6 mt-2">
-                      <div class="input-group input-group-sm">
+                      <div class="input-group input-group-sm mt-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">Serie: </span>
-                        </div>
-                        <select
-                          class="form-control text-right"
-                          formControlName="selSucursalSerieId"
-                          [(ngModel)]="selSucursalSerieId"
-                          (change)="onSucursalSerieSel()"
-                        >
-                          <option *ngFor="let serie of cacheSucursalSeriesSerie" [ngValue]="serie.id">{{ serie.serie }}</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-12 mt-2">
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Número: </span>
+                          <span class="input-group-text">Adelanto: S/. </span>
                         </div>
                         <input
+                          id="monto"
+                          name="monto"
                           type="number"
                           class="form-control text-right"
-                          [readonly]="!selAdminJwt"
-                          formControlName="incipcionCodigo"
-                          [(ngModel)]="document!.codigo"
+                          formControlName="incripcionPagoMonto"
+                          required
+                          min="1"
+                          [(ngModel)]="documentPago.monto"
                         />
+                      </div>
+                      <div class="input-group input-group-sm mt-2">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Saldo: S/. </span>
+                        </div>
+                        <input type="number" class="form-control text-right" readonly value="{{ getSaldo() }}" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6 mt-2">
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-4 d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary" [routerLink]="'/'">Cancelar</button>
+              <button
+                type="button"
+                class="btn btn-primary ms-1"
+                (click)="doSaveProceedAlumnoRemote()"
+                *ngIf="selAlumno && selAlumno.id! > 0"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12 mt-2">
               <div class="card">
-                <div class="card-body">
-                  <div class="input-group input-group-sm mt-2">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Debe: S/. </span>
+                <button
+                  class="card-header btn btn-outline-primary"
+                  (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="isCollapsed"
+                  aria-controls="collapseHistorial"
+                  [disabled]="isDisable"
+                >
+                  Historial
+                </button>
+                <div class="collapse card-body" id="collapseHistorial" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+                  <div class="card-body">
+                    <div class="row">
+                      <table id="tablaHistorial" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Incripción</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Monto S/.</th>
+                            <th scope="col">Local</th>
+                            <th scope="col">Documento</th>
+                            <th scope="col">Número</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let row of cacheHistorial; index as i">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>
+                              <a>{{ row.incripcion }}</a>
+                            </td>
+                            <td>{{ row.estado }}</td>
+                            <td>{{ row.fecha }}</td>
+                            <td>{{ row.monto | number }}</td>
+                            <td>{{ row.Local }}</td>
+                            <td>{{ row.documento }}</td>
+                            <td>
+                              <a>{{ row.numero }}</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <input type="number" class="form-control text-right" readonly value="{{ getAlumnTotal() }}" />
-                  </div>
-                  <div class="input-group input-group-sm mt-2">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Adelanto: S/. </span>
-                    </div>
-                    <input
-                      type="number"
-                      class="form-control text-right"
-                      formControlName="incripcionPagoMonto"
-                      [(ngModel)]="documentPago.monto"
-                    />
-                  </div>
-                  <div class="input-group input-group-sm mt-2">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Saldo: S/. </span>
-                    </div>
-                    <input type="number" class="form-control text-right" readonly value="{{ getSaldo() }}" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!--    GUARDAR    -->
-
-          <div class="row">
-            <div class="col-md-12 mt-4 d-flex justify-content-center">
-              <button type="button" class="btn btn-secondary">Cancelar</button>
-              <button type="button" class="btn btn-primary ml-4" style="margin-left: 10px" (click)="doSave()">Guardar</button>
-            </div>
-          </div>
-
-          <!--    GUARDAR    -->
         </div>
       </div>
     </form>

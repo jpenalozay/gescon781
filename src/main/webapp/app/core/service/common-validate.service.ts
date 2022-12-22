@@ -119,6 +119,12 @@ export class CommonValidateService {
     return this.http.get<IAlumno>(url, { observe: 'response' });
   }
 
+  getInscripcionIdOfAlumnoId(alumnoId: number): Observable<number> {
+    const url = this.applicationConfigService.getEndpointFor(`api/inscripcions/extra/${alumnoId}`);
+
+    return this.http.get<number>(url);
+  }
+
   queryProgDeshabilitacionesCount(req?: any): Observable<HttpResponse<number>> {
     const url = this.applicationConfigService.getEndpointFor('api/programacion-deshabilitacions/count');
     const options = createRequestOption(req);

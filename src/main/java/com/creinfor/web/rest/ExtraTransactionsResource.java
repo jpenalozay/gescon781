@@ -322,4 +322,10 @@ public class ExtraTransactionsResource {
     private String toStringSafe(Object value) {
         return value != null ? value.toString() : "";
     }
+
+    @GetMapping("/inscripcions/extra/{alumnoId}")
+    public ResponseEntity<Long> getInscripcionIdOfAlumnoId(@PathVariable Long alumnoId) throws URISyntaxException {
+        Long result = serviceExtraTransactions.getInscripcionIdOfAlumnoId(alumnoId);
+        return ResponseEntity.ok().body(result);
+    }
 }

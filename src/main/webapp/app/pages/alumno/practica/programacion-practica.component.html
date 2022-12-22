@@ -1,15 +1,17 @@
-<form [formGroup]="formEntity!">
+<form role="form" [formGroup]="formEntity!">
   <div class="row">
     <div class="col-md-4">
       <div class="card">
-        <div class="card-header"><h5>Buscar</h5></div>
+        <div class="card-header">
+          <h5>Buscar</h5>
+        </div>
         <div class="card-body">
-          <label> Ingresar DNI, Codigo o Nombre </label>
-          <div class="input-group input-group-sm">
+          <label for="filterAlumno" class="form-control-sm col-form-label-sm"> Ingresar DNI, Código o Nombre </label>
+          <div class="input-group">
             <input
               type="text"
-              class="custom-select custom-select-sm text-uppercase"
-              placeholder="Ingrese DNI, Codigo o Nombre"
+              class="form-control form-control-sm custom-select-sm col-md-9 text-uppercase"
+              placeholder="Ingrese DNI, Código o Nombre"
               id="filterAlumno"
               list="lstFilterAlumno"
               formControlName="filterAlumno"
@@ -19,28 +21,26 @@
             <datalist id="lstFilterAlumno">
               <option *ngFor="let filter of cacheAlumnos" [ngValue]="filter.key">{{ filter.value }}</option>
             </datalist>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-sm btn-primary" (click)="doAlumnoSel()">Seleccionar</button>
-            </div>
+            <button type="button" class="btn btn-primary input-group-text col-md-3" (click)="doAlumnoSel()">Seleccionar</button>
           </div>
-          <div class="row mt-4">
+          <div class="row">
             <div class="col-md-7 text-center">
               <img *ngIf="selAlumno" class="img-thumbnail" style="max-height: 300px" />
             </div>
             <div class="col-md-5">
               <div class="form-group">
-                <label class="col-form-label-sm" for="alumCodigo">Codigo</label>
+                <label class="form-control-sm col-form-label text-right" for="alumCodigo">Código</label>
                 <input
                   type="number"
                   class="form-control form-control-sm text-right"
                   id="alumCodigo"
                   value="{{ getAlumnoCodigo() }}"
-                  placeholder="Codigo"
+                  placeholder="Código"
                   readonly
                 />
               </div>
               <div class="form-group">
-                <label class="col-form-label-sm" for="alumDNI">DNI</label>
+                <label class="form-control-sm col-form-label text-right" for="alumDNI">DNI</label>
                 <input
                   type="number"
                   class="form-control form-control-sm text-right"
@@ -52,29 +52,31 @@
               </div>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="alumNombres" class="form-control-sm col-form-label col-sm-4 text-right">Nombres</label>
-            <input
-              type="text"
-              class="form-control form-control-sm col-sm-8"
-              id="alumNombres"
-              value="{{ getAlumnoNombres() }}"
-              placeholder="Nombres"
-              readonly
-            />
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="alumNombres" class="form-control-sm col-form-label col-sm-8 text-right">Nombres</label>
+              <input
+                type="text"
+                class="form-control form-control-sm col-sm-8"
+                id="alumNombres"
+                value="{{ getAlumnoNombres() }}"
+                placeholder="Nombres"
+                readonly
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="alumApellidos" class="form-control-sm col-form-label col-sm-8 text-right">Apellidos</label>
+              <input
+                type="text"
+                class="form-control form-control-sm col-sm-8"
+                id="alumApellidos"
+                placeholder="Apellidos"
+                value="{{ getAlumnoApellidos() }}"
+                readonly
+              />
+            </div>
           </div>
-          <div class="form-group row">
-            <label for="alumApellidos" class="form-control-sm col-form-label col-sm-4 text-right">Apellidos</label>
-            <input
-              type="text"
-              class="form-control form-control-sm col-sm-8"
-              id="alumApellidos"
-              value="{{ getAlumnoApPaterno() }} {{ getAlumnoApMaterno() }}"
-              placeholder="Apellidos"
-              readonly
-            />
-          </div>
-          <div class="form-group row">
+          <div class="form-group col-md-12">
             <label for="alumCurso" class="form-control-sm col-form-label col-sm-4 text-right">Curso</label>
             <input
               type="text"
@@ -85,7 +87,7 @@
               readonly
             />
           </div>
-          <div class="form-group row">
+          <div class="form-group col-md-12">
             <label for="alumCDetalle" class="form-control-sm col-form-label col-sm-4 text-right">C. Detalle</label>
             <input
               type="text"
@@ -96,37 +98,57 @@
               readonly
             />
           </div>
-          <div class="form-group row">
-            <label for="alumClasesCant" class="form-control-sm col-form-label col-sm-8 text-right">Clases Practicas</label>
-            <input
-              type="number"
-              class="form-control form-control-sm col-sm-4 text-right"
-              id="alumClasesCant"
-              placeholder="Clases Practicas"
-              readonly
-              value="{{ getAlumnoClases() }}"
-            />
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="alumClasesCant" class="form-control-sm col-form-label col-sm-8 text-right">C. Prácticas</label>
+              <input
+                type="number"
+                class="form-control form-control-sm col-sm-4 text-right"
+                id="alumClasesCant"
+                placeholder="Clases Practicas"
+                readonly
+                value="{{ getAlumnoClases() }}"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="alumClasesMark" class="form-control-sm col-form-label col-sm-10 text-right">Programadas</label>
+              <input
+                type="number"
+                class="form-control form-control-sm col-sm-4 text-right"
+                id="alumClasesMark"
+                placeholder="Clases Programadas"
+                readonly
+                value="{{ getAlumnoClasesAsignadas() }}"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="alumClasesUsed" class="form-control-sm col-form-label col-sm-8 text-right">C. Asistidas</label>
+              <input type="number" class="form-control form-control-sm col-sm-4 text-right" id="alumClasesUsed" placeholder="0" readonly />
+            </div>
           </div>
-          <div class="form-group row">
-            <label for="alumClasesMark" class="form-control-sm col-form-label col-sm-8 text-right">Clases Programadas</label>
-            <input
-              type="number"
-              class="form-control form-control-sm col-sm-4 text-right"
-              id="alumClasesMark"
-              placeholder="Clases Programadas"
-              readonly
-              value="{{ getAlumnoClasesAsignadas() }}"
-            />
-          </div>
-          <div class="form-group row">
-            <label for="alumClasesUsed" class="form-control-sm col-form-label col-sm-8 text-right">Clases Asistidas</label>
-            <input
-              type="number"
-              class="form-control form-control-sm col-sm-4 text-right"
-              id="alumClasesUsed"
-              placeholder="Clases Asistidas"
-              readonly
-            />
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="alumClasesCant" class="form-control-sm col-form-label col-sm-8 text-right">S/. Total</label>
+              <input
+                type="number"
+                class="form-control form-control-sm col-sm-4 text-right"
+                id="alumTotal"
+                placeholder="0"
+                readonly
+                value="{{ getAlumnTotal() }}"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="alumClasesMark" class="form-control-sm col-form-label col-sm-8 text-right">S/. Debe</label>
+              <input
+                type="number"
+                class="form-control form-control-sm col-sm-4 text-right"
+                id="alumDebe"
+                placeholder="0"
+                readonly
+                value="{{ getAlumnoDebe() }}"
+              />
+            </div>
           </div>
           <!--
           <button type="button" class="btn btn-sm btn-primary btn-block d-flex" (click)="doPrintPDF()">
@@ -157,7 +179,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="col-form-label-sm" for="alumCodigo">Categoria</label>
+                  <label class="col-form-label-sm" for="alumCodigo">Categoría</label>
                   <select
                     class="form-control form-control-sm"
                     (change)="onLicCategoriaSel()"
@@ -196,13 +218,21 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="col-form-label-sm" for="autoTipo">Vehículo</label>
+                  <select class="form-control form-control-sm" [(ngModel)]="VehiculoTiposeleccionado">
+                    <option *ngFor="let item of filterVehiculo" [ngValue]="item">{{ item }}</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-md-3 d-flex"></div>
         </div>
       </div>
       <div class="col-md-12 border p-3 mt-3">
-        <h5 class="text-muted mb-4">Programacion</h5>
+        <h5 class="text-muted mb-4">Programación</h5>
 
         <div class="d-flex">
           <div class="btn-group-toggle" data-toggle="buttons">
@@ -219,13 +249,13 @@
               Libres
             </label>
           </div>
-          <div class="btn-group-toggle ml-4" data-toggle="buttons">
+          <div class="btn-group-toggle ms-1" data-toggle="buttons">
             <label class="btn btn-danger" ngbButtonLabel>
               <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="doAlumnoLoad(selAlumno!.codigo!)" />
               Programados
             </label>
           </div>
-          <div class="btn-group-toggle ml-auto" data-toggle="buttons">
+          <div class="btn-group-toggle ml-auto ms-1" data-toggle="buttons">
             <label class="btn btn-primary" ngbButtonLabel *ngIf="selHorarioTipo != 2">
               <input type="checkbox" class="btn-check" ngbButton (click)="doHorarioSave()" />
               Registrar Clase(s)

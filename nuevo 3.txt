@@ -11,7 +11,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ILicenciaCategoria, LicenciaCategoria } from 'app/entities/licencia-categoria/licencia-categoria.model';
 import { IProfesor, Profesor } from 'app/entities/profesor/profesor.model';
 import dayjs from 'dayjs/esm';
-import { IAlumno, Alumno } from 'app/entities/alumno/alumno.model';
+import { IAlumno } from 'app/entities/alumno/alumno.model';
 import { IInscripcion } from 'app/entities/inscripcion/inscripcion.model';
 import { InscripcionDetalleService } from 'app/entities/inscripcion-detalle/service/inscripcion-detalle.service';
 import { IInscripcionDetalle } from 'app/entities/inscripcion-detalle/inscripcion-detalle.model';
@@ -30,8 +30,6 @@ import { DialogoInfoComponent } from 'app/comps/dialogos/dialogo-info.component'
 import { SiNo } from 'app/entities/enumerations/si-no.model';
 import { AutomovilCaja } from 'app/entities/enumerations/automovil-caja.model';
 import { IInscripcionPago, InscripcionPago } from 'app/entities/inscripcion-pago/inscripcion-pago.model';
-import { InscripcionPagoService } from 'app/entities/inscripcion-pago/service/inscripcion-pago.service';
-import { ListenOptions } from 'net';
 
 interface IHorarioInfo {
   selected?: boolean;
@@ -58,13 +56,11 @@ export class ProgramacionPracticaComponent implements OnInit {
   filterFechaFin = dayjs();
   filterInstructor: IProfesor | undefined;
   filterAlumno = '';
-  filterVehiculo: string[] = ['--- TODOS ---', 'MECÁNICO', 'AUTOMÁTICO'];
-  VehiculoTiposeleccionado = '--- TODOS ---';
 
   cacheAlumnos: INumberStringPair[] = [];
   cacheLicencias: ILicenciaCategoria[] = [];
   cacheInstructores: IProfesor[] = [];
-  cacheVehiculoTipo: AutomovilCaja = '' as AutomovilCaja;
+  cacheVehiculoTipo: AutomovilCaja | undefined;
   cacheInstructoresAll: IProfesor[] = [];
   cacheInstructoresMap: Map<number, INumberStringPair> = new Map<number, INumberStringPair>();
   cacheLicCategorias: ILicenciaCategoria[] = [];
@@ -73,12 +69,12 @@ export class ProgramacionPracticaComponent implements OnInit {
   cacheHorarios: IHorario[] = [];
   cacheHorariosInfo: IHorarioInfo[] = [];
 
-  selAlumno: IAlumno = new Alumno();
+  selAlumno: IAlumno | undefined;
 
   selHorarioTipo = 0;
 
   AlumnTotal = 0;
-  pagosAlumno = 0;
+  alumnPago = 0;
 
   constructor(
     private serviceLugarSalida: LugarSalidaService,
@@ -89,14 +85,23 @@ export class ProgramacionPracticaComponent implements OnInit {
     private serviceInsDetail: InscripcionDetalleService,
     private serviceCommon: CommonValidateService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal,
-    private serviceInsPago: InscripcionPagoService
-  ) {}
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
     this.doInit();
+    this.formEntity = this.formBuilder.group({
+      filterAlumno: [''],
+      filterCategoria: [''],
+      filterFechaInicio: [''],
+      filterFechaFin: [''],
+      filterInstructor: [''],
+      selHorarioTipo: [''],
+      horarios: this.formBuilder.array([]),
+    });
+  }
 
-    this.doInit();
+  cargaFiltroBusqueda(): void {
     this.cacheInstructoresMap.set(0, { key: 0, value: '--- TODOS ---' });
 
     this.serviceLugarSalida.query({}).subscribe({
@@ -124,16 +129,6 @@ export class ProgramacionPracticaComponent implements OnInit {
         });
       },
     });
-
-    this.formEntity = this.formBuilder.group({
-      filterAlumno: [''],
-      filterCategoria: [''],
-      filterFechaInicio: [''],
-      filterFechaFin: [''],
-      filterInstructor: [''],
-      selHorarioTipo: [''],
-      horarios: this.formBuilder.array([]),
-    });
   }
 
   doInit(): void {
@@ -150,14 +145,10 @@ export class ProgramacionPracticaComponent implements OnInit {
     this.cacheAlumnos = [];
     this.cacheLicencias = [];
     this.cacheInstructores = [];
-    //this.cacheVehiculoTipoMap = ;
+    this.cacheVehiculoTipo = undefined;
     this.cacheHorarios = [];
 
-    this.cacheLicCategorias.unshift(new LicenciaCategoria(0, '--- TODOS ---'));
-    this.cacheInstructoresMap.set(0, { key: 0, value: '--- TODOS ---' });
-    //this.cacheVehiculoTipo.set(0, { key: 0, value: '--- TODOS ---' });
-
-    this.selAlumno = {};
+    this.selAlumno = undefined;
   }
 
   doFilterPressKey(): void {
@@ -180,8 +171,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   }
 
   doAlumnoSel(): void {
-    //this.selAlumno = {};
-    this.selAlumno = new Alumno(0);
+    this.selAlumno = undefined;
     if (!this.filterAlumno) {
       return;
     }
@@ -203,18 +193,6 @@ export class ProgramacionPracticaComponent implements OnInit {
       const alumno: IAlumno = resp.body!;
 
       this.selAlumno = alumno;
-
-      alumno.inscripcions!.forEach((inscrip: IInscripcion) => {
-        inscrip.inscripcionPagos = [];
-        this.serviceInsPago.query({ 'inscripcionId.equals': inscrip.id }).subscribe((respInscrip: HttpResponse<IInscripcionPago[]>) => {
-          inscrip.inscripcionPagos = respInscrip.body ?? [];
-          inscrip.inscripcionPagos.forEach((inscripPago: IInscripcionPago) => {
-            this.pagosAlumno = this.pagosAlumno + inscripPago.monto!;
-            //sumaPagos = 0;
-          });
-        });
-      });
-
       this.doHorariosLoad(alumno.horarios!);
       alumno.inscripcions!.forEach((inscrip: IInscripcion) => {
         inscrip.inscripcionDetalles = [];
@@ -236,44 +214,10 @@ export class ProgramacionPracticaComponent implements OnInit {
           });
       });
     });
-    this.pagosAlumno = 0;
-    //this.cargaFiltroBusqueda;
-  }
-
-  cargaFiltroBusqueda(): void {
-    //this.cacheLicCategorias.set(0, { key: 0, value: '--- TODOS ---' });
-    //this.cacheInstructoresMap.set(0, { key: 0, value: '--- TODOS ---' });
-    //this.cacheVehiculoTipoMap.set(0, { key: 0, value: '--- TODOS ---' });
-
-    this.serviceLugarSalida.query({}).subscribe({
-      next: (resp: HttpResponse<ILugarSalida[]>) => {
-        this.cacheLugarSalida = resp.body ?? [];
-      },
-    });
-    this.serviceLicCategoria.query({ eagerload: true }).subscribe({
-      next: (resp: HttpResponse<ILicenciaCategoria[]>) => {
-        this.cacheLicCategorias = resp.body ?? [];
-        this.cacheLicCategorias.unshift(new LicenciaCategoria(0, '--- TODOS ---'));
-      },
-    });
-    this.serviceInstructor.query({ 'activo.equals': Estado.HABILITADO }).subscribe({
-      next: (resp: HttpResponse<IProfesor[]>) => {
-        this.cacheInstructoresAll = resp.body ?? [];
-      },
-    });
-    this.serviceCommon.doInstructoSimple().subscribe({
-      next: (resp: HttpResponse<INumberStringPair[]>) => {
-        const simples: INumberStringPair[] = resp.body ?? [];
-
-        simples.forEach((simple: INumberStringPair) => {
-          this.cacheInstructoresMap.set(simple.key!, simple);
-        });
-      },
-    });
   }
 
   getAlumnoCodigo(): string {
-    if (this.selAlumno.id) {
+    if (this.selAlumno) {
       return this.selAlumno.codigo!;
     } else {
       return '';
@@ -281,7 +225,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   }
 
   getAlumnoDni(): string {
-    if (this.selAlumno.persona) {
+    if (this.selAlumno?.persona) {
       return this.selAlumno.persona.numeroDocumento!;
     } else {
       return '';
@@ -299,7 +243,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   */
 
   getAlumnoNombres(): string {
-    if (this.selAlumno.persona) {
+    if (this.selAlumno?.persona) {
       return this.selAlumno.persona.nombres!;
     } else {
       return '';
@@ -307,7 +251,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   }
 
   getAlumnoApPaterno(): string {
-    if (this.selAlumno.persona) {
+    if (this.selAlumno?.persona) {
       return this.selAlumno.persona.apellidoPaterno!;
     } else {
       return '';
@@ -315,7 +259,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   }
 
   getAlumnoApMaterno(): string {
-    if (this.selAlumno.persona) {
+    if (this.selAlumno?.persona) {
       return this.selAlumno.persona.apellidoMaterno!;
     } else {
       return '';
@@ -323,7 +267,7 @@ export class ProgramacionPracticaComponent implements OnInit {
   }
 
   getAlumnoApellidos(): string {
-    if (this.selAlumno.persona) {
+    if (this.selAlumno?.persona) {
       return this.getAlumnoApPaterno() + ' ' + this.getAlumnoApMaterno();
     } else {
       return '';
@@ -332,7 +276,7 @@ export class ProgramacionPracticaComponent implements OnInit {
 
   getAlumnoCurso(): string {
     let response = '';
-    if (this.selAlumno.inscripcions) {
+    if (this.selAlumno?.inscripcions) {
       this.selAlumno.inscripcions.forEach((inscrip: IInscripcion) => {
         inscrip.inscripcionDetalles?.forEach((inscripDet: IInscripcionDetalle) => {
           if (inscripDet.asignatura?.curso) {
@@ -346,7 +290,7 @@ export class ProgramacionPracticaComponent implements OnInit {
 
   getAlumnoAsignatura(): string {
     let response = '';
-    if (this.selAlumno.inscripcions) {
+    if (this.selAlumno?.inscripcions) {
       this.selAlumno.inscripcions.forEach((inscrip: IInscripcion) => {
         inscrip.inscripcionDetalles?.forEach((inscripDet: IInscripcionDetalle) => {
           if (inscripDet.asignatura) {
@@ -360,7 +304,7 @@ export class ProgramacionPracticaComponent implements OnInit {
 
   getAlumnoClases(): number {
     let clases = 0;
-    if (this.selAlumno.alumnoClases) {
+    if (this.selAlumno?.alumnoClases) {
       clases = this.selAlumno.alumnoClases.clasesTotales!;
     }
     return clases;
@@ -368,31 +312,10 @@ export class ProgramacionPracticaComponent implements OnInit {
 
   getAlumnoClasesAsignadas(): number {
     let clases = 0;
-    if (this.selAlumno.alumnoClases) {
+    if (this.selAlumno?.alumnoClases) {
       clases = this.selAlumno.alumnoClases.clasesProgramadas!;
     }
     return clases;
-  }
-
-  getAlumnTotal(): number {
-    let total = 0;
-    if (this.selAlumno.inscripcions) {
-      this.selAlumno.inscripcions.forEach((inscrip: IInscripcion) => {
-        total = inscrip.costoTotal!;
-        this.AlumnTotal = total;
-      });
-    }
-    return total;
-  }
-
-  getAlumnoDebe(): number {
-    let debe = 0;
-    if (this.selAlumno.id) {
-      debe = this.AlumnTotal - this.pagosAlumno;
-    } else {
-      return debe;
-    }
-    return debe;
   }
 
   doPrintPDF(): void {
@@ -426,6 +349,7 @@ export class ProgramacionPracticaComponent implements OnInit {
 
   onLicCategoriaSel(): void {
     const instructores: IProfesor[] = [];
+
     instructores.push(new Profesor(0));
     if (this.filterCategoria) {
       const catIds: number[] = [];
@@ -443,6 +367,7 @@ export class ProgramacionPracticaComponent implements OnInit {
           this.cacheInstructores = instructores.concat(profs);
         },
       });
+
       /*
       if (this.filterCategoria.id! > 0) {
         this.filterCategoria.intructores?.forEach((instructor: IProfesor) => {
@@ -454,17 +379,13 @@ export class ProgramacionPracticaComponent implements OnInit {
         instructores = instructores.concat(this.cacheInstructoresAll);
       }*/
     }
+
     this.filterInstructor = instructores[0];
     this.cacheInstructores = instructores;
   }
 
   getInstructorFullname(instructorId: number): string {
     return this.cacheInstructoresMap.has(instructorId) ? this.cacheInstructoresMap.get(instructorId)!.value! : '';
-  }
-
-  getVehiculoTiponame(vehiculoTipo: string): string[] {
-    this.filterVehiculo = Object.values(vehiculoTipo);
-    return this.filterVehiculo;
   }
 
   doLibresFilter(): void {
@@ -579,7 +500,7 @@ export class ProgramacionPracticaComponent implements OnInit {
     if (horarios.length < 1) {
       return;
     }
-    if (!this.selAlumno.id) {
+    if (!this.selAlumno) {
       return;
     }
 
@@ -595,7 +516,7 @@ export class ProgramacionPracticaComponent implements OnInit {
           DialogoInfoComponent.doShow(this.modalService, 'danger text-white', this.title, msg);
         },
         complete: () => {
-          this.doAlumnoLoad(this.selAlumno.codigo!);
+          this.doAlumnoLoad(this.selAlumno!.codigo!);
           /*
           DialogoInfoComponent.doShow(
             this.modalService,
@@ -630,7 +551,7 @@ export class ProgramacionPracticaComponent implements OnInit {
             this.title,
             'Registro eliminado satisfactoriamente.'
           ).hidden.subscribe(() => {
-            this.doAlumnoLoad(this.selAlumno.codigo!);
+            this.doAlumnoLoad(this.selAlumno!.codigo!);
           });
         },
       });
@@ -644,5 +565,47 @@ export class ProgramacionPracticaComponent implements OnInit {
     document.body.innerHTML = printContents!;
     window.print();
     document.body.innerHTML = originalContents;
+  }
+
+  getAlumnTotal(): number {
+    let total = 0;
+    if (this.selAlumno?.inscripcions) {
+      this.selAlumno.inscripcions.forEach((inscrip: IInscripcion) => {
+        total = inscrip.costoTotal!;
+        this.AlumnTotal = total;
+      });
+    }
+    return total;
+  }
+
+  getAlumnoPago(): number {
+    let pagos = 0;
+    if (this.selAlumno) {
+      this.selAlumno.inscripcions?.forEach((inscrip1: IInscripcion) => {
+        try {
+          inscrip1.inscripcionPagos!.forEach((inscripPago1: IInscripcionPago) => {
+            pagos = pagos + inscripPago1.monto!;
+            this.alumnPago = pagos;
+          });
+        }catch (err) {
+          console.error("error ", err);
+        }        
+      });
+    } else {
+      return pagos;
+    }
+    return pagos;
+  }
+
+  getAlumnoDebe(): number {
+    let debe = 0;
+    let pago = 0;
+    if (this.selAlumno) {
+      pago = this.getAlumnoPago();
+      debe = this.AlumnTotal - pago;
+    } else {
+      return debe;
+    }
+    return debe;
   }
 }

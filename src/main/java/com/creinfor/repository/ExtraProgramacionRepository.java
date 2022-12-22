@@ -41,4 +41,7 @@ public interface ExtraProgramacionRepository extends JpaRepository<Programacion,
 
     @Query("select ua.name from User u inner join u.authorities ua where u.login = :username")
     List<String> getAutorities(@Param("username") String username);
+
+    @Query("select i.id from Inscripcion i inner join i.alumno a where a.id = :alumnoId and i.estado <> 'CANCELADO'")
+    Long findInscripcionIdOfAlumnoId(@Param("alumnoId") Long alumnoId);
 }
