@@ -951,17 +951,19 @@ export class AlumnoInscripcionComponent implements OnInit {
     inscripcionPago.fecha = inscripcion.fecha;
     inscripcionPago.formaPago = InscripcionFormaPago.EFECTIVO;
     inscripcionPago.monto = this.documentPago.monto;
-    if (this.tipoDoc === 'TICKET') {
-      inscripcionPago.documentoPago = TipoDocumentoVenta.TICKET;
-    }
-    if (this.tipoDoc === 'BOLETA') {
-      inscripcionPago.documentoPago = TipoDocumentoVenta.BOLETA;
-    }
-    if (this.tipoDoc === 'FACTURA') {
-      inscripcionPago.documentoPago = TipoDocumentoVenta.FACTURA;
-    }
-    if (this.tipoDoc === 'NOTA_DE_VENTA') {
-      inscripcionPago.documentoPago = TipoDocumentoVenta.NOTA_DE_VENTA;
+    switch (this.tipoDoc) {
+      case 'FACTURA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.FACTURA;
+        break;
+      case 'BOLETA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.BOLETA;
+        break;
+      case 'TICKET':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.TICKET;
+        break;
+      case 'NOTA_DE_VENTA':
+        inscripcionPago.documentoPago = TipoDocumentoVenta.NOTA_DE_VENTA;
+        break;
     }
     inscripcionPago.numeroDocumento = inscripcion.numeroDocumento;
     this.cacheSucursalSeries.some((serie: ISucursalSerie) => {

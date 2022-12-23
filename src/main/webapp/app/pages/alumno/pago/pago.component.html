@@ -197,42 +197,42 @@
 
         <div class="col-md-6">
           <div class="row">
-            <div class="col-md-8">
-              <div class="input-group input-group-sm">
-                <button type="button" class="btn btn-sm btn-secondary" (click)="doAdminValidate()">
-                  {{ selAdminJwt ? '[x]' : '[ ]' }}
-                </button>
-                <span class="input-group-text" style="float: right">Descuento: </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Descripción"
-                  [readonly]="!selAdminJwt"
-                  formControlName="insDescuentoDesc"
-                  [(ngModel)]="documentDescuento.descripcion"
-                />
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group input-group-sm">
-                <span class="input-group-text">S/.: </span>
-                <input
-                  type="number"
-                  class="form-control text-right"
-                  placeholder="Monto"
-                  [readonly]="!selAdminJwt"
-                  formControlName="insDescuentoMont"
-                  [(ngModel)]="documentDescuento.monto"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-12 mt-2">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header">Recibo</div>
                 <div class="card-body">
                   <div class="row">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="input-group input-group-sm">
+                          <button type="button" class="btn btn-sm btn-secondary" (click)="doAdminValidate()">
+                            {{ selAdminJwt ? '[x]' : '[ ]' }}
+                          </button>
+                          <span class="input-group-text" style="float: right">Descuento: </span>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Descripción"
+                            [readonly]="!selAdminJwt"
+                            formControlName="insDescuentoDesc"
+                            [(ngModel)]="documentDescuento.descripcion"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-text">S/.: </span>
+                          <input
+                            type="number"
+                            class="form-control text-right"
+                            placeholder="Monto"
+                            [readonly]="!selAdminJwt"
+                            formControlName="insDescuentoMont"
+                            [(ngModel)]="documentDescuento.monto"
+                          />
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-6">
                       <div class="col-md-12 mt-2">
                         <div class="input-group input-group-sm form-group">
@@ -320,22 +320,22 @@
                         <input type="number" class="form-control text-right" readonly value="{{ getSaldo() }}" />
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-12 mt-4 d-flex justify-content-center">
+                        <!--<button type="button" class="btn btn-secondary" [routerLink]="'/'">Cancelar</button>-->
+                        <button
+                          type="button"
+                          class="btn btn-primary ms-1"
+                          (click)="doSaveProceedAlumnoRemote()"
+                          *ngIf="selAlumno && selAlumno.id! > 0"
+                        >
+                          Guardar
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 mt-4 d-flex justify-content-center">
-              <button type="button" class="btn btn-secondary" [routerLink]="'/'">Cancelar</button>
-              <button
-                type="button"
-                class="btn btn-primary ms-1"
-                (click)="doSaveProceedAlumnoRemote()"
-                *ngIf="selAlumno && selAlumno.id! > 0"
-              >
-                Guardar
-              </button>
             </div>
           </div>
           <div class="row mt-2">

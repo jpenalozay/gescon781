@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { IAutomovil, NewAutomovil } from '../automovil.model';
+import { Automovil, IAutomovil, NewAutomovil } from '../automovil.model';
 
 /**
  * A partial Type with required key is used as form input.
@@ -132,7 +132,7 @@ export class AutomovilFormService {
     automovil: IAutomovil | (Partial<NewAutomovil> & AutomovilFormDefaults)
   ): AutomovilFormRawValue | PartialWithRequiredKeyOf<NewAutomovilFormRawValue> {
     return {
-      ...automovil,
+      automovil: Automovil,
       soatVencimiento: automovil.soatVencimiento ? automovil.soatVencimiento.format(DATE_TIME_FORMAT) : undefined,
       revisionTecnicaVencimiento: automovil.revisionTecnicaVencimiento
         ? automovil.revisionTecnicaVencimiento.format(DATE_TIME_FORMAT)

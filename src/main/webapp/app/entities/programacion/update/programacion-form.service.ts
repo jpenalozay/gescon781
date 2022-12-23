@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { IProgramacion, NewProgramacion } from '../programacion.model';
+import { IProgramacion, NewProgramacion, Programacion } from '../programacion.model';
 
 /**
  * A partial Type with required key is used as form input.
@@ -123,7 +123,7 @@ export class ProgramacionFormService {
     programacion: IProgramacion | (Partial<NewProgramacion> & ProgramacionFormDefaults)
   ): ProgramacionFormRawValue | PartialWithRequiredKeyOf<NewProgramacionFormRawValue> {
     return {
-      ...programacion,
+      programacion: Programacion,
       fecha: programacion.fecha ? programacion.fecha.format(DATE_TIME_FORMAT) : undefined,
       dias: programacion.dias ?? [],
       horarioCatalogos: programacion.horarioCatalogos ?? [],

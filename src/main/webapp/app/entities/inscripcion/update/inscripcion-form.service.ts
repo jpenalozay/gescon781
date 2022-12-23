@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { IInscripcion, NewInscripcion } from '../inscripcion.model';
+import { IInscripcion, Inscripcion, NewInscripcion } from '../inscripcion.model';
 
 /**
  * A partial Type with required key is used as form input.
@@ -113,7 +113,7 @@ export class InscripcionFormService {
     inscripcion: IInscripcion | (Partial<NewInscripcion> & InscripcionFormDefaults)
   ): InscripcionFormRawValue | PartialWithRequiredKeyOf<NewInscripcionFormRawValue> {
     return {
-      ...inscripcion,
+      inscripcion: Inscripcion,
       fecha: inscripcion.fecha ? inscripcion.fecha.format(DATE_TIME_FORMAT) : undefined,
     };
   }

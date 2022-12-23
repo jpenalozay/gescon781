@@ -266,7 +266,8 @@ entity InscripcionPago{
 	fecha LocalDate required
 	codigoOP String minlength(2) maxlength(16)
     numeroDocumento Integer required
-	plazoPago Integer min(0) max(360)	
+	plazoPago Integer min(0) max(360)
+    estadoServicio InscripcionEstado 
 }
 
 entity RequisitosInscripcion{ // pago de 5 soles por carnet, caja automatica 20 soles

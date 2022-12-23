@@ -722,7 +722,7 @@ public class ExtraTransactionsService {
             dbInsPago.setInscripcion(dbInscripcion);
             dbInsPago.setMonto(insPago.getMonto());
             dbInsPago.setPlazoPago(insPago.getPlazoPago());
-            dbInsPago.setDocumentoPago(TipoDocumentoVenta.BOLETA);
+            dbInsPago.setDocumentoPago(insPago.getDocumentoPago());
             dbInsPago.setSerie(dbSucSerie);
             dbInsPago.setNumeroDocumento(inscripcion.getNumeroDocumento());
 

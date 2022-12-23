@@ -497,7 +497,7 @@ export class PagoComponent implements OnInit {
             historial2.monto = inscripPago.monto!;
             //historial2.Local = inscripPago.serie!.sucursal!.nombre!;
             historial2.documento = inscripPago.serie!.tipoDocumento!;
-            historial2.numero = String(inscripPago.serie!.serie) + ' ' + String(inscripPago.numeroDocumento!);
+            historial2.numero = String(inscripPago.serie!.serie) + ' - ' + String(inscripPago.numeroDocumento!);
             this.cacheHistorial.push(historial2);
             idh = idh + 1;
           });
@@ -571,7 +571,7 @@ export class PagoComponent implements OnInit {
       return false;
     });
 
-    const Saldo = this.getTotalDoc();
+    const Saldo = this.getSaldo();
     const inscripcion: IInscripcion = {
       id: this.inscripcionId,
       estado: Saldo === 0 ? InscripcionEstado.CANCELADO : InscripcionEstado.EN_PAGOS,
