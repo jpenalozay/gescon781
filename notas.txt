@@ -1,0 +1,9 @@
+npm i pdfmake
+npm i pdf-fonts
+npm i --save-dev @types/pdfmake
+npm i html2canvas
+npm i jspdf
+npm install jspdf --save
+
+// error de node y yeoma lib/util/namespace
+https://feitam.es/how-fix-jhipster-error-error_package_path_not_exported-lib-util-namespace/
