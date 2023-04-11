@@ -61,6 +61,7 @@ src/main/java/com/creinfor/management/SecurityMetersService.java
 src/main/java/com/creinfor/service/*
 !src/main/java/com/creinfor/service/UserService.java
 !src/main/java/com/creinfor/service/ext/
+src/main/java/com/creinfor/service/dto/*
 !src/main/java/com/creinfor/service/dto/HorarioInfoDTO.java
 src/main/java/com/creinfor/web/rest/*
 !src/main/java/com/creinfor/web/rest/ext

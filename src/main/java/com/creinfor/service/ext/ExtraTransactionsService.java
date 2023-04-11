@@ -2,14 +2,20 @@ package com.creinfor.service.ext;
 
 import com.creinfor.domain.Alumno;
 import com.creinfor.domain.AlumnoClases;
+import com.creinfor.domain.Alumno_;
 import com.creinfor.domain.Asignatura;
 import com.creinfor.domain.AsignaturaRequisito;
 import com.creinfor.domain.Automovil;
+import com.creinfor.domain.Automovil_;
 import com.creinfor.domain.Dia;
 import com.creinfor.domain.Fecha;
+import com.creinfor.domain.Fecha_;
 import com.creinfor.domain.Horario;
 import com.creinfor.domain.HorarioCatalogo;
+import com.creinfor.domain.HorarioCatalogo_;
 import com.creinfor.domain.HorarioDeshabilitacion;
+import com.creinfor.domain.HorarioDeshabilitacion_;
+import com.creinfor.domain.Horario_;
 import com.creinfor.domain.Inscripcion;
 import com.creinfor.domain.InscripcionAdicional;
 import com.creinfor.domain.InscripcionAsignaturaRequisito;
@@ -17,10 +23,13 @@ import com.creinfor.domain.InscripcionDescuento;
 import com.creinfor.domain.InscripcionDetalle;
 import com.creinfor.domain.InscripcionPago;
 import com.creinfor.domain.LugarSalida;
+import com.creinfor.domain.LugarSalida_;
 import com.creinfor.domain.Persona;
 import com.creinfor.domain.Profesor;
+import com.creinfor.domain.Profesor_;
 import com.creinfor.domain.Programacion;
 import com.creinfor.domain.ProgramacionDeshabilitacion;
+import com.creinfor.domain.Programacion_;
 import com.creinfor.domain.RequisitosInscripcion;
 import com.creinfor.domain.SucursalSerie;
 import com.creinfor.domain.TeoriaHorarioCatalogo;
@@ -40,6 +49,7 @@ import com.creinfor.repository.FechaRepository;
 import com.creinfor.repository.HorarioCatalogoRepository;
 import com.creinfor.repository.HorarioDeshabilitacionRepository;
 import com.creinfor.repository.HorarioRepository;
+import com.creinfor.repository.HorarioInfoRepository;
 import com.creinfor.repository.InscripcionAdicionalRepository;
 import com.creinfor.repository.InscripcionAsignaturaRequisitoRepository;
 import com.creinfor.repository.InscripcionDescuentoRepository;
@@ -78,6 +88,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -85,9 +96,12 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.service.filter.LocalDateFilter;
 import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.service.filter.StringFilter;
+import org.springframework.data.jpa.domain.Specification;
+import tech.jhipster.service.QueryService;
+import javax.persistence.criteria.JoinType;
 
 @Service
-public class ExtraTransactionsService {
+public class ExtraTransactionsService extends QueryService<Horario> {
 
     private final Logger log = LoggerFactory.getLogger(ExtraTransactionsService.class);
 
@@ -95,6 +109,7 @@ public class ExtraTransactionsService {
     private final ProfesorRepository repoProfesor;
     private final HorarioCatalogoRepository repoHorarioCat;
     private final HorarioRepository repoHorario;
+    private final HorarioInfoRepository repoInfoHorario;
     private final HorarioQueryService servHorario;
     private final DiaRepository repoDia;
     private final FechaRepository repoFecha;
@@ -119,12 +134,15 @@ public class ExtraTransactionsService {
     private final HorarioDeshabilitacionRepository repoHorarioDeshab;
     private final ExtraProgramacionRepository repoExtra;
     private final LugarSalidaRepository repoLugarSalida;
+    private final HorarioRepository horarioRepository;
+    
 
     public ExtraTransactionsService(
             AutomovilRepository repoAutomovil,
             ProfesorRepository repoProfesor,
             HorarioCatalogoRepository repoHorarioCat,
             HorarioRepository repoHorario,
+            HorarioInfoRepository repoInfoHorario,
             HorarioQueryService servHorario,
             DiaRepository repoDia,
             FechaRepository repoFecha,
@@ -148,11 +166,13 @@ public class ExtraTransactionsService {
             ProgramacionDeshabilitacionRepository repoProgDeshabilitacion,
             HorarioDeshabilitacionRepository repoHorarioDeshab,
             ExtraProgramacionRepository repoExtra,
-            LugarSalidaRepository repoLugarSalida) {
+            LugarSalidaRepository repoLugarSalida,
+            HorarioRepository horarioRepository) {
         this.repoAutomovil = repoAutomovil;
         this.repoProfesor = repoProfesor;
         this.repoHorarioCat = repoHorarioCat;
         this.repoHorario = repoHorario;
+        this.repoInfoHorario = repoInfoHorario;
         this.servHorario = servHorario;
         this.repoDia = repoDia;
         this.repoFecha = repoFecha;
@@ -177,6 +197,7 @@ public class ExtraTransactionsService {
         this.repoHorarioDeshab = repoHorarioDeshab;
         this.repoExtra = repoExtra;
         this.repoLugarSalida = repoLugarSalida;
+        this.horarioRepository = horarioRepository;
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -897,7 +918,12 @@ public class ExtraTransactionsService {
     }
 
     @Transactional(readOnly = true)
-    public List<HorarioInfoDTO> ObtenerHorarioInfoDto(Horario filtros) {
+    public List<HorarioInfoDTO> ObtenerHorarioInfoDto(HorarioCriteria filtros) {
+
+        log.debug("find by criteria : {}", filtros);
+        final Specification<HorarioInfoDTO> specification = createSpecification(filtros);
+        return repoInfoHorario.findAll(specification);
+
         List<Horario> horarios = repoHorario.findAll();
         List<HorarioInfoDTO> clases = new ArrayList<>();
         for (Horario horario : horarios) {
@@ -914,4 +940,102 @@ public class ExtraTransactionsService {
         }
         return clases;
     }
+
+        /**
+     * Function to convert {@link HorarioCriteria} to a {@link Specification}
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @return the matching {@link Specification} of the entity.
+     */
+    protected Specification<HorarioInfoDTO> createSpecification(HorarioCriteria criteria) {
+        Specification<HorarioInfoDTO> specification = Specification.where(null);
+        if (criteria != null) {
+            // This has to be called first, because the distinct method returns null
+            if (criteria.getDistinct() != null) {
+                specification = specification.and(distinct(criteria.getDistinct()));
+            }
+            if (criteria.getId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getId(), Horario_.id));
+            }
+            if (criteria.getActivo() != null) {
+                specification = specification.and(buildSpecification(criteria.getActivo(), Horario_.activo));
+            }
+            if (criteria.getTipo() != null) {
+                specification = specification.and(buildSpecification(criteria.getTipo(), Horario_.tipo));
+            }
+            if (criteria.getFechaDia() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaDia(), Horario_.fechaDia));
+            }
+            if (criteria.getFechaDiaSem() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaDiaSem(), Horario_.fechaDiaSem));
+            }
+            if (criteria.getHorarioDeshabilitacionId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getHorarioDeshabilitacionId(),
+                            root -> root.join(Horario_.horarioDeshabilitacions, JoinType.LEFT).get(HorarioDeshabilitacion_.id)
+                        )
+                    );
+            }
+            if (criteria.getAlumnoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getAlumnoId(), root -> root.join(Horario_.alumno, JoinType.LEFT).get(Alumno_.id))
+                    );
+            }
+            if (criteria.getInstructorId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getInstructorId(),
+                            root -> root.join(Horario_.instructor, JoinType.LEFT).get(Profesor_.id)
+                        )
+                    );
+            }
+            if (criteria.getProgramacionId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getProgramacionId(),
+                            root -> root.join(Horario_.programacion, JoinType.LEFT).get(Programacion_.id)
+                        )
+                    );
+            }
+            if (criteria.getFechaId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getFechaId(), root -> root.join(Horario_.fecha, JoinType.LEFT).get(Fecha_.id))
+                    );
+            }
+            if (criteria.getHorarioCatalogoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getHorarioCatalogoId(),
+                            root -> root.join(Horario_.horarioCatalogo, JoinType.LEFT).get(HorarioCatalogo_.id)
+                        )
+                    );
+            }
+            if (criteria.getAutomovilId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getAutomovilId(),
+                            root -> root.join(Horario_.automovil, JoinType.LEFT).get(Automovil_.id)
+                        )
+                    );
+            }
+            if (criteria.getLugarSalidaId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getLugarSalidaId(),
+                            root -> root.join(Horario_.lugarSalida, JoinType.LEFT).get(LugarSalida_.id)
+                        )
+                    );
+            }
+        }
+        return specification;
+    }
+    
 }
