@@ -22,7 +22,7 @@ import { AsignaturaService } from 'app/entities/asignatura/service/asignatura.se
 import { LicenciaCategoriaService } from 'app/entities/licencia-categoria/service/licencia-categoria.service';
 import { Estado } from 'app/entities/enumerations/estado.model';
 import { ProfesorService } from 'app/entities/profesor/service/profesor.service';
-import { IHorario } from 'app/entities/horario/horario.model';
+import { IHorario, IHorarioInfoDto } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
 import { forkJoin, Observable } from 'rxjs';
 import { ILugarSalida } from 'app/entities/lugar-salida/lugar-salida.model';
@@ -76,7 +76,7 @@ export class InstructorSeguimientoComponent implements OnInit {
   cacheVehiculos: IAutomovil[] = [];
 
   cacheHorarios: IHorario[] = [];
-  cacheHorariosInfo: IHorarioInfo[] = [];
+  cacheHorariosInfo: IHorarioInfoDto[] = [];
 
   selAlumno: IAlumno = {};
 
@@ -566,9 +566,63 @@ export class InstructorSeguimientoComponent implements OnInit {
     //Object.assign(params, { 'automovil_id.equals': this.filterVehiculo });
 
 
-    this.serviceHorario.query(params).subscribe({
-      next: (resp: HttpResponse<IHorario[]>) => {
-        this.doHorariosLoad(resp.body ?? []);
+    this.serviceHorario.queryInfo(params).subscribe({
+      next: (resp: any) => {        
+        this.cacheHorariosInfo = resp.body ?? [];
+      },
+    });
+
+  }
+
+  doHorariosLoadInfo(horariosToLoad: IHorarioInfo[]): void {
+    
+    const horarioObs: Observable<HttpResponse<IHorario>>[] = [];
+    const horarios: IHorario[] = [];
+    const lugarSalidaDef: ILugarSalida | undefined = this.cacheLugarSalida.length > 0 ? this.cacheLugarSalida[0] : undefined;
+    let lugarSal: ILugarSalida | undefined;
+    const frmHorarios: FormArray = this.formEntity?.get('horarios') as FormArray;
+    let info: IHorarioInfo;
+
+    frmHorarios.clear();
+    this.cacheHorarios = [];
+    this.cacheHorariosInfo = [];
+
+    horariosToLoad.forEach((horario: IHorarioInfo) => {
+      //horarioObs.push(this.serviceHorario.find(horario.id!));
+    });
+
+    forkJoin(horarioObs).subscribe({
+      next: (respObs: HttpResponse<IHorario>[]) => {
+        respObs.forEach((respHorario: HttpResponse<IHorario>) => {
+          lugarSal = undefined;
+          if (respHorario.body?.lugarSalida) {
+            lugarSal = respHorario.body.lugarSalida;
+          }
+          info = { selected: false, lugarSalida: lugarSalidaDef };
+          //this.cacheHorariosInfo.push(info);
+          horarios.push(respHorario.body!);
+
+          frmHorarios.push(
+            this.formBuilder.group({
+              selected: [{ value: false, disabled: this.isHorarioWithAlumno(respHorario.body!) }, Validators.required],
+              lugarSalida: [''],
+            })
+          );
+        });
+
+        horarios.sort((a: IHorario, b: IHorario) => {
+          if (a.fechaDia?.isSame(b.fechaDia)) {
+            const eval01 = a.horarioCatalogo!.horaInicio!;
+            const eval02 = b.horarioCatalogo!.horaInicio!;
+
+            return eval01 === eval02 ? 0 : eval01 > eval02 ? 1 : -1;
+          } else if (a.fechaDia?.isAfter(b.fechaDia)) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+        this.cacheHorarios = horarios;
       },
     });
   }
@@ -597,7 +651,7 @@ export class InstructorSeguimientoComponent implements OnInit {
             lugarSal = respHorario.body.lugarSalida;
           }
           info = { selected: false, lugarSalida: lugarSalidaDef };
-          this.cacheHorariosInfo.push(info);
+          //this.cacheHorariosInfo.push(info);
           horarios.push(respHorario.body!);
 
           frmHorarios.push(
@@ -637,15 +691,15 @@ export class InstructorSeguimientoComponent implements OnInit {
     const horarios: IHorario[] = [];
     let horario: IHorario;
 
-    this.cacheHorariosInfo.forEach((info: IHorarioInfo, i: number) => {
-      if (info.selected) {
-        horario = {};
-        horario.id = this.cacheHorarios[i].id;
-        horario.lugarSalida = info.lugarSalida;
-        horario.alumno = this.selAlumno;
-        horarios.push(horario);
-      }
-    });
+    // this.cacheHorariosInfo.forEach((info: IHorarioInfo, i: number) => {
+    //   if (info.selected) {
+    //     horario = {};
+    //     horario.id = this.cacheHorarios[i].id;
+    //     horario.lugarSalida = info.lugarSalida;
+    //     horario.alumno = this.selAlumno;
+    //     horarios.push(horario);
+    //   }
+    // });
 
     if (horarios.length < 1) {
       return;

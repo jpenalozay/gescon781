@@ -1,6 +1,4 @@
-insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values 
-(	1406	,'	Lima	','		','		','	150000	')	,
-(	1407	,'	Lima	','	Lima 	','		','	150100	')	,
+insert into DISTRITO (id,departamento,provincia,distrito,ubigeo) values 
 (	1408	,'	Lima	','	Lima 	','	Lima	','	150101	')	,
 (	1409	,'	Lima	','	Lima 	','	Ancón	','	150102	')	,
 (	1410	,'	Lima	','	Lima 	','	Ate	','	150103	')	,
@@ -44,19 +42,16 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1448	,'	Lima	','	Lima 	','	Surquillo	','	150141	')	,
 (	1449	,'	Lima	','	Lima 	','	Villa El Salvador	','	150142	')	,
 (	1450	,'	Lima	','	Lima 	','	Villa María del Triunfo	','	150143	')	,
-(	1451	,'	Lima	','	Barranca 	','		','	150200	')	,
 (	1452	,'	Lima	','	Barranca 	','	Barranca	','	150201	')	,
 (	1453	,'	Lima	','	Barranca 	','	Paramonga	','	150202	')	,
 (	1454	,'	Lima	','	Barranca 	','	Pativilca	','	150203	')	,
 (	1455	,'	Lima	','	Barranca 	','	Supe	','	150204	')	,
 (	1456	,'	Lima	','	Barranca 	','	Supe Puerto	','	150205	')	,
-(	1457	,'	Lima	','	Cajatambo 	','		','	150300	')	,
 (	1458	,'	Lima	','	Cajatambo 	','	Cajatambo	','	150301	')	,
 (	1459	,'	Lima	','	Cajatambo 	','	Copa	','	150302	')	,
 (	1460	,'	Lima	','	Cajatambo 	','	Gorgor	','	150303	')	,
 (	1461	,'	Lima	','	Cajatambo 	','	Huancapon	','	150304	')	,
 (	1462	,'	Lima	','	Cajatambo 	','	Manas	','	150305	')	,
-(	1463	,'	Lima	','	Canta 	','		','	150400	')	,
 (	1464	,'	Lima	','	Canta 	','	Canta	','	150401	')	,
 (	1465	,'	Lima	','	Canta 	','	Arahuay	','	150402	')	,
 (	1466	,'	Lima	','	Canta 	','	Huamantanga	','	150403	')	,
@@ -64,7 +59,6 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1468	,'	Lima	','	Canta 	','	Lachaqui	','	150405	')	,
 (	1469	,'	Lima	','	Canta 	','	San Buenaventura	','	150406	')	,
 (	1470	,'	Lima	','	Canta 	','	Santa Rosa de Quives	','	150407	')	,
-(	1471	,'	Lima	','	Cañete 	','		','	150500	')	,
 (	1472	,'	Lima	','	Cañete 	','	San Vicente de Cañete	','	150501	')	,
 (	1473	,'	Lima	','	Cañete 	','	Asia	','	150502	')	,
 (	1474	,'	Lima	','	Cañete 	','	Calango	','	150503	')	,
@@ -81,7 +75,6 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1485	,'	Lima	','	Cañete 	','	San Luis	','	150514	')	,
 (	1486	,'	Lima	','	Cañete 	','	Santa Cruz de Flores	','	150515	')	,
 (	1487	,'	Lima	','	Cañete 	','	Zúñiga	','	150516	')	,
-(	1488	,'	Lima	','	Huaral 	','		','	150600	')	,
 (	1489	,'	Lima	','	Huaral 	','	Huaral	','	150601	')	,
 (	1490	,'	Lima	','	Huaral 	','	Atavillos Alto	','	150602	')	,
 (	1491	,'	Lima	','	Huaral 	','	Atavillos Bajo	','	150603	')	,
@@ -94,7 +87,6 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1498	,'	Lima	','	Huaral 	','	Santa Cruz de Andamarca	','	150610	')	,
 (	1499	,'	Lima	','	Huaral 	','	Sumbilca	','	150611	')	,
 (	1500	,'	Lima	','	Huaral 	','	Veintisiete de Noviembre	','	150612	')	,
-(	1501	,'	Lima	','	Huarochirí 	','		','	150700	')	,
 (	1502	,'	Lima	','	Huarochirí 	','	Matucana	','	150701	')	,
 (	1503	,'	Lima	','	Huarochirí 	','	Antioquia	','	150702	')	,
 (	1504	,'	Lima	','	Huarochirí 	','	Callahuanca	','	150703	')	,
@@ -127,7 +119,6 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1531	,'	Lima	','	Huarochirí 	','	Santiago de Tuna	','	150730	')	,
 (	1532	,'	Lima	','	Huarochirí 	','	Santo Domingo de Los Olleros	','	150731	')	,
 (	1533	,'	Lima	','	Huarochirí 	','	Surco	','	150732	')	,
-(	1534	,'	Lima	','	Huaura 	','		','	150800	')	,
 (	1535	,'	Lima	','	Huaura 	','	Huacho	','	150801	')	,
 (	1536	,'	Lima	','	Huaura 	','	Ambar	','	150802	')	,
 (	1537	,'	Lima	','	Huaura 	','	Caleta de Carquin	','	150803	')	,
@@ -140,14 +131,12 @@ insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values
 (	1544	,'	Lima	','	Huaura 	','	Santa María	','	150810	')	,
 (	1545	,'	Lima	','	Huaura 	','	Sayan	','	150811	')	,
 (	1546	,'	Lima	','	Huaura 	','	Vegueta	','	150812	')	,
-(	1547	,'	Lima	','	Oyón 	','		','	150900	')	,
 (	1548	,'	Lima	','	Oyón 	','	Oyon	','	150901	')	,
 (	1549	,'	Lima	','	Oyón 	','	Andajes	','	150902	')	,
 (	1550	,'	Lima	','	Oyón 	','	Caujul	','	150903	')	,
 (	1551	,'	Lima	','	Oyón 	','	Cochamarca	','	150904	')	,
 (	1552	,'	Lima	','	Oyón 	','	Navan	','	150905	')	,
 (	1553	,'	Lima	','	Oyón 	','	Pachangara	','	150906	')	,
-(	1554	,'	Lima	','	Yauyos 	','		','	151000	')	,
 (	1555	,'	Lima	','	Yauyos 	','	Yauyos	','	151001	')	,
 (	1556	,'	Lima	','	Yauyos 	','	Alis	','	151002	')	,
 (	1557	,'	Lima	','	Yauyos 	','	Allauca	','	151003	')	,
@@ -198,7 +187,7 @@ insert into sucursal_serie
   (1008,'HABILITADO','TICKET','0018','2021-02-01',10000,200,1001),
   (1009,'HABILITADO','TICKET','0019','2021-02-01',10000,300,1001);
 
-insert into t_area
+insert into area
  (id,activo,codigo,tipo,nombre,nombre_Corto,sucursal_id,area_superior_id) values 
 (1001,'HABILITADO','JD','JUNTA','DIRECTIVOS','DIRECTIVOS',1001,null),
 (1002,'HABILITADO','GER','OFICINA','GERENCIA','GERENCIA',1001,1001),
@@ -209,7 +198,7 @@ insert into t_area
 (1007,'HABILITADO','CON','OFICINA','CONTABILIDAD','CONTABILIDAD',1001,1003),
 (1008,'HABILITADO','SIS','OFICINA','SISTEMAS','SISTEMAS',1001,1003); 
 
-insert into t_cargo (id,activo,codigo,nombre,nombre_Corto,area_perteneciente_id,cargo_superior_id) values
+insert into cargo (id,activo,codigo,nombre,nombre_Corto,area_perteneciente_id,cargo_superior_id) values
 (1001,'HABILITADO','DJD','DIRECTIVO','DIRECTIVO',1001,null),
 (1002,'HABILITADO','GOG','GERENTE','GERENTE',1002,1001),
 (1003,'HABILITADO','SOG','SECRETARIA GERENCIA','SECREGER',1002,1002),

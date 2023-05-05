@@ -77,68 +77,54 @@
         <div class="table-responsive" id="tblHorarios">
           <table class="table table-sm mt-4" formArrayName="horarios" id="table-to-print">
             <thead>
-              <tr>
-                <th>ACCION</th>
-                <th>DIA</th>
+              <tr>                                
                 <th>FECHA</th>
                 <th>HORARIO</th>
                 <th>INSTRUCTOR</th>
                 <th >ALUMNO</th>
-                <th>SALIDA</th>
                 <th>AUTO</th>
+                <th>SALIDA</th>
+                <th >HoraInicio</th>
+                <th>HoraFin</th>
+                <th>Estado</th>
+                <th>Puntuacion</th>
+                <th>Observaciones</th>
+                
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let horario of cacheHorarios; let i = index" [formGroupName]="i"
-                [ngClass]="!horario.alumno ? 'text-success' : 'text-danger'">
-                <td class="align-middle">
-                  <div class="custom-control custom-checkbox" *ngIf="!horario.alumno">
-                    <input type="checkbox" class="custom-control-input" id="chkHorarios{{ i }}"
-                      formControlName="selected" [(ngModel)]="cacheHorariosInfo[i].selected" />
-                    <label class="custom-control-label" for="chkHorarios{{ i }}"></label>
-                  </div>
-                  <button *ngIf="horario.alumno" type="button" class="btn btn-sm btn-danger"
-                    (click)="doHorarioDelete(horario)">
-                    <fa-icon [icon]="iconTimes"></fa-icon>
-                  </button>
-                </td>
+              <tr *ngFor="let horario of cacheHorariosInfo; let i = index" [formGroupName]="i"
+                [ngClass]="!horario.alumnoNombre ? 'text-success' : 'text-danger'">                   
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.fechaDia!.format('ddd') }}
+                    {{ horario.fecha! }}
                   </label>
                 </td>
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.fechaDia!.format('DD/MM/YYYY') }}
+                    {{ horario.horario! }}                    
                   </label>
                 </td>
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.horarioCatalogo!.horaInicio }}
-                    -
-                    {{ horario.horarioCatalogo!.horaFin }}
+                    {{ horario.instructorNombre! }}
                   </label>
                 </td>
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ getInstructorFullname(horario.instructor!.id!) }}
+                    {{ horario.alumnoNombre! }}
                   </label>
                 </td>
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.activo }}
+                    {{ horario.automovil }}
                   </label>
                 </td>
                 <td class="align-middle">
                   <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.lugarSalida!.nombre! }}
+                    {{ horario.lugarSalida! }}
                   </label>
-                </td>
-                <td class="align-middle">
-                  <label style="margin-bottom: 0rem" for="chkHorarios{{ i }}">
-                    {{ horario.automovil!.placa! }} [{{ horario.automovil!.caja! }}]
-                  </label>
-                </td>
+                </td>                
               </tr>
             </tbody>
           </table>
