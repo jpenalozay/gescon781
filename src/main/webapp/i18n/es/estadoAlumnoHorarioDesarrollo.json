@@ -1,0 +1,11 @@
+{
+  "gesconApp": {
+    "EstadoAlumnoHorarioDesarrollo": {
+      "null": "",
+      "NO_ASISTIO": "NO_ASISTIO",
+      "APROBO": "APROBO",
+      "DESAPROBO": "DESAPROBO",
+      "OBSERVADO": "OBSERVADO"
+    }
+  }
+}

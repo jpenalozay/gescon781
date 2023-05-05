@@ -1,0 +1,29 @@
+{
+  "gesconApp": {
+    "alumnoHorarioDesarrollo": {
+      "home": {
+        "title": "Alumno Horario Desarrollos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Alumno Horario Desarrollo",
+        "createOrEditLabel": "Crear o editar Alumno Horario Desarrollo",
+        "notFound": "Ningún Alumno Horario Desarrollos encontrado"
+      },
+      "created": "Un nuevo Alumno Horario Desarrollo ha sido creado con el identificador {{ param }}",
+      "updated": "Un Alumno Horario Desarrollo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Alumno Horario Desarrollo ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Alumno Horario Desarrollo {{ id }}?"
+      },
+      "detail": {
+        "title": "Alumno Horario Desarrollo"
+      },
+      "id": "ID",
+      "estado": "Estado",
+      "horaInicio": "Hora Inicio",
+      "horaFin": "Hora Fin",
+      "puntuacion": "Puntuacion",
+      "observacion": "Observacion",
+      "horario": "Horario"
+    }
+  }
+}
