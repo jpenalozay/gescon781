@@ -49,6 +49,7 @@ import com.creinfor.repository.FechaRepository;
 import com.creinfor.repository.HorarioCatalogoRepository;
 import com.creinfor.repository.HorarioDeshabilitacionRepository;
 import com.creinfor.repository.HorarioRepository;
+import com.creinfor.repository.HorarioInfoRepository;
 import com.creinfor.repository.InscripcionAdicionalRepository;
 import com.creinfor.repository.InscripcionAsignaturaRequisitoRepository;
 import com.creinfor.repository.InscripcionDescuentoRepository;
@@ -69,7 +70,6 @@ import com.creinfor.service.HorarioQueryService;
 import com.creinfor.service.PersonaQueryService;
 import com.creinfor.service.criteria.FechaCriteria;
 import com.creinfor.service.criteria.HorarioCriteria;
-import com.creinfor.service.criteria.HorarioInfoCriteria;
 import com.creinfor.service.criteria.HorarioCriteria.EstadoFilter;
 import com.creinfor.service.criteria.PersonaCriteria;
 import com.creinfor.service.criteria.PersonaCriteria.TipoDocumentoPersonaFilter;
@@ -109,7 +109,7 @@ public class ExtraTransactionsService extends QueryService<Horario> {
     private final ProfesorRepository repoProfesor;
     private final HorarioCatalogoRepository repoHorarioCat;
     private final HorarioRepository repoHorario;
-    //private final HorarioInfoRepository repoInfoHorario;
+    private final HorarioInfoRepository repoInfoHorario;
     private final HorarioQueryService servHorario;
     private final DiaRepository repoDia;
     private final FechaRepository repoFecha;
@@ -142,7 +142,7 @@ public class ExtraTransactionsService extends QueryService<Horario> {
             ProfesorRepository repoProfesor,
             HorarioCatalogoRepository repoHorarioCat,
             HorarioRepository repoHorario,
-            //HorarioInfoRepository repoInfoHorario,
+            HorarioInfoRepository repoInfoHorario,
             HorarioQueryService servHorario,
             DiaRepository repoDia,
             FechaRepository repoFecha,
@@ -172,7 +172,7 @@ public class ExtraTransactionsService extends QueryService<Horario> {
         this.repoProfesor = repoProfesor;
         this.repoHorarioCat = repoHorarioCat;
         this.repoHorario = repoHorario;
-        //this.repoInfoHorario = repoInfoHorario;
+        this.repoInfoHorario = repoInfoHorario;
         this.servHorario = servHorario;
         this.repoDia = repoDia;
         this.repoFecha = repoFecha;
@@ -917,74 +917,125 @@ public class ExtraTransactionsService extends QueryService<Horario> {
         return inscripcionId;
     }
 
-    // @Transactional(readOnly = true)
-    // public List<HorarioInfoDTO> ObtenerHorarioInfoDto(HorarioInfoCriteria filtros) {
+    @Transactional(readOnly = true)
+    public List<HorarioInfoDTO> ObtenerHorarioInfoDto(HorarioCriteria filtros) {
 
-    //     log.debug("find by criteria : {}", filtros);
-    //     final Specification<HorarioInfoDTO> specification = createSpecification(filtros);
-    //     return repoInfoHorario.findAll(specification);
+        log.debug("find by criteria : {}", filtros);
+        final Specification<HorarioInfoDTO> specification = createSpecification(filtros);
+        return repoInfoHorario.findAll(specification);
 
-    // }
+        List<Horario> horarios = repoHorario.findAll();
+        List<HorarioInfoDTO> clases = new ArrayList<>();
+        for (Horario horario : horarios) {
+            HorarioInfoDTO clase = new HorarioInfoDTO();
+            clase.setId(horario.getId());
+            clase.setActivo(horario.getActivo().toString());
+            clase.setFecha(horario.getFecha().toString());
+            //clase.setHorario(horario.getHoraInicio());
+            //clase.setAlumnoNombre(horario.getHoraFin());
+            //clase.setInstructorNombre(horario.getAlumno().getPersona().getNombre());
+            //clase.setAutomovil(horario.getAlumno().getPersona().getApellido());
+            //clase.setLugarSalida(horario.getAlumno().getPersona().getApellido());
+            //clases.add(clase);
+        }
+        return clases;
+    }
 
-    //     /**
-    //  * Function to convert {@link HorarioInfoCriteria} to a {@link Specification}
-    //  * @param criteria The object which holds all the filters, which the entities should match.
-    //  * @return the matching {@link Specification} of the entity.
-    //  */
-    // protected Specification<HorarioInfoDTO> createSpecification(HorarioInfoCriteria criteria) {
-    //     Specification<HorarioInfoDTO> specification = Specification.where(null);
-    //     if (criteria != null) {
-    //         // This has to be called first, because the distinct method returns null
-    //         if (criteria.getDistinct() != null) {
-    //             specification = specification.and(distinct(criteria.getDistinct()));
-    //         }
-    //         if (criteria.getId() != null) {
-    //             specification = specification.and(buildRangeSpecification(criteria.getId(), Horario_.id));
-    //         }
-    //         if (criteria.getActivo() != null) {
-    //             specification = specification.and(buildSpecification(criteria.getActivo(), Horario_.activo));
-    //         }            
-    //         if (criteria.getAlumnoId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(criteria.getAlumnoId(), root -> root.join(Horario_.alumno, JoinType.LEFT).get(Alumno_.id))
-    //                 );
-    //         }
-    //         if (criteria.getInstructorId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getInstructorId(),
-    //                         root -> root.join(Horario_.instructor, JoinType.LEFT).get(Profesor_.id)
-    //                     )
-    //                 );
-    //         }            
-    //         if (criteria.getFechaId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(criteria.getFechaId(), root -> root.join(Horario_.fecha, JoinType.LEFT).get(Fecha_.id))
-    //                 );
-    //         }            
-    //         if (criteria.getAutomovilId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getAutomovilId(),
-    //                         root -> root.join(Horario_.automovil, JoinType.LEFT).get(Automovil_.id)
-    //                     )
-    //                 );
-    //         }
-    //         if (criteria.getLugarSalidaId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getLugarSalidaId(),
-    //                         root -> root.join(Horario_.lugarSalida, JoinType.LEFT).get(LugarSalida_.id)
-    //                     )
-    //                 );
-    //         }
-    //     }
-    //     return specification;
-    // }
+        /**
+     * Function to convert {@link HorarioCriteria} to a {@link Specification}
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @return the matching {@link Specification} of the entity.
+     */
+    protected Specification<HorarioInfoDTO> createSpecification(HorarioCriteria criteria) {
+        Specification<HorarioInfoDTO> specification = Specification.where(null);
+        if (criteria != null) {
+            // This has to be called first, because the distinct method returns null
+            if (criteria.getDistinct() != null) {
+                specification = specification.and(distinct(criteria.getDistinct()));
+            }
+            if (criteria.getId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getId(), Horario_.id));
+            }
+            if (criteria.getActivo() != null) {
+                specification = specification.and(buildSpecification(criteria.getActivo(), Horario_.activo));
+            }
+            if (criteria.getTipo() != null) {
+                specification = specification.and(buildSpecification(criteria.getTipo(), Horario_.tipo));
+            }
+            if (criteria.getFechaDia() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaDia(), Horario_.fechaDia));
+            }
+            if (criteria.getFechaDiaSem() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaDiaSem(), Horario_.fechaDiaSem));
+            }
+            if (criteria.getHorarioDeshabilitacionId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getHorarioDeshabilitacionId(),
+                            root -> root.join(Horario_.horarioDeshabilitacions, JoinType.LEFT).get(HorarioDeshabilitacion_.id)
+                        )
+                    );
+            }
+            if (criteria.getAlumnoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getAlumnoId(), root -> root.join(Horario_.alumno, JoinType.LEFT).get(Alumno_.id))
+                    );
+            }
+            if (criteria.getInstructorId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getInstructorId(),
+                            root -> root.join(Horario_.instructor, JoinType.LEFT).get(Profesor_.id)
+                        )
+                    );
+            }
+            if (criteria.getProgramacionId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getProgramacionId(),
+                            root -> root.join(Horario_.programacion, JoinType.LEFT).get(Programacion_.id)
+                        )
+                    );
+            }
+            if (criteria.getFechaId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getFechaId(), root -> root.join(Horario_.fecha, JoinType.LEFT).get(Fecha_.id))
+                    );
+            }
+            if (criteria.getHorarioCatalogoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getHorarioCatalogoId(),
+                            root -> root.join(Horario_.horarioCatalogo, JoinType.LEFT).get(HorarioCatalogo_.id)
+                        )
+                    );
+            }
+            if (criteria.getAutomovilId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getAutomovilId(),
+                            root -> root.join(Horario_.automovil, JoinType.LEFT).get(Automovil_.id)
+                        )
+                    );
+            }
+            if (criteria.getLugarSalidaId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getLugarSalidaId(),
+                            root -> root.join(Horario_.lugarSalida, JoinType.LEFT).get(LugarSalida_.id)
+                        )
+                    );
+            }
+        }
+        return specification;
+    }
     
 }

@@ -59,7 +59,6 @@ src/main/java/com/creinfor/management/SecurityMetersService.java
 /src/main/java/com/creinfor/repository/*
 !src/main/java/com/creinfor/repository/ExtraProgramacionRepository.java
 src/main/java/com/creinfor/service/*
-!src/main/java/com/creinfor/service/HorarioQueryService.java
 !src/main/java/com/creinfor/service/UserService.java
 !src/main/java/com/creinfor/service/ext/
 src/main/java/com/creinfor/service/dto/*
@@ -72,8 +71,6 @@ src/main/java/com/creinfor/web/rest/*
 src/main/java/com/creinfor/security/
 
 src/main/webapp/app/*
-src/main/webapp/app/entities/*
-!src/main/webapp/app/entities/horario
 src/main/webapp/app/layouts/profiles/page-ribbon.component.scss
 src/main/webapp/app/layouts/profiles/page-ribbon.component.spec.ts
 src/main/webapp/app/layouts/profiles/page-ribbon.component.ts

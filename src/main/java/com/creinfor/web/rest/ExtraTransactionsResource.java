@@ -12,8 +12,6 @@ import com.creinfor.domain.ext.LongStringPair;
 import com.creinfor.repository.ExtraProgramacionRepository;
 import com.creinfor.repository.UserRepository;
 import com.creinfor.service.ext.ExtraTransactionsService;
-import com.creinfor.service.criteria.HorarioCriteria;
-import com.creinfor.service.dto.HorarioInfoDTO;
 import com.creinfor.web.rest.ext.DniResponse;
 import com.creinfor.web.rest.vm.LoginVM;
 import java.net.URI;
@@ -45,7 +43,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import tech.jhipster.web.util.HeaderUtil;
-import com.creinfor.service.HorarioQueryService;
 
 @RestController
 @RequestMapping("/api")
@@ -63,20 +60,17 @@ public class ExtraTransactionsResource {
     private final ExtraProgramacionRepository repoExtraProg;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repoUser;
-    private final HorarioQueryService horarioQueryService;
 
     public ExtraTransactionsResource(
         ExtraTransactionsService serviceExtraTransactions,
         ExtraProgramacionRepository repoExtraProg,
         PasswordEncoder passwordEncoder,
-        UserRepository repoUser,
-        HorarioQueryService horarioQueryService
+        UserRepository repoUser
     ) {
         this.serviceExtraTransactions = serviceExtraTransactions;
         this.repoExtraProg = repoExtraProg;
         this.passwordEncoder = passwordEncoder;
         this.repoUser = repoUser;
-        this.horarioQueryService = horarioQueryService;
     }
 
     @PostMapping("/authenticate/extra")
@@ -315,13 +309,16 @@ public class ExtraTransactionsResource {
             .body(result);
     }
 
-    @GetMapping("/horarios/info")
-    public ResponseEntity<List<HorarioInfoDTO>> getAllHorariosInfo(HorarioCriteria criteria) {
-        log.debug("REST request to get Horarios by criteria: {}", criteria);
-        List<HorarioInfoDTO> entityList = horarioQueryService.findByCriteriaInfo(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-   
+    // @GetMapping("/horarios/extra/{horarioFiltros}")
+    // public ResponseEntity<List<String>> getHorariosFiltros(@PathVariable(value = "horarioFiltros", required = false) String filtros)
+    //     throws URISyntaxException {
+    //     List<String> autorities = repoExtraProg.getAutorities(username);
+    //     return ResponseEntity
+    //         .created(new URI("/users/extra/autorities/" + username))
+    //         .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "Autority", "" + autorities.size()))
+    //         .body(autorities);
+    // }
+
     @GetMapping("/users/extra/autorities/{username}")
     public ResponseEntity<List<String>> getAutoritiesByUsername(@PathVariable(value = "username", required = false) String username)
         throws URISyntaxException {
