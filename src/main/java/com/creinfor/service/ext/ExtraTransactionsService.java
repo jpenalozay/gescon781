@@ -73,6 +73,7 @@ import com.creinfor.service.criteria.HorarioInfoCriteria;
 import com.creinfor.service.criteria.HorarioCriteria.EstadoFilter;
 import com.creinfor.service.criteria.PersonaCriteria;
 import com.creinfor.service.criteria.PersonaCriteria.TipoDocumentoPersonaFilter;
+import com.creinfor.service.ext.GeneradorCodigosService;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -135,6 +136,8 @@ public class ExtraTransactionsService extends QueryService<Horario> {
     private final ExtraProgramacionRepository repoExtra;
     private final LugarSalidaRepository repoLugarSalida;
     private final HorarioRepository horarioRepository;
+    private final GeneradorCodigosService GeneradorCodigos;
+
     
 
     public ExtraTransactionsService(
@@ -167,7 +170,9 @@ public class ExtraTransactionsService extends QueryService<Horario> {
             HorarioDeshabilitacionRepository repoHorarioDeshab,
             ExtraProgramacionRepository repoExtra,
             LugarSalidaRepository repoLugarSalida,
-            HorarioRepository horarioRepository) {
+            HorarioRepository horarioRepository,
+            GeneradorCodigosService generadorCodigosService)
+            {
         this.repoAutomovil = repoAutomovil;
         this.repoProfesor = repoProfesor;
         this.repoHorarioCat = repoHorarioCat;
@@ -198,6 +203,7 @@ public class ExtraTransactionsService extends QueryService<Horario> {
         this.repoExtra = repoExtra;
         this.repoLugarSalida = repoLugarSalida;
         this.horarioRepository = horarioRepository;
+        this.GeneradorCodigos = generadorCodigosService;
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -332,6 +338,7 @@ public class ExtraTransactionsService extends QueryService<Horario> {
 
                     horario = new Horario();
                     horario.setActivo(Estado.HABILITADO);
+                    horario.setCodigo(GeneradorCodigos.HorarioCodigoGenerado());
                     horario.setAutomovil(auto);
                     horario.setFecha(dbFecha);
                     horario.setFechaDiaSem(dbDia.getId().intValue());
@@ -916,75 +923,5 @@ public class ExtraTransactionsService extends QueryService<Horario> {
         Long inscripcionId = repoExtra.findInscripcionIdOfAlumnoId(alumnoId);
         return inscripcionId;
     }
-
-    // @Transactional(readOnly = true)
-    // public List<HorarioInfoDTO> ObtenerHorarioInfoDto(HorarioInfoCriteria filtros) {
-
-    //     log.debug("find by criteria : {}", filtros);
-    //     final Specification<HorarioInfoDTO> specification = createSpecification(filtros);
-    //     return repoInfoHorario.findAll(specification);
-
-    // }
-
-    //     /**
-    //  * Function to convert {@link HorarioInfoCriteria} to a {@link Specification}
-    //  * @param criteria The object which holds all the filters, which the entities should match.
-    //  * @return the matching {@link Specification} of the entity.
-    //  */
-    // protected Specification<HorarioInfoDTO> createSpecification(HorarioInfoCriteria criteria) {
-    //     Specification<HorarioInfoDTO> specification = Specification.where(null);
-    //     if (criteria != null) {
-    //         // This has to be called first, because the distinct method returns null
-    //         if (criteria.getDistinct() != null) {
-    //             specification = specification.and(distinct(criteria.getDistinct()));
-    //         }
-    //         if (criteria.getId() != null) {
-    //             specification = specification.and(buildRangeSpecification(criteria.getId(), Horario_.id));
-    //         }
-    //         if (criteria.getActivo() != null) {
-    //             specification = specification.and(buildSpecification(criteria.getActivo(), Horario_.activo));
-    //         }            
-    //         if (criteria.getAlumnoId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(criteria.getAlumnoId(), root -> root.join(Horario_.alumno, JoinType.LEFT).get(Alumno_.id))
-    //                 );
-    //         }
-    //         if (criteria.getInstructorId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getInstructorId(),
-    //                         root -> root.join(Horario_.instructor, JoinType.LEFT).get(Profesor_.id)
-    //                     )
-    //                 );
-    //         }            
-    //         if (criteria.getFechaId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(criteria.getFechaId(), root -> root.join(Horario_.fecha, JoinType.LEFT).get(Fecha_.id))
-    //                 );
-    //         }            
-    //         if (criteria.getAutomovilId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getAutomovilId(),
-    //                         root -> root.join(Horario_.automovil, JoinType.LEFT).get(Automovil_.id)
-    //                     )
-    //                 );
-    //         }
-    //         if (criteria.getLugarSalidaId() != null) {
-    //             specification =
-    //                 specification.and(
-    //                     buildSpecification(
-    //                         criteria.getLugarSalidaId(),
-    //                         root -> root.join(Horario_.lugarSalida, JoinType.LEFT).get(LugarSalida_.id)
-    //                     )
-    //                 );
-    //         }
-    //     }
-    //     return specification;
-    // }
     
 }

@@ -57,12 +57,15 @@ src/main/java/com/creinfor/management/SecurityMetersService.java
 /src/main/java/com/creinfor/domain/*
 !/src/main/java/com/creinfor/domain/ext
 /src/main/java/com/creinfor/repository/*
+!/src/main/java/com/creinfor/repository/HorarioRepository.java
 !src/main/java/com/creinfor/repository/ExtraProgramacionRepository.java
 src/main/java/com/creinfor/service/*
 !src/main/java/com/creinfor/service/UserService.java
 !src/main/java/com/creinfor/service/HorarioQuerySevice.java
+!src/main/java/com/creinfor/service/HorarioSevice.java
 src/main/java/com/creinfor/service/ext/*
 !src/main/java/com/creinfor/service/ext/ExtraTransactionsService.java
+!src/main/java/com/creinfor/service/ext/GeneradorCodigosService.java
 src/main/java/com/creinfor/service/dto/*
 !src/main/java/com/creinfor/service/dto/HorarioInfoDTO.java
 src/main/java/com/creinfor/web/rest/*
@@ -83,6 +86,8 @@ src/main/webapp/app/layouts/error/error.component.html
 src/main/webapp/app/layouts/error/error.component.ts
 src/main/webapp/app/layouts/error/error.route.ts
 
+src/main/webapp/app/entities/*
+!src/main/webapp/app/entities/horario
 
 src/main/webapp/app/admin/user-management/*
 !src/main/webapp/app/admin/user-management/list/user-management.component.ts
@@ -94,6 +99,7 @@ src/main/webapp/app/admin/user-management/*
 !src/main/webapp/content/imagenes/profiles/*
 !src/main/webapp/app/app-routing.module.ts
 !src/main/webapp/app/comps
+!src/main/webapp/app/pages
 !src/main/webapp/app/core/service/common-validate.service
 !src/main/webapp/app/home/home.component.html
 !src/main/webapp/app/home/home.component.scss

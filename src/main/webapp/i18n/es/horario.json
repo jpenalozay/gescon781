@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "activo": "Activo",
+      "codigo": "Codigo",
       "tipo": "Tipo",
       "fechaDia": "Fecha Dia",
       "fechaDiaSem": "Fecha Dia Sem",

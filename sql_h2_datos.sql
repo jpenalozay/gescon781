@@ -1,4 +1,4 @@
-insert into DISTRIT (id,departamento,provincia,distrito,ubigeo) values 
+insert into DISTRITO (id,departamento,provincia,distrito,ubigeo) values 
 (	1406	,'	Lima	','		','		','	150000	')	,
 (	1407	,'	Lima	','	Lima 	','		','	150100	')	,
 (	1408	,'	Lima	','	Lima 	','	Lima	','	150101	')	,
@@ -198,7 +198,7 @@ insert into sucursal_serie
   (1008,'HABILITADO','TICKET','0018','2021-02-01',10000,200,1001),
   (1009,'HABILITADO','TICKET','0019','2021-02-01',10000,300,1001);
 
-insert into t_area
+insert into area
  (id,activo,codigo,tipo,nombre,nombre_Corto,sucursal_id,area_superior_id) values 
 (1001,'HABILITADO','JD','JUNTA','DIRECTIVOS','DIRECTIVOS',1001,null),
 (1002,'HABILITADO','GER','OFICINA','GERENCIA','GERENCIA',1001,1001),
@@ -209,7 +209,7 @@ insert into t_area
 (1007,'HABILITADO','CON','OFICINA','CONTABILIDAD','CONTABILIDAD',1001,1003),
 (1008,'HABILITADO','SIS','OFICINA','SISTEMAS','SISTEMAS',1001,1003); 
 
-insert into t_cargo (id,activo,codigo,nombre,nombre_Corto,area_perteneciente_id,cargo_superior_id) values
+insert into cargo (id,activo,codigo,nombre,nombre_Corto,area_perteneciente_id,cargo_superior_id) values
 (1001,'HABILITADO','DJD','DIRECTIVO','DIRECTIVO',1001,null),
 (1002,'HABILITADO','GOG','GERENTE','GERENTE',1002,1001),
 (1003,'HABILITADO','SOG','SECRETARIA GERENCIA','SECREGER',1002,1002),

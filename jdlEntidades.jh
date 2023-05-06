@@ -23,6 +23,7 @@ enum TipoDocumentoVenta{FACTURA,BOLETA,TICKET,NOTA_DE_VENTA}
 enum TipoRequisito{OBLIGATORIO,OPCIONAL}
 enum Paises{PERU,VENEZUELA,COLOMBIA}
 enum RequitisoTipo{SELECTIVO, NUMERICO, NINGUNO}
+enum EstadoAlumnoHorarioDesarrollo{NO_ASISTIO,APROBO,DESAPROBO,OBSERVADO}
 
 entity Usuario {
     codigo String minlength(2) maxlength(6) required unique
@@ -336,9 +337,18 @@ entity ProgramacionDeshabilitacion{
 
 entity Horario{
 	activo Estado required
+    codigo String required
 	tipo HorarioTipo required
     fechaDia LocalDate
 	fechaDiaSem Integer min(1) max(7)
+}
+
+entity AlumnoHorarioDesarrollo{
+    estado EstadoAlumnoHorarioDesarrollo
+    horaInicio Instant
+    horaFin Instant
+    puntuacion String
+    observacion String
 }
 
 entity HorarioDeshabilitacion{
@@ -421,4 +431,5 @@ relationship OneToOne {
     Alumno{persona(numeroDocumento) required} to Persona
     InscripcionDescuento{inscripcion(codigo)} to Inscripcion{insDescuento}
     Alumno{alumnoClases(clasesTotales)} to AlumnoClases{alumno(codigo)}
+    AlumnoHorarioDesarrollo{horario(codigo)} to Horario
 }

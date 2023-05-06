@@ -8,6 +8,8 @@ public class HorarioInfoDTO {
 
     private Estado activo;
 
+    private String codigo;
+
     private Long fechaId;
 
     private String fecha;
@@ -48,6 +50,15 @@ public class HorarioInfoDTO {
 
     public void setActivo(Estado activo) {
         this.activo = activo;
+    }
+
+    
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    public void setcodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public Long getFechaId() {
