@@ -12,7 +12,7 @@
 /package.json
 !.yo-rc.json
 /*.xml
-!/pom.xml
+/pom.xml
 /*.js
 /*.md
 /*.js
