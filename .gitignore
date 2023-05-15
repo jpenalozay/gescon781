@@ -9,7 +9,7 @@
 /*.png
 /*.log
 /*.json
-!/package.json
+/package.json
 !.yo-rc.json
 /*.xml
 !/pom.xml
