@@ -76,6 +76,10 @@ src/main/java/com/creinfor/web/rest/*
 src/main/java/com/creinfor/security/
 
 src/main/webapp/app/*
+src/main/webapp/app/home/*
+!src/main/webapp/app/home/home.component.html
+!src/main/webapp/app/home/home.component.scss
+!src/main/webapp/app/home/home.component.ts
 src/main/webapp/app/layouts/profiles/page-ribbon.component.scss
 src/main/webapp/app/layouts/profiles/page-ribbon.component.spec.ts
 src/main/webapp/app/layouts/profiles/page-ribbon.component.ts
