@@ -1,0 +1,61 @@
+<div class="popup" *ngIf="mostrarPopup">
+  <div class="popup-content">
+    <h2>Clase Manejo Alumno</h2>
+    <form [formGroup]="editarForm">
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" [class.selected]="inicioSeleccionado" (click)="alternarInicioSeleccionado()">
+          Inicio
+        </button>
+        <label
+          for="horaInicio"
+          [style.display]="inicioSeleccionado ? 'block' : 'none'"
+          [style.color]="inicioSeleccionado ? '#777' : '#007bff'"
+          >Hora de inicio:</label
+        >
+        <input
+          type="text"
+          [style.display]="inicioSeleccionado ? 'block' : 'none'"
+          class="form-control"
+          id="horaInicio"
+          [value]="formatDate(horaInicio)"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" [class.selected]="finSeleccionado" (click)="alternarFinSeleccionado()">Fin</button>
+        <label for="horaFin" [style.display]="finSeleccionado ? 'block' : 'none'" [style.color]="finSeleccionado ? '#777' : '#007bff'"
+          >Hora fin:</label
+        >
+        <input
+          type="text"
+          [style.display]="finSeleccionado ? 'block' : 'none'"
+          class="form-control"
+          id="horaFin"
+          [value]="formatDate(horaFin)"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="nota">Nota:</label>
+        <select class="form-control" id="nota" formControlName="nota">
+          <option *ngFor="let value of notaValues" [value]="value">{{ value }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="estado">Estado:</label>
+        <select class="form-control" id="estado" formControlName="estado">
+          <option value="NO_ASISTIO">No asistió</option>
+          <option value="APROBO">Aprobó</option>
+          <option value="DESAPROBO">Desaprobó</option>
+          <option value="OBSERVADO">Observado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="observaciones">Observaciones:</label>
+        <textarea class="form-control" id="observaciones" formControlName="observaciones"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="guardarInformacion()">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="cerrarPopup()">Cancelar</button>
+    </form>
+  </div>
+</div>

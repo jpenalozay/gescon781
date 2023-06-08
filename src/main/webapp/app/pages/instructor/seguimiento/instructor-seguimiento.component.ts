@@ -36,6 +36,8 @@ import { InscripcionPagoService } from 'app/entities/inscripcion-pago/service/in
 import { ListenOptions } from 'net';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { EditarPopupComponent } from './editar-popup.component';
+
 interface IHorarioInfo {
   selected?: boolean;
   lugarSalida?: ILugarSalida;
@@ -63,7 +65,6 @@ export class InstructorSeguimientoComponent implements OnInit {
   filterAlumno = '';
   filterVehiculo: IAutomovil | undefined;
 
-
   cacheAlumnos: INumberStringPair[] = [];
   cacheLicencias: ILicenciaCategoria[] = [];
   cacheInstructores: IProfesor[] = [];
@@ -85,6 +86,16 @@ export class InstructorSeguimientoComponent implements OnInit {
   AlumnTotal = 0;
   pagosAlumno = 0;
 
+  selectedRow: any;
+
+  //selectedRow: string | undefined;
+
+  showButtons = false;
+
+  isRowSelected = false;
+
+  activeAccordionIds: string[] = [];
+
   constructor(
     private serviceLugarSalida: LugarSalidaService,
     private serviceHorario: HorarioService,
@@ -98,7 +109,7 @@ export class InstructorSeguimientoComponent implements OnInit {
     private modalService: NgbModal,
     private serviceInsPago: InscripcionPagoService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.doInit();
@@ -112,7 +123,7 @@ export class InstructorSeguimientoComponent implements OnInit {
 
     this.serviceLicCategoria.query({ eagerload: true }).subscribe({
       next: (resp: HttpResponse<ILicenciaCategoria[]>) => {
-        this.cacheLicCategorias = [{ id: 0, categoria: "--- Todos ---" }, ...resp.body ?? []];
+        this.cacheLicCategorias = [{ id: 0, categoria: '--- Todos ---' }, ...(resp.body ?? [])];
         //this.cacheLicCategorias.unshift({ id: 1, categoria: "--- Todos ---" } as ILicenciaCategoria);
 
         // Sanitizar propiedad cacheLicCategorias
@@ -135,7 +146,7 @@ export class InstructorSeguimientoComponent implements OnInit {
         //     this.cacheInstructores = instructores.concat(profs);
         //   },
         // });
-        this.cacheInstructores = [{ id: 0 } as IProfesor, ...resp.body ?? []];
+        this.cacheInstructores = [{ id: 0 } as IProfesor, ...(resp.body ?? [])];
         this.filterInstructor = this.cacheInstructores[0];
       },
     });
@@ -152,7 +163,7 @@ export class InstructorSeguimientoComponent implements OnInit {
 
     this.serviceAutomovil.query({ 'activo.equals': Estado.HABILITADO }).subscribe({
       next: (resp: HttpResponse<IProfesor[]>) => {
-        this.cacheVehiculos = [{ id: 0, placa: "--- Todos ---" }, ...resp.body ?? []];
+        this.cacheVehiculos = [{ id: 0, placa: '--- Todos ---' }, ...(resp.body ?? [])];
         // const instructores: IProfesor[] = [];
         // instructores.push({} as IProfesor);
         // this.serviceInstructor.query({ 'licenciasPermitidasId.in': '', 'practica.equals': SiNo.SI }).subscribe({
@@ -160,7 +171,7 @@ export class InstructorSeguimientoComponent implements OnInit {
         //     const profs = resp.body ?? [];
         //     this.cacheInstructores = instructores.concat(profs);
         //   },
-        // });        
+        // });
         this.filterVehiculo = this.cacheVehiculos[0];
       },
     });
@@ -175,6 +186,14 @@ export class InstructorSeguimientoComponent implements OnInit {
       selHorarioTipo: [''],
       horarios: this.formBuilder.array([]),
     });
+  }
+
+  isAccordionExpanded(accordionId: string): boolean {
+    return this.activeAccordionIds.includes(accordionId);
+  }
+
+  isAccordionActive(accordionId: string): boolean {
+    return this.activeAccordionIds.includes(accordionId);
   }
 
   doInit(): void {
@@ -221,7 +240,6 @@ export class InstructorSeguimientoComponent implements OnInit {
   }
 
   doAlumnoSel(): void {
-
     this.selAlumno = {};
     if (!this.filterAlumno) {
       return;
@@ -244,7 +262,6 @@ export class InstructorSeguimientoComponent implements OnInit {
       const alumno: IAlumno = resp.body!;
 
       this.selAlumno = alumno;
-
 
       alumno.inscripcions!.forEach((inscrip: IInscripcion) => {
         inscrip.inscripcionPagos = [];
@@ -299,7 +316,7 @@ export class InstructorSeguimientoComponent implements OnInit {
         next: (resp: HttpResponse<IProfesor[]>) => {
           const profs = resp.body ?? [];
           //this.cacheInstructores = instructores.concat(profs);
-          this.cacheInstructores = [{ id: 0 }, ...resp.body ?? []];
+          this.cacheInstructores = [{ id: 0 }, ...(resp.body ?? [])];
           this.filterInstructor = this.cacheLicCategorias[0];
         },
       });
@@ -344,7 +361,6 @@ export class InstructorSeguimientoComponent implements OnInit {
 
         // Inicializar el filtro de instructor con '--Todos--'
         this.filterInstructor = todosOption;
-
       },
     });
     this.serviceCommon.doInstructoSimple().subscribe({
@@ -511,9 +527,9 @@ export class InstructorSeguimientoComponent implements OnInit {
   }
 
   getInstructorFullname(instructorId: number): string {
-    let fn = ""
+    let fn = '';
     if (instructorId === 0) {
-      fn = "--- Todos ---"
+      fn = '--- Todos ---';
     } else {
       fn = this.cacheInstructoresMap.has(instructorId) ? this.cacheInstructoresMap.get(instructorId)!.value! : '';
     }
@@ -535,8 +551,6 @@ export class InstructorSeguimientoComponent implements OnInit {
     frmHorarios.clear();
     this.cacheHorarios = [];
     this.cacheHorariosInfo = [];
-
-    
 
     if (this.filterInstructor) {
       if (this.filterInstructor.id! > 0) {
@@ -567,17 +581,14 @@ export class InstructorSeguimientoComponent implements OnInit {
     //this.filterVehiculo = this.formEntity?.get('filterVehiculo')?.value
     //Object.assign(params, { 'automovil_id.equals': this.filterVehiculo });
 
-
     this.serviceHorario.queryInfo(params).subscribe({
-      next: (resp: any) => {        
+      next: (resp: any) => {
         this.cacheHorariosInfo = resp.body ?? [];
       },
     });
-
   }
 
   doHorariosLoadInfo(horariosToLoad: IHorarioInfo[]): void {
-    
     const horarioObs: Observable<HttpResponse<IHorario>>[] = [];
     const horarios: IHorario[] = [];
     const lugarSalidaDef: ILugarSalida | undefined = this.cacheLugarSalida.length > 0 ? this.cacheLugarSalida[0] : undefined;
@@ -772,4 +783,54 @@ export class InstructorSeguimientoComponent implements OnInit {
     window.print();
     document.body.innerHTML = originalContents;
   }
+
+  selectRow(codigo: any): void {
+    this.selectedRow = codigo;
+    this.showButtons = true;
+  }
+
+  openEditarPopup(): void {
+    const modalRef = this.modalService.open(EditarPopupComponent, { size: 'lg' });
+
+    modalRef.componentInstance.horaInicio = new Date(); // Puedes obtener la hora actual del sistema aquí
+
+    modalRef.result.then(result => {
+      if (result) {
+        // Aquí puedes guardar la información y regresar al formulario anterior
+        console.log('Información guardada:', result);
+      }
+    });
+  }
+
+  toggleRowSelection(row: any): void {
+    if (this.selectedRow === row) {
+      this.selectedRow = null; // Si se selecciona la fila nuevamente, se deselecciona
+    } else {
+      this.selectedRow = row; // Selecciona la fila actual
+    }
+  }
+
+  toggleAccordion(accordionId: string): void {
+    const index = this.activeAccordionIds.indexOf(accordionId);
+    if (index > -1) {
+      this.activeAccordionIds.splice(index, 1);
+    } else {
+      this.activeAccordionIds.push(accordionId);
+    }
+  }
+
+  // toggleRowSelection(codigo: string):void {
+  //   if (this.selectedRow === codigo) {
+  //     this.selectedRow = '';
+  //     this.isRowSelected = false;
+  //   } else {
+  //     this.selectedRow = codigo;
+  //     this.isRowSelected = true;
+  //   }
+  // }
+
+  // deselectRow():void {
+  //   this.selectedRow = undefined;
+  //   this.showButtons = false;
+  // }
 }

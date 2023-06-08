@@ -1,0 +1,67 @@
+.popup {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    form {
+      .form-group {
+        margin-bottom: 20px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+
+        input[type='text'],
+        textarea,
+        select {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 14px;
+        }
+      }
+
+      button {
+        margin-right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: none;
+      }
+
+      .selected {
+        background-color: #6c757d; /* Cambiar el color según tu preferencia */
+        color: #fff;
+      }
+    }
+  }
+}

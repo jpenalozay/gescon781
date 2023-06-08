@@ -23,6 +23,7 @@ enum TipoDocumentoVenta{FACTURA,BOLETA,TICKET,NOTA_DE_VENTA}
 enum TipoRequisito{OBLIGATORIO,OPCIONAL}
 enum Paises{PERU,VENEZUELA,COLOMBIA}
 enum RequitisoTipo{SELECTIVO, NUMERICO, NINGUNO}
+enum EstadoHorario{HABILITADO,DESHABILITADO,EN_PROGRESO}
 enum EstadoAlumnoHorarioDesarrollo{NO_ASISTIO,APROBO,DESAPROBO,OBSERVADO}
 
 entity Usuario {
@@ -336,7 +337,7 @@ entity ProgramacionDeshabilitacion{
 }
 
 entity Horario{
-	activo Estado required
+	estado EstadoHorario required
     codigo String required
 	tipo HorarioTipo required
     fechaDia LocalDate

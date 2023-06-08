@@ -1,12 +1,13 @@
 package com.creinfor.service.dto;
 
 import com.creinfor.domain.enumeration.Estado;
+import com.creinfor.domain.enumeration.EstadoHorario;
 
 public class HorarioInfoDTO {
 
     private Long id;
 
-    private Estado activo;
+    private EstadoHorario activo;
 
     private String codigo;
 
@@ -44,15 +45,14 @@ public class HorarioInfoDTO {
         this.id = id;
     }
 
-    public Estado getActivo() {
+    public EstadoHorario getActivo() {
         return this.activo;
     }
 
-    public void setActivo(Estado activo) {
+    public void setActivo(EstadoHorario activo) {
         this.activo = activo;
     }
 
-    
     public String getCodigo() {
         return this.codigo;
     }
@@ -164,5 +164,4 @@ public class HorarioInfoDTO {
     public void setDistinct(Boolean distinct) {
         this.distinct = distinct;
     }
-
 }

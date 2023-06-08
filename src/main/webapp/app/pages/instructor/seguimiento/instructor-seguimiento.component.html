@@ -1,60 +1,101 @@
 <form role="form" [formGroup]="formEntity!">
-  <div class="row">    
+  <div class="row">
     <div class="col-md-12">
       <div class="col-md-12 border p-3">
-        <h4 class="text-muted">Filtros de Busqueda</h4>
-        <div class="row">
-          <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-form-label-sm" for="alumCodigo">Categoría</label>
-                  <select class="form-control form-control-sm" (change)="onLicCategoriaSel()"
-                    formControlName="filterCategoria" [(ngModel)]="filterCategoria">
-                    <option *ngFor="let filterCategoria of cacheLicCategorias; let i=index" [ngValue]="filterCategoria" [attr.selected]="i==0 ? true : null">
-                      {{filterCategoria.categoria }}</option>
-                  </select>
+        <ngb-accordion #accordion="ngbAccordion" [activeIds]="activeAccordionIds">
+          <ngb-panel
+            id="acordionFiltros"
+            [title]="'Filtros de Búsqueda'"
+            [ngClass]="{ active: isAccordionActive('acordionFiltros') }"
+            (panelChange)="toggleAccordion('acordionFiltros')"
+          >
+            <ng-template ngbPanelContent>
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-form-label-sm" for="alumCodigo">Categoría</label>
+                        <select
+                          class="form-control form-control-sm"
+                          (change)="onLicCategoriaSel()"
+                          formControlName="filterCategoria"
+                          [(ngModel)]="filterCategoria"
+                        >
+                          <option
+                            *ngFor="let filterCategoria of cacheLicCategorias; let i = index"
+                            [ngValue]="filterCategoria"
+                            [attr.selected]="i == 0 ? true : null"
+                          >
+                            {{ filterCategoria.categoria }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-form-label-sm" for="alumCodigo">Desde</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          ngbDatepicker
+                          formControlName="filterFechaInicio"
+                          [(ngModel)]="filterFechaInicio"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-form-label-sm" for="alumCodigo">Hasta</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          ngbDatepicker
+                          formControlName="filterFechaFin"
+                          [(ngModel)]="filterFechaFin"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-form-label-sm" for="alumCodigo">Instructor</label>
+                        <select
+                          class="form-control form-control-sm"
+                          formControlName="filterInstructor"
+                          [(ngModel)]="filterInstructor"
+                          (change)="doLibresFilter()"
+                        >
+                          <option
+                            *ngFor="let filterInstructor of cacheInstructores; let i = index"
+                            [ngValue]="filterInstructor"
+                            [attr.selected]="i == 0 ? true : null"
+                          >
+                            {{ getInstructorFullname(filterInstructor.id!) }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-form-label-sm" for="autoTipo">Vehículo</label>
+                        <select class="form-control form-control-sm" formControlName="filterVehiculo" [(ngModel)]="filterVehiculo">
+                          <option
+                            *ngFor="let filterVehiculo of cacheVehiculos; let i = index"
+                            [ngValue]="filterVehiculo"
+                            [attr.selected]="i == 0 ? true : null"
+                          >
+                            {{ filterVehiculo.placa }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-md-3 d-flex"></div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-form-label-sm" for="alumCodigo">Desde</label>
-                  <input type="date" class="form-control" ngbDatepicker formControlName="filterFechaInicio"
-                    [(ngModel)]="filterFechaInicio" />
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-form-label-sm" for="alumCodigo">Hasta</label>
-                  <input type="date" class="form-control" ngbDatepicker formControlName="filterFechaFin"
-                    [(ngModel)]="filterFechaFin" />
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-form-label-sm" for="alumCodigo">Instructor</label>
-                  <select class="form-control form-control-sm" formControlName="filterInstructor"
-                    [(ngModel)]="filterInstructor" (change)="doLibresFilter()">                    
-                    <option *ngFor="let filterInstructor of cacheInstructores; let i=index" [ngValue]="filterInstructor" [attr.selected]="i==0 ? true : null">
-                      {{ getInstructorFullname(filterInstructor.id!) }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-form-label-sm" for="autoTipo">Vehículo</label>
-                  <select class="form-control form-control-sm" formControlName="filterVehiculo" 
-                  [(ngModel)]="filterVehiculo">                    
-                    <option *ngFor="let filterVehiculo of cacheVehiculos; let i=index" [ngValue]="filterVehiculo" [attr.selected]="i==0 ? true : null"> 
-                      {{ filterVehiculo.placa }} </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex"></div>
-        </div>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
       </div>
       <div class="col-md-12 border p-3 mt-3">
         <h5 class="text-muted mb-4">Programación</h5>
@@ -62,9 +103,32 @@
         <div class="d-flex">
           <div class="btn-group-toggle ms-1" data-toggle="buttons">
             <label class="btn btn-primary" ngbButtonLabel>
-              <input type="checkbox" class="btn-check" ngbButton [value]="2"
-                (click)="doLibresFilter()" />
+              <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="doLibresFilter()" />
               Programados
+            </label>
+          </div>
+          <div class="btn-group-toggle ms-1" data-toggle="buttons" *ngIf="selectedRow">
+            <label class="btn btn-primary" ngbButtonLabel>
+              <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="doLibresFilter()" />
+              Inicio
+            </label>
+          </div>
+          <div class="btn-group-toggle ms-1" data-toggle="buttons" *ngIf="selectedRow">
+            <label class="btn btn-primary" ngbButtonLabel>
+              <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="doLibresFilter()" />
+              Fin
+            </label>
+          </div>
+          <div class="btn-group-toggle ms-1" data-toggle="buttons" *ngIf="selectedRow">
+            <label class="btn btn-primary" ngbButtonLabel>
+              <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="doLibresFilter()" />
+              Ok
+            </label>
+          </div>
+          <div class="btn-group-toggle ms-1" data-toggle="buttons" *ngIf="selectedRow">
+            <label class="btn btn-primary" ngbButtonLabel>
+              <input type="checkbox" class="btn-check" ngbButton [value]="2" (click)="openEditarPopup()" />
+              Editar
             </label>
           </div>
         </div>
@@ -74,7 +138,6 @@
               <tr>
                 <th>TICKET</th>
                 <th>FECHA</th>
-                <th>HORARIO</th>
                 <th>INSTRUCTOR</th>
                 <th>ALUMNO</th>
                 <th>AUTO</th>
@@ -82,44 +145,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let horario of cacheHorariosInfo"
-                [ngClass]="!horario.alumnoNombre ? 'text-success' : 'text-success'">                   
-                
+              <tr
+                *ngFor="let horario of cacheHorariosInfo"
+                [ngClass]="{ 'selected-row': horario.codigo === selectedRow }"
+                (click)="toggleRowSelection(horario.codigo!)"
+              >
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.codigo! }}
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.codigo! }}</label>
                 </td>
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.fecha! }}
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.fecha! }} {{ horario.horario! }}</label>
                 </td>
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.horario! }}                    
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.instructorNombre! }}</label>
                 </td>
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.instructorNombre! }}
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.alumnoNombre! }}</label>
                 </td>
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.alumnoNombre! }}
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.automovil }}</label>
                 </td>
                 <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.automovil }}
-                  </label>
+                  <label style="margin-bottom: 0rem">{{ horario.lugarSalida! }}</label>
                 </td>
-                <td class="align-middle">
-                  <label style="margin-bottom: 0rem">
-                    {{ horario.lugarSalida! }}
-                  </label>
-                </td>                
               </tr>
             </tbody>
           </table>
